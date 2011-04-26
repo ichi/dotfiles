@@ -29,7 +29,7 @@
 
 [core]
 	editor = emacs
-	excludesfile = /Users/ichi/.gitignore
+	excludesfile = ~/.gitignore_global
 	pager = nkf -w | less -R
 [push]
 	default = matching
