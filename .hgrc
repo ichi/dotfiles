@@ -1,0 +1,19 @@
+[ui]
+username = Daichi Tachihata <ichi.ttht.1@gmail.com>
+merge = diff3
+ignore = ~/.hgignore_global
+
+[merge-tools]
+diff3.args = -m $local $base $other > $output
+
+[alias]
+ad = add
+ci = commit
+cm = commit
+lo = log
+lg = log
+ls = log --style changelog
+rv = revert
+
+[extensions]
+color =
