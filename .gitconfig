@@ -1,0 +1,45 @@
+[user]
+	email = ichi.ttht.1@gmail.com
+	name = ichi
+
+[color]
+	ui = auto
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+
+[alias]
+	ad = add
+	br = branch
+	ci = commit
+	cm = commit
+	ca = commit --amend -C HEAD
+	ci = commit --interactive
+	co = checkout
+	lg = log
+	lo = log
+	ls = log --name-status
+	st = status
+
+[color "branch"]
+       current = yellow reverse
+       local = yellow
+       remote = cyan
+
+[core]
+	editor = emacs
+	excludesfile = /Users/ichi/.gitignore
+	pager = nkf -w | less -R
+[push]
+	default = matching
+
+[merge]
+  tool = git-p4merge
+
+[mergetool "git-p4merge"]
+  cmd = git-p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+  trustExitCode = false
+
+#[diff]
+#  external = git-p4diff
