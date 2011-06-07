@@ -35,11 +35,14 @@
 	default = matching
 
 [merge]
-  tool = git-p4merge
+	tool = git-p4merge
 
 [mergetool "git-p4merge"]
-  cmd = git-p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
-  trustExitCode = false
+	cmd = git-p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+	trustExitCode = false
 
 #[diff]
 #  external = git-p4diff
+
+[branch]
+	mergeoptions = --no--ff
