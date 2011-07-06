@@ -11,5 +11,5 @@ ln -sfv \
   ${current_dir}.hgrc \
   ${current_dir}.hgignore_global \
   ${current_dir}.zshrc \
-  ~/
+  ~
 
