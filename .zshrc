@@ -138,7 +138,7 @@ setopt prompt_subst
 #### ç°å¢å¤æ°
 
 ## Mac Ports
-export PATH=$HOME/bin/android-sdk/tools:$HOME/bin:/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=$HOME/android-sdk/tools:$HOME/bin:/opt/local/bin:/opt/local/sbin:$PATH
 export MANPATH=/opt/local/man:$MANPATH
 
 ## fink 
