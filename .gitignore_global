@@ -11,3 +11,5 @@
 *.sw[po]
 tags
 .hg
+.project
+.classpath

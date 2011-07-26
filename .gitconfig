@@ -45,4 +45,4 @@
 #  external = git-p4diff
 
 [branch]
-	mergeoptions = --no--ff
+	mergeoptions = --no-ff
