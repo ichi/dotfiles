@@ -99,6 +99,7 @@ alias gls='git log --name-status'
 alias gmv='git mv'
 alias grm='git rm'
 alias gst='git status'
+alias gmn='git mn' #git merge --no-ff
 
 #### alias mercurial
 alias hgrc='emacs ~/.hgrc'

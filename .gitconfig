@@ -21,6 +21,7 @@
 	lo = log
 	ls = log --name-status
 	st = status
+	mn = merge --no-ff
 
 [color "branch"]
        current = yellow reverse
@@ -44,5 +45,5 @@
 #[diff]
 #  external = git-p4diff
 
-[branch]
-	mergeoptions = --no-ff
+#[branch]
+#	mergeoptions = --no-ff
