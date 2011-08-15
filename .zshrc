@@ -10,7 +10,6 @@ alias ll='lsl'
 function cd() { builtin cd $@ } # && ls; }
 alias diff='colordiff'
 alias cd..='cd ..'
-alias cd~='cd ~'
 alias cd/='cd /'
 alias grepb='grenp --binary-files=text'
 alias -g L="| less -R"
@@ -53,13 +52,10 @@ alias preview='open -a Preview'
 alias firefox='open -a Firefox'
 alias chrome='open -a Google\ Chrome'
 alias fireworks='open -a Adobe\ Fireworks\ CS3'
-alias smultron='open -a Smultron'
 alias openoffice='open -a OpenOffice.org.app'
 alias coteditor='open -a CotEditor.app'
 alias cot='coteditor'
 alias coda='open -a Coda.app'
-alias textmate='open -a Textmate.app'
-alias aptana='open -a AptanaStudio.app'
 function url(){
     type=$1;
     shift;
@@ -69,19 +65,8 @@ function url(){
 	w) echo 'http://ja.wikipedia.org/wiki/'`_space2p20 $@`;;
     esac
 }
-function google(){
-    app chrome `url g $@` 
-}
-alias ggl='google'
-function wikipedia(){
-    app chrome `url w $@`
-}
-alias wiki='wikipedia'
-function amazon(){
-    app chrome `url a $@`
-}
-alias amz='amazon'
 alias capture='screencapture -w -i'
+
 
 #### alias git
 alias gitconf='emacs ~/.gitconfig'
@@ -122,21 +107,21 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-# ã·ã§ã«ã®ãã­ã»ã¹ãã¨ã«å±¥æ­´ãå±æ
+# 履歴の共有
 setopt share_history
 
-# ç´åã¨åãã³ãã³ãã©ã¤ã³ã¯ãã¹ããªã«è¿½å ããªã
+# ヒストリに追加されるコマンド行が古いものと同じなら古いものを削除
 setopt hist_ignore_dups
 
-# éè¤å±¥æ­´ãä¿å­ããªã
+# 直前と同じコマンドラインはヒストリに追加しない
 setopt hist_ignore_all_dups hist_save_nodups
 
 
-# è²ãä½¿ã
+# エスケープシーケンスを使う。
 setopt prompt_subst
 
 
-#### ç°å¢å¤æ°
+### PATH
 
 ## Mac Ports
 export PATH=$HOME/android-sdk/tools:$HOME/bin:/opt/local/bin:/opt/local/sbin:$PATH
@@ -146,38 +131,41 @@ export MANPATH=/opt/local/man:$MANPATH
 export PATH=/sw/bin:$PATH
 
 
-#### è£å®æ©è½
+###
+
+# デフォルトの補完機能を有効
 autoload -U compinit
 compinit
 
-# è£å®åè£ãè¤æ°ããæã«ãä¸è¦§è¡¨ç¤ºãã
+# ^Iで補完可能な一覧を表示する。(曖昧補完)
 setopt auto_list
 
-#è£å®åè£ãè©°ãã¦è¡¨ç¤ºããè¨­å®
+# 補完候補を詰めて表示
 setopt list_packed 
 
-# å°æå­ãå¥åããéã«å¤§æå­ãè£å®ãã
+# 補完の時に大文字小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-# è£å®ã­ã¼ï¼Tab, Ctrl+I) ãé£æããã ãã§é ã«è£å®åè£ãèªåã§è£å®ãã
+# TAB で順に補完候補を切り替える
 setopt auto_menu
 
-# è£å®åè£ã®ã«ã¼ã½ã«é¸æãæå¹ã«
+# 補完候補のカーソル選択を有効に
 zstyle ':completion:*:default' menu select=1
 
-# è£å®åè£ã®è²ã¥ã
+
+# 環境変数設定
 #eval `dircolors`
 export LSCOLORS=ExFxCxdxBxegedabagacad
 export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 export ZLS_COLORS=$LS_COLORS
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-# åæ¹äºæ¸¬æ©è½
+# 先方予測機能を有効に設定
 #autoload predict-on
 #predict-on
 
 
-# gitã¨ãsvnã®æå ±
+# プロンプトにgit情報表示
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' formats '(%s:%b)'
 zstyle ':vcs_info:*' actionformats '(%s:%b|%a)'
@@ -223,29 +211,30 @@ esac
 
 
 
-# åºåã®æå­åæ«å°¾ã«æ¹è¡ã³ã¼ããç¡ãå ´åã§ãè¡¨ç¤º
+# 出力の文字列末尾に改行コードが無い場合でも表示
 unsetopt promptcr
 
-# =command ã command ã®ãã¹åã«å±éãã
+# =command を command のパス名に展開する
 setopt equals
 
-# ã³ãã³ãã©ã¤ã³ã§ã # ä»¥éãã³ã¡ã³ãã¨è¦ãªã
+# コマンドラインで # 以降をコメントとする
 setopt interactive_comments
 
-# ãã¡ã¤ã«åã®å±éã§ãã£ã¬ã¯ããªã«ãããããå ´åæ«å°¾ã« / ãä»å ãã
+# ファイル名の展開でディレクトリにマッチした場合末尾に / を付加する
 setopt mark_dirs
 
-# è¤æ°ã®ãªãã¤ã¬ã¯ãããã¤ããªã©ãå¿è¦ã«å¿ãã¦ tee ã cat ã®æ©è½ãä½¿ããã
+# 複数リダイレクト echo "hello" > hoge1.txt > hoge2.txt みたいな
+# cat/more hoge1.txt のかわりに < hoge1.txtとかも可能
 setopt multios
 
-# ãã£ã¬ã¯ããªåã ãã§ cd
+# ディレクトリ名を入力するだけでカレントディレクトリを変更
 setopt auto_cd
 
-# cd æã«èªåã§ push
+# cd 時に自動で push
 setopt autopushd
 
-# åããã£ã¬ã¯ããªã pushd ããªã
+# 同じディレクトリを pushd しない
 setopt pushd_ignore_dups
 
-#å¥åããã³ãã³ãåãééã£ã¦ããå ´åã«ã¯ä¿®æ­£
+# スペルチェック
 setopt correct
