@@ -1,15 +1,25 @@
 #!/bin/sh
 
-current_dir=`pwd`/
+CMD_DIR=$(cd $(dirname $0);pwd)
 
-ln -sfv \
-  ${current_dir}.colordiffrc \
-  ${current_dir}.emacs \
-  ${current_dir}.emacs.d \
-  ${current_dir}.gitconfig \
-  ${current_dir}.gitignore_global \
-  ${current_dir}.hgrc \
-  ${current_dir}.hgignore_global \
-  ${current_dir}.zshrc \
-  ~
+FILES="
+.colordiffrc
+.emacs
+.emacs.d
+.gitconfig
+.gitignore_global
+.hgignore_global
+.hgrc
+.zshrc
+"
+
+
+for FILE in $FILES
+do
+    ln -si ${CMD_DIR}/${FILE} ${HOME}
+done
+
+
+
+
 
