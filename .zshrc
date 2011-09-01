@@ -237,9 +237,10 @@ setopt autopushd
 setopt pushd_ignore_dups
 
 # スペルチェック
-setopt correct###-begin-npm-completion-###
+setopt correct
 
 
+###-begin-npm-completion-###
 #
 # npm command completion script
 #
