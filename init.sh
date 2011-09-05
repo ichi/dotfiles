@@ -10,6 +10,7 @@ FILES="
 .gitignore_global
 .hgignore_global
 .hgrc
+.tmux.conf
 .zshrc
 "
 
