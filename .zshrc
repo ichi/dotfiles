@@ -69,6 +69,7 @@ alias capture='screencapture -w -i'
 
 
 #### alias git
+alias gf='git flow'
 alias gitconf='emacs ~/.gitconfig'
 alias gitcnf='gitconf'
 alias 'git?'='git help'
