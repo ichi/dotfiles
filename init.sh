@@ -6,10 +6,12 @@ FILES="
 .colordiffrc
 .emacs
 .emacs.d
+Gemfile
 .gitconfig
 .gitignore_global
 .hgignore_global
 .hgrc
+.irbrc
 .tmux.conf
 .zshrc
 "
@@ -17,10 +19,5 @@ FILES="
 
 for FILE in $FILES
 do
-    ln -si ${CMD_DIR}/${FILE} ${HOME}
+    ln -siv ${CMD_DIR}/${FILE} ${HOME}
 done
-
-
-
-
-
