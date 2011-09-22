@@ -15,6 +15,9 @@
 ;;(mac-key-mode 1)
 (setq mac-option-modifier 'meta)
 
+;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
+(setq vc-follow-symlinks t)
+
 ;;タブキー
 ;;(setq default-tab-width 4)
 ;;(setq indent-line-function 'indent-relative-maybe)
