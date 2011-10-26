@@ -5,7 +5,7 @@
 (line-number-mode t)
 
 ;;行番号表示
-(require 'linum)
+;;(require 'linum)
 (global-linum-mode)
 
 ;;バックアップファイルを作らない
@@ -18,11 +18,13 @@
 ;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
 (setq vc-follow-symlinks t)
 
+;;tabのデフォルトは4つ
+(setq-default tab-width 4)
+
 ;;タブキー
-;;(setq default-tab-width 4)
 ;;(setq indent-line-function 'indent-relative-maybe)
 
-;; backup file
+;;backup file
 (setq make-backup-files t)
 (setq backup-directory-alist
   (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backup"))
@@ -53,11 +55,20 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 
-
 ;;ruby-mode
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.watchr$" . ruby-mode))
+
+;;coffee-mode
+(require 'coffee-mode)
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
+(defun coffee-custom ()
+  "coffee-mode-hook"
+ (set (make-local-variable 'tab-width) 2))
+(add-hook 'coffee-mode-hook
+  '(lambda() (coffee-custom)))
 
 
 ;;variables
