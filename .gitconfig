@@ -17,9 +17,9 @@
 	ca = commit --amend -C HEAD
 	ci = commit --interactive
 	co = checkout
-	lg = log
-	lo = log
-	ls = log --name-status
+	lo = log --decorate=full
+	lg = log --decorate=full --graph
+	ls = log --decorate=full --name-status
 	st = status
 	mn = merge --no-ff
 
