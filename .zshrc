@@ -1,5 +1,5 @@
 export LANG=ja_JP.UTF-8
-export EDITOR=emacs
+export EDITOR='emacs -nw'
 export PAGER="/usr/bin/less -R"
 
 
@@ -42,6 +42,7 @@ function mkcd(){
     cd $1
 }
 function src(){
+	source ~/.zshenv
     source ~/.zshrc
 }
 function findg(){ find . -type f -exec grep $@ /dev/null {} \; }

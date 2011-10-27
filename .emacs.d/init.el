@@ -1,5 +1,8 @@
 ;;ロードパス
-(setq load-path (cons "~/.emacs.d/site-lisp" load-path))
+(setq load-path (append
+                 '("~/.emacs.d"
+                   "~/.emacs.d/packages")
+                 load-path))
 
 ;;行数表示
 (line-number-mode t)
@@ -30,22 +33,25 @@
   (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backup"))
     backup-directory-alist))
 
-;(setq make-backup-files t)
-;(setq backup-directory "~/.bak")
-;(if (and (boundp 'backup-directory)
-;         (not (fboundp 'make-backup-file-name-original)))
-;    (progn
-;      (fset 'make-backup-file-name-original
-;            (symbol-function 'make-backup-file-name))
-;      (defun make-backup-file-name (filename)
-;        (if (file-directory-p (expand-file-name backup-directory))
-;            (concat (expand-file-name backup-directory) 
-;                    "/" (file-name-nondirectory filename))
-;          (make-backup-file-name-original filename)))))
-
 ;;C-hはbackspace
 (keyboard-translate ?\C-h ?\C-?)
 ;(global-set-key "\C-h" nil)
+
+
+;;variables
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values (quote ((encoding . utf-8)))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
 
 ;;php-mode
 ;;(require 'php-mode)
@@ -76,16 +82,10 @@
   '(lambda() (coffee-custom)))
 
 
-;;variables
-(custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(safe-local-variable-values (quote ((encoding . utf-8)))))
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- )
+;;環境別設定
+(cond 
+ ;;cocoa
+ ((and (eq system-type 'darwin) (eq window-system 'ns))
+  (progn
+	(load "env/cocoa.el")
+  )))
