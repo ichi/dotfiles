@@ -8,6 +8,7 @@
 	status = auto
 	branch = auto
 	interactive = auto
+	autocrlf = true
 
 [alias]
 	ad = add

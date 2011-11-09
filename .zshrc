@@ -1,5 +1,5 @@
 export LANG=ja_JP.UTF-8
-export EDITOR='emacs -nw'
+export EDITOR=emacs
 export PAGER="/usr/bin/less -R"
 
 
@@ -70,7 +70,6 @@ alias capture='screencapture -w -i'
 
 
 #### alias git
-alias gf='git flow'
 alias gitconf='emacs ~/.gitconfig'
 alias gitcnf='gitconf'
 alias 'git?'='git help'
@@ -87,6 +86,10 @@ alias gmv='git mv'
 alias grm='git rm'
 alias gst='git status'
 alias gmn='git mn' #git merge --no-ff
+
+#### git-flow
+alias gf='git flow'
+source ~/.git-flow-completion.zsh
 
 #### alias mercurial
 alias hgrc='emacs ~/.hgrc'
@@ -126,7 +129,7 @@ setopt prompt_subst
 ### PATH
 
 ## Mac Ports
-export PATH=$HOME/android-sdk/tools:$HOME/bin:/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=$HOME/android-sdk/tools:$HOME/bin:$PATH:/opt/local/bin:/opt/local/sbin
 export MANPATH=/opt/local/man:$MANPATH
 
 ## fink 

@@ -6,6 +6,7 @@ FILES="
 .colordiffrc
 .emacs.d
 Gemfile
+.git-flow-completion.zsh
 .gitconfig
 .gitignore_global
 .hgignore_global
