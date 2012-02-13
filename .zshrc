@@ -136,11 +136,14 @@ setopt prompt_subst
 ### PATH
 
 ## Mac Ports
-export PATH=$HOME/android-sdk/tools:$HOME/bin:$PATH:/opt/local/bin:/opt/local/sbin
+export PATH=$HOME/android-sdk/platform-tools:$HOME/android-sdks/platform-tools:$HOME/bin:$PATH:/opt/local/bin:/opt/local/sbin
 export MANPATH=/opt/local/man:$MANPATH
 
 ## fink 
 export PATH=/sw/bin:$PATH
+
+## zsh functions
+fpath=($HOME/.zsh/functions $fpath)
 
 
 ###
@@ -294,3 +297,9 @@ elif compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 ###-end-npm-completion-###
+
+
+## git-escape-magic
+## https://github.com/knu/zsh-git-escape-magic
+autoload -Uz git-escape-magic
+git-escape-magic

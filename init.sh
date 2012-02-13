@@ -13,6 +13,7 @@ Gemfile
 .hgrc
 .irbrc
 .tmux.conf
+.zsh
 .zshrc
 "
 
