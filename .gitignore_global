@@ -6,12 +6,10 @@
 *.rej
 .*~
 *~
-.#*
+.\#*
 .DS_Store
 *.sw[po]
 tags
 .hg
-.project
-.classpath
 .idea
 .idea/*

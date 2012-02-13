@@ -69,6 +69,13 @@ function url(){
 alias capture='screencapture -w -i'
 
 
+#easytetherとadbが衝突するので
+export EASYTETHER_EXT=/System/Library/Extensions/EasyTetherUSBEthernet.kext
+alias easytether-on="sudo kextload $EASYTETHER_EXT"
+alias easytether-off="sudo kextunload $EASYTETHER_EXT"
+alias easytether-status="kextstat |grep EasyTether"
+
+
 #### alias git
 alias gitconf='emacs ~/.gitconfig'
 alias gitcnf='gitconf'
