@@ -93,6 +93,12 @@ alias gmv='git mv'
 alias grm='git rm'
 alias gst='git status'
 alias gmn='git mn' #git merge --no-ff
+function git-root() {
+  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    cd `git rev-parse --show-toplevel`
+  fi
+}
+
 
 #### git-flow
 alias gf='git flow'
