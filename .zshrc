@@ -4,7 +4,7 @@ export PAGER="/usr/bin/less -R"
 
 
 #### alias
-alias ls='ls -AFG --color'
+alias ls='ls -AFG'
 alias lsl='ls -al'
 alias ll='lsl'
 function cd() { builtin cd $@ } # && ls; }
@@ -142,8 +142,11 @@ setopt prompt_subst
 ### PATH
 
 ## Mac Ports
-export PATH=$HOME/bin:$PATH:/opt/local/bin:/opt/local/sbin
-export MANPATH=/opt/local/man:$MANPATH
+#export PATH=$HOME/bin:$PATH:/opt/local/bin:/opt/local/sbin
+#export MANPATH=/opt/local/man:$MANPATH
+
+## homebrew
+# SEE: /etc/paths
 
 ## android-sdk
 #export PATH=$HOME/android-sdk/platform-tools:$HOME/android-sdks/platform-tools:$PATH

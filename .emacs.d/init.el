@@ -16,7 +16,7 @@
 (line-number-mode t)
 
 ;;行番号表示
-;;(require 'linum)
+(require 'linum)
 (global-linum-mode)
 
 ;;バックアップファイルを作らない
