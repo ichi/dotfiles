@@ -154,11 +154,13 @@ export PATH=$HOME/android-sdk/platform-tools:$PATH
 export ANDROID_HOME=$HOME/android-sdk
 
 ## fink 
-export PATH=/sw/bin:$PATH
+#export PATH=/sw/bin:$PATH
 
 ## zsh functions
 fpath=($HOME/.zsh/functions $fpath)
 
+## npm
+export NODE_PATH=/usr/local/lib/node_modules
 
 ###
 
@@ -206,7 +208,7 @@ precmd () {
 
 
 #### ruby virsion maneger
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 
 #### prompt
@@ -317,3 +319,6 @@ fi
 ## https://github.com/knu/zsh-git-escape-magic
 autoload -Uz git-escape-magic
 git-escape-magic
+
+## rbenv
+eval "$(rbenv init - zsh)"
