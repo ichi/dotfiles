@@ -6,6 +6,12 @@
 (setq default-buffer-file-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 
+
+(require 'ucs-normalize)
+(prefer-coding-system 'utf-8)
+(setq file-name-coding-system 'utf-8-hfs)
+(setq local-coding-system 'utf-8-hfs)
+
 ;;ロードパス
 (setq load-path (append
                  '("~/.emacs.d"

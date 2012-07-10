@@ -1,8 +1,10 @@
 #!/bin/sh
+# -*- coding: utf-8 -*-
 
 CMD_DIR=$(cd $(dirname $0);pwd)
 
 FILES="
+.caprc
 .colordiffrc
 .emacs.d
 Gemfile
@@ -12,6 +14,7 @@ Gemfile
 .hgignore_global
 .hgrc
 .irbrc
+.pryrc
 .tmux.conf
 .zsh
 .zshrc
