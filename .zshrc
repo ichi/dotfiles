@@ -162,6 +162,9 @@ fpath=($HOME/.zsh/functions $fpath)
 ## npm
 export NODE_PATH=/usr/local/lib/node_modules
 
+## おれおれ
+export PATH=$HOME/bin:$PATH
+
 ###
 
 # デフォルトの補完機能を有効
