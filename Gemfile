@@ -12,3 +12,7 @@ gem 'wirble'
 gem 'pry'
 
 gem 'watchr'
+gem 'magic-commenter'
+
+gem 'rdefs'
+gem 'sass'
