@@ -6,11 +6,17 @@
 (setq default-buffer-file-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 
-
-(require 'ucs-normalize)
+(cond
+ ((or (eq window-system 'mac) (eq window-system 'ns))
+  ;; Mac OS X の HFS+ ファイルフォーマットではファイル名は NFD (の様な物)で扱うため以下の設定をする必要がある
+  (require 'ucs-normalize)
+  (setq file-name-coding-system 'utf-8-hfs)
+  (setq locale-coding-system 'utf-8-hfs))
+ (t
+  (setq file-name-coding-system 'utf-8)
+  (setq locale-coding-system 'utf-8)))
 (prefer-coding-system 'utf-8)
-(setq file-name-coding-system 'utf-8-hfs)
-(setq local-coding-system 'utf-8-hfs)
+
 
 ;;ロードパス
 (setq load-path (append
