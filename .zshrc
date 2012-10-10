@@ -326,4 +326,8 @@ autoload -Uz git-escape-magic
 git-escape-magic
 
 ## rbenv
-eval "$(rbenv init - zsh)"
+case "${OSTYPE}" in
+darwin*)
+		eval "$(rbenv init - zsh)"
+		;;
+esac
