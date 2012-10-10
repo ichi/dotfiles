@@ -44,7 +44,9 @@ function mkcd(){
     cd $1
 }
 function src(){
-	source ~/.zshenv
+	if [ -e ~/.zshenv ]; then
+		source ~/.zshenv
+	fi
     source ~/.zshrc
 }
 function findg(){ find . -type f -exec grep $@ /dev/null {} \; }
