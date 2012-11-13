@@ -173,7 +173,7 @@ export PATH=$HOME/bin:$PATH
 
 # デフォルトの補完機能を有効
 autoload -U compinit
-compinit
+compinit -u
 
 # ^Iで補完可能な一覧を表示する。(曖昧補完)
 setopt auto_list
