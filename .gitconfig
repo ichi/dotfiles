@@ -34,7 +34,7 @@
 	excludesfile = ~/.gitignore_global
 	pager = nkf -w | less -R
 [push]
-	default = matching
+	default = current
 
 [merge]
 	tool = git-p4merge
@@ -48,3 +48,6 @@
 
 #[branch]
 #	mergeoptions = --no-ff
+
+[rerere]
+	enabled = true
