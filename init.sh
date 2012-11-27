@@ -4,6 +4,7 @@
 CMD_DIR=$(cd $(dirname $0);pwd)
 
 FILES="
+.antrc
 .caprc
 .colordiffrc
 .emacs.d
