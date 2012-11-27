@@ -153,9 +153,15 @@ setopt prompt_subst
 # SEE: /etc/paths
 
 ## android-sdk
-#export PATH=$HOME/android-sdk/platform-tools:$HOME/android-sdks/platform-tools:$PATH
-export PATH=$HOME/android-sdk/platform-tools:$PATH
-export ANDROID_HOME=$HOME/android-sdk
+case "${OSTYPE}" in
+darwin*)
+	export ANDROID_HOME=$HOME/Development/adt-bundle-mac/sdk/
+	export PATH=$ANDROID_HOME:$PATH
+    export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/platform-tools:$PATH
+	;;
+*)
+	;;
+esac
 
 ## fink 
 #export PATH=/sw/bin:$PATH
@@ -332,6 +338,18 @@ case "${OSTYPE}" in
 darwin*)
 		eval "$(rbenv init - zsh)"
 		;;
+*)
+		;;
 esac
 
-## hub
+## z.sh
+case "${OSTYPE}" in
+darwin*)
+		. `brew --prefix`/etc/profile.d/z.sh
+		;;
+*)
+		;;
+esac
+
+## ant
+export ANT_OPTS=-Dfile.encoding=UTF8

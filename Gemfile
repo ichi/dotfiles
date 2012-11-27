@@ -16,3 +16,5 @@ gem 'magic-commenter'
 
 gem 'rdefs'
 gem 'sass'
+
+gem 'proxylocal'
