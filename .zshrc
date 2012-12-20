@@ -20,6 +20,7 @@ alias fcd='source ~/bin/fcd.sh'
 alias here='open .'
 alias new='echo >'
 alias zshrc='emacs ~/.zshrc'
+alias be='bundle exec'
 alias rspec='rspec -cfs'
 function sshconfig(){
     if [ "$1" != "" -a "$1" = "-e" ]
@@ -157,7 +158,7 @@ case "${OSTYPE}" in
 darwin*)
 	export ANDROID_HOME=$HOME/Development/adt-bundle-mac/sdk/
 	export PATH=$ANDROID_HOME:$PATH
-    export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/platform-tools:$PATH
+    export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH
 	;;
 *)
 	;;
@@ -351,5 +352,6 @@ darwin*)
 		;;
 esac
 
-## ant
-export ANT_OPTS=-Dfile.encoding=UTF8
+## java, ant
+export _JAVA_OPTIONS='-Dfile.encoding=UTF-8'
+export ANT_OPTS='-Dfile.encoding=UTF8'
