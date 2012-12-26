@@ -4,64 +4,26 @@ export PAGER="/usr/bin/less -R"
 
 ZSHHOME="${HOME}/.zsh"
 
-#### umask
+### umask
 umask 002
 
 ### PATH
 source ${ZSHHOME}/paths.zsh
 
-#### alias
-alias ls='ls -AFG'
-alias lsl='ls -al'
-alias ll='lsl'
-function cd() { builtin cd $@ } # && ls; }
-alias diff='colordiff'
-alias cd..='cd ..'
-alias cd/='cd /'
-alias grepb='grenp --binary-files=text'
-alias -g L="| less -R"
-alias -g G="| grep"
-alias fcd='source ~/bin/fcd.sh'
-alias here='open .'
-alias new='echo >'
-alias zshrc='emacs ~/.zshrc'
-alias be='bundle exec'
-alias rspec='rspec -cfs'
-function sshconfig(){
-    if [ "$1" != "" -a "$1" = "-e" ]
-    then
-	emacs ~/.ssh/config;
-    else
-	less ~/.ssh/config;
-    fi
-}
-alias sshconf='sshconfig'
-function note(){
-    if [ "$*" != '' ]
-    then
-	echo "$*\n" >> ~/.note
-    else
-	emacs ~/.note
-    fi
-}
-alias memo='note'
-function mkcd(){
-    mkdir $1
-    cd $1
-}
-function src(){
-	if [ -e ~/.zshenv ]; then
-		source ~/.zshenv
-	fi
-    source ~/.zshrc
-}
-function findg(){ find . -type f -exec grep $@ /dev/null {} \; }
+### 環境変数設定
+#eval `dircolors`
+export LSCOLORS=ExFxCxdxBxegedabagacad
+export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+export ZLS_COLORS=$LS_COLORS
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 
-#### history
+### history
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+
+
 
 # 履歴の共有
 setopt share_history
@@ -94,13 +56,6 @@ setopt auto_menu
 
 # 補完候補のカーソル選択を有効に
 zstyle ':completion:*:default' menu select=1
-
-# 環境変数設定
-#eval `dircolors`
-export LSCOLORS=ExFxCxdxBxegedabagacad
-export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-export ZLS_COLORS=$LS_COLORS
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # 先方予測機能を有効に設定
 #autoload predict-on
@@ -138,6 +93,9 @@ setopt correct
 
 ### prompt
 source ${ZSHHOME}/prompt.zsh
+
+### alias
+source ${ZSHHOME}/alias.zsh
 
 ### mac only
 source ${ZSHHOME}/darwin.zsh
