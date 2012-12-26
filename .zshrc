@@ -2,8 +2,13 @@ export LANG=ja_JP.UTF-8
 export EDITOR=emacs
 export PAGER="/usr/bin/less -R"
 
+ZSHHOME="${HOME}/.zsh"
+
 #### umask
 umask 002
+
+### PATH
+source ${ZSHHOME}/paths.zsh
 
 #### alias
 alias ls='ls -AFG'
@@ -53,82 +58,6 @@ function src(){
 function findg(){ find . -type f -exec grep $@ /dev/null {} \; }
 
 
-#### alias mac app
-alias preview='open -a Preview'
-alias firefox='open -a Firefox'
-alias chrome='open -a Google\ Chrome'
-alias fireworks='open -a Adobe\ Fireworks\ CS3'
-alias openoffice='open -a OpenOffice.org.app'
-alias coteditor='open -a CotEditor.app'
-alias cot='coteditor'
-alias coda='open -a Coda.app'
-function url(){
-    type=$1;
-    shift;
-    case $type in
-	a) echo 'http://www.amazon.co.jp/gp/search?field-keywords='`_space2plus $@`'&index=blended&__mk_ja_JP=ã«ã¿ã«ã';;
-	g) echo 'http://www.google.co.jp/search?q='`_space2plus $@`'&hl=ja';;
-	w) echo 'http://ja.wikipedia.org/wiki/'`_space2p20 $@`;;
-    esac
-}
-alias capture='screencapture -w -i'
-
-
-#easytetherとadbが衝突するので
-case "${OSTYPE}" in
-darwin*)
-    export EASYTETHER_EXT=/System/Library/Extensions/EasyTetherUSBEthernet.kext
-	alias easytether-on="sudo kextload $EASYTETHER_EXT"
-	alias easytether-off="sudo kextunload $EASYTETHER_EXT"
-	alias easytether-status="kextstat |grep EasyTether"
-	;;
-esac
-
-
-#### alias git
-alias gitconf='emacs ~/.gitconfig'
-alias gitcnf='gitconf'
-alias 'git?'='git help'
-alias gad='git add'
-alias gbr='git branch'
-alias gco='git checkout'
-alias gcm='git commit'
-alias gca='git commit --amend -C HEAD'
-alias gci='git commit --interactive'
-alias glo='git log --decorate=full'
-alias glg='git log --decorate=full --graph'
-alias gls='git log --decorate=full --name-status'
-alias gmv='git mv'
-alias grm='git rm'
-alias gst='git status'
-alias gmn='git mn' #git merge --no-ff
-function git-root() {
-  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    cd `git rev-parse --show-toplevel`
-  fi
-}
-
-
-#### git-flow
-alias gf='git flow'
-source ~/.git-flow-completion.zsh
-
-#### alias mercurial
-alias hgrc='emacs ~/.hgrc'
-alias 'hg?'='hg help'
-alias had='hg add'
-alias hco='hg checkout'
-alias hcm='hg commit'
-alias hst='hg st'
-alias hlo='hg log | nkf -w | less -R'
-alias hls='hg log --style changelog | nkf -w | less -R'
-alias hrv='hg revert'
-alias htip='hg tip'
-alias hti='hg tip'
-alias htp='hg tip'
-
-
-
 #### history
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
@@ -146,41 +75,6 @@ setopt hist_ignore_all_dups hist_save_nodups
 
 # エスケープシーケンスを使う。
 setopt prompt_subst
-
-
-### PATH
-
-## Mac Ports
-#export PATH=$HOME/bin:$PATH:/opt/local/bin:/opt/local/sbin
-#export MANPATH=/opt/local/man:$MANPATH
-
-## homebrew
-# SEE: /etc/paths
-
-## android-sdk
-case "${OSTYPE}" in
-darwin*)
-	export ANDROID_HOME=$HOME/Development/adt-bundle-mac/sdk/
-	export PATH=$ANDROID_HOME:$PATH
-    export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH
-	;;
-*)
-	;;
-esac
-
-## fink 
-#export PATH=/sw/bin:$PATH
-
-## zsh functions
-fpath=($HOME/.zsh/functions $fpath)
-
-## npm
-export NODE_PATH=/usr/local/lib/node_modules
-
-## おれおれ
-export PATH=$HOME/bin:$PATH
-
-###
 
 # デフォルトの補完機能を有効
 autoload -U compinit
@@ -201,7 +95,6 @@ setopt auto_menu
 # 補完候補のカーソル選択を有効に
 zstyle ':completion:*:default' menu select=1
 
-
 # 環境変数設定
 #eval `dircolors`
 export LSCOLORS=ExFxCxdxBxegedabagacad
@@ -212,53 +105,6 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 # 先方予測機能を有効に設定
 #autoload predict-on
 #predict-on
-
-
-# プロンプトにgit情報表示
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '(%s:%b)'
-zstyle ':vcs_info:*' actionformats '(%s:%b|%a)'
-precmd () {
-    psvar=()
-    LANG=ja_JP.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-}
-
-
-#### ruby virsion maneger
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-
-#### prompt
-autoload colors
-colors
-
-#PROMPT="%/%% "
-#PROMPT2="%_%% "
-#SPROMPT="%r is correct? [n,y,a,e]: " 
-
-case ${UID} in
-0)
-    PROMPT="%B%{[31m%}[%*] %n#%{[m%}%b "
-    PROMPT2="%B%{[31m%}%_#%{[m%}%b "
-    RPROMPT="%B%1(v|%F{green}%1v%f|)%{[45m%}%{[37m%}[ %/ ]%{[m%}%{[m%}%b"
-    RPROMPT2="%B%1(v|%F{green}%1v%f|)%{[45m%}%{[37m%}[ %/ ]%{[m%}%{[m%}%b"
-    SPROMPT="%B%{[31m%}%r is correct? [n,y,a,e]:%{[m%}%b "
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-        PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
-    ;;
-*)
-    PROMPT="%{[31m%}[%*] %n%%%{[m%} "
-    PROMPT2="%{[31m%}%_%%%{[m%} "
-    RPROMPT="%1(v|%F{green}%1v%f|)%{[45m%}%{[37m%}[ %/ ]%{[m%}%{[m%}"
-    RPROMPT2="%1(v|%F{green}%1v%f|)%{[45m%}%{[37m%}[ %/ ]%{[m%}%{[m%}"
-    SPROMPT="%{[31m%}%r is correct? [n,y,a,e]:%{[m%} "
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-        PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
-    ;;
-esac
-
-
 
 # 出力の文字列末尾に改行コードが無い場合でも表示
 unsetopt promptcr
@@ -289,73 +135,24 @@ setopt pushd_ignore_dups
 setopt correct
 
 
-###-begin-npm-completion-###
-#
-# npm command completion script
-#
-# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
-# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
-#
 
-COMP_WORDBREAKS=${COMP_WORDBREAKS/=/}
-COMP_WORDBREAKS=${COMP_WORDBREAKS/@/}
-export COMP_WORDBREAKS
+### prompt
+source ${ZSHHOME}/prompt.zsh
 
-if complete &>/dev/null; then
-  _npm_completion () {
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           npm completion -- "${COMP_WORDS[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  complete -F _npm_completion npm
-elif compctl &>/dev/null; then
-  _npm_completion () {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       npm completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  compctl -K _npm_completion npm
-fi
-###-end-npm-completion-###
+### mac only
+source ${ZSHHOME}/darwin.zsh
+
+### ruby
+source ${ZSHHOME}/ruby.zsh
+
+### java
+source ${ZSHHOME}/java.zsh
+
+### vcs
+source ${ZSHHOME}/vcs.zsh
+source ${ZSHHOME}/vcs_info.zsh
+
+### completion
+source ${ZSHHOME}/completion.zsh
 
 
-## git-escape-magic
-## https://github.com/knu/zsh-git-escape-magic
-autoload -Uz git-escape-magic
-git-escape-magic
-
-## rbenv
-case "${OSTYPE}" in
-darwin*)
-		eval "$(rbenv init - zsh)"
-		;;
-*)
-		;;
-esac
-
-## z.sh
-case "${OSTYPE}" in
-darwin*)
-		. `brew --prefix`/etc/profile.d/z.sh
-		;;
-*)
-		;;
-esac
-
-## java, ant
-export _JAVA_OPTIONS='-Dfile.encoding=UTF-8'
-export ANT_OPTS='-Dfile.encoding=UTF8'

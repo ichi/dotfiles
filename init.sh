@@ -21,8 +21,8 @@ Gemfile
 .zshrc
 "
 
-rm ${HOME}/.emacs #emacs.d/init.elに移行の為
 for FILE in $FILES
 do
-    ln -siv ${CMD_DIR}/${FILE} ${HOME}
+    rm -frv  ${HOME}/${FILE}
+    ln -sv ${CMD_DIR}/${FILE} ${HOME}
 done
