@@ -17,9 +17,12 @@ Gemfile
 .irbrc
 .pryrc
 .tmux.conf
-.zsh
+.zsh.d
 .zshrc
 "
+
+rm -fr ${HOME}/.emacs #emacs.d/init.elに移行の為
+rm -fr ${HOME}/.zsh #zsh.d/に移行の為
 
 for FILE in $FILES
 do

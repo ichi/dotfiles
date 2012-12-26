@@ -10,7 +10,7 @@ darwin*)
 esac
 
 ## zsh functions
-fpath=($HOME/.zsh/functions $fpath)
+fpath=($ZSHHOME/functions $fpath)
 
 ## npm
 export NODE_PATH=/usr/local/lib/node_modules

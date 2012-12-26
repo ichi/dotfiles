@@ -2,13 +2,13 @@ export LANG=ja_JP.UTF-8
 export EDITOR=emacs
 export PAGER="/usr/bin/less -R"
 
-ZSHHOME="${HOME}/.zsh"
+ZSHHOME="${HOME}/.zsh.d"
 
 ### umask
 umask 002
 
 ### PATH
-source ${ZSHHOME}/paths.zsh
+source $ZSHHOME/paths.zsh
 
 ### 環境変数設定
 #eval `dircolors`
@@ -92,25 +92,25 @@ setopt correct
 
 
 ### prompt
-source ${ZSHHOME}/prompt.zsh
+source $ZSHHOME/prompt.zsh
 
 ### alias
-source ${ZSHHOME}/alias.zsh
+source $ZSHHOME/alias.zsh
 
 ### mac only
-source ${ZSHHOME}/darwin.zsh
+source $ZSHHOME/darwin.zsh
 
 ### ruby
-source ${ZSHHOME}/ruby.zsh
+source $ZSHHOME/ruby.zsh
 
 ### java
-source ${ZSHHOME}/java.zsh
+source $ZSHHOME/java.zsh
 
 ### vcs
-source ${ZSHHOME}/vcs.zsh
-source ${ZSHHOME}/vcs_info.zsh
+source $ZSHHOME/vcs.zsh
+source $ZSHHOME/vcs_info.zsh
 
 ### completion
-source ${ZSHHOME}/completion.zsh
+source $ZSHHOME/completion.zsh
 
 
