@@ -15,15 +15,20 @@ source $ZSHHOME/paths.zsh
 export LSCOLORS=ExFxCxdxBxegedabagacad
 export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 export ZLS_COLORS=$LS_COLORS
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
+### colors
+autoload colors && colors
 
 ### history
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
+# hook
+autoload -Uz add-zsh-hook
 
+# zstyle default?
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # 履歴の共有
 setopt share_history
@@ -33,7 +38,6 @@ setopt hist_ignore_dups
 
 # 直前と同じコマンドラインはヒストリに追加しない
 setopt hist_ignore_all_dups hist_save_nodups
-
 
 # エスケープシーケンスを使う。
 setopt prompt_subst
@@ -61,11 +65,14 @@ zstyle ':completion:*:default' menu select=1
 #autoload predict-on
 #predict-on
 
+# コマンドラインの引数で --prefix=/usr などの = 以降でも補完できる
+setopt magic_equal_subst
+
 # 出力の文字列末尾に改行コードが無い場合でも表示
 unsetopt promptcr
 
 # =command を command のパス名に展開する
-setopt equals
+#setopt equals
 
 # コマンドラインで # 以降をコメントとする
 setopt interactive_comments
@@ -78,7 +85,7 @@ setopt mark_dirs
 setopt multios
 
 # ディレクトリ名を入力するだけでカレントディレクトリを変更
-setopt auto_cd
+#setopt auto_cd
 
 # cd 時に自動で push
 setopt autopushd

@@ -1,29 +1,47 @@
-
-#### prompt
-autoload colors
-colors
-
-#PROMPT="%/%% "
-#PROMPT2="%_%% "
-#SPROMPT="%r is correct? [n,y,a,e]: " 
-
+# per user
 case ${UID} in
-0)
-    PROMPT="%B%{[31m%}[%*] %n#%{[m%}%b "
-    PROMPT2="%B%{[31m%}%_#%{[m%}%b "
-    RPROMPT="%B%1(v|%F{green}%1v%f|)%{[45m%}%{[37m%}[ %/ ]%{[m%}%{[m%}%b"
-    RPROMPT2="%B%1(v|%F{green}%1v%f|)%{[45m%}%{[37m%}[ %/ ]%{[m%}%{[m%}%b"
-    SPROMPT="%B%{[31m%}%r is correct? [n,y,a,e]:%{[m%}%b "
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-        PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+0) # root
+    PROMPT_MARK="#"
     ;;
 *)
-    PROMPT="%{[31m%}[%*] %n%%%{[m%} "
-    PROMPT2="%{[31m%}%_%%%{[m%} "
-    RPROMPT="%1(v|%F{green}%1v%f|)%{[45m%}%{[37m%}[ %/ ]%{[m%}%{[m%}"
-    RPROMPT2="%1(v|%F{green}%1v%f|)%{[45m%}%{[37m%}[ %/ ]%{[m%}%{[m%}"
-    SPROMPT="%{[31m%}%r is correct? [n,y,a,e]:%{[m%} "
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-        PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+    PROMPT_MARK="%%"
     ;;
 esac
+
+
+# common
+PROMPT="%{$fg[red]%}[%*] %n${PROMPT_MARK}%{$reset_color%}"
+PROMPT2="%{$fg[red]%}%_%%%{$reset_color%}"
+
+RPROMPT="%1(v|%{$fg[green]%}%1v%{$reset_color%}|)%{$bg[magenta]$fg[white]%}[ %/ ]%{$reset_color%}"
+RPROMPT2="%1(v|%{$fg[green]%}%1v%{$reset_color%}|)%{$bg[magenta]$fg[white]%}[ %/ ]%{$reset_color%}"
+
+SPROMPT="%{$fg[red]%}%r is correct? [n,y,a,e]:%{$reset_color%} "
+
+
+# per user
+case ${UID} in
+0) # root
+    PROMPT="%B${PROMPT}%b"
+    PROMPT2="%B${PROMPT2}%b"
+
+    RPROMPT="%B${RPROMPT}%b"
+    RPROMPT2="%B${RPROMPT2}%b"
+
+    SPROMPT="%B${SPROMPT}%b"
+    ;;
+*)
+    ;;
+esac
+
+
+# remote host
+if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
+    PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+fi
+
+
+# add space
+PROMPT="${PROMPT} "
+PROMPT2="${PROMPT2} "
+SPROMPT="${SPROMPT} "
