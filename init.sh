@@ -23,6 +23,6 @@ Gemfile
 
 for FILE in $FILES
 do
-    rm -frv  ${HOME}/${FILE}
+    rm -fr ${HOME}/${FILE}
     ln -sv ${CMD_DIR}/${FILE} ${HOME}
 done
