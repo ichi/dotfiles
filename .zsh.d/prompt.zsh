@@ -37,9 +37,8 @@ esac
 
 # remote host
 if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
-    PROMPT="%{[37m%}${HOST%%.*} ${PROMPT}"
+    PROMPT="%{$fg[white]%}${HOST%%.*}%{$reset_color%} ${PROMPT}"
 fi
-
 
 # add space
 PROMPT="${PROMPT} "
