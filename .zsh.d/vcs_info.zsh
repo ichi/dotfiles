@@ -68,7 +68,7 @@ if is-at-least 4.3.11; then
         if [[ "$ahead" -gt 0 ]]; then
             # misc (%m) に追加
             # hook_com[misc]+="(p${ahead})"
-            hook_com[misc]+="⚡"
+            hook_com[misc]+="${ahead}"
         fi
     }
 fi
