@@ -24,9 +24,6 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-# hook
-autoload -Uz add-zsh-hook
-
 # zstyle default?
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
@@ -39,7 +36,7 @@ setopt hist_ignore_dups
 # 直前と同じコマンドラインはヒストリに追加しない
 setopt hist_ignore_all_dups hist_save_nodups
 
-# エスケープシーケンスを使う。
+# プロンプト表示時に変数展開
 setopt prompt_subst
 
 # デフォルトの補完機能を有効
