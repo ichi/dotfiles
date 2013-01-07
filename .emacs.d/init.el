@@ -102,6 +102,8 @@
 (add-hook 'coffee-mode-hook
   '(lambda() (coffee-custom)))
 
+;;shell-script-mode
+(add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
 
 ;;環境別設定
 (cond 
