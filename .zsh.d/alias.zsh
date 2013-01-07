@@ -1,6 +1,12 @@
-alias ls='ls -AFG'
-alias lsl='ls -al'
-alias ll='lsl'
+case "${OSTYPE}" in
+	darwin*)
+			alias ls='ls -AFG'
+			;;
+	*)
+			alias ls='ls -AF --colors'
+			;;
+esac
+alias ll='ls -al'
 function cd() { builtin cd $@ } # && ls; }
 alias diff='colordiff'
 alias cd..='cd ..'
