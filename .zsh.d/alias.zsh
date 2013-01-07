@@ -3,7 +3,7 @@ case "${OSTYPE}" in
 			alias ls='ls -AFG'
 			;;
 	*)
-			alias ls='ls -AF --colors'
+			alias ls='ls -AF --color'
 			;;
 esac
 alias ll='ls -al'
