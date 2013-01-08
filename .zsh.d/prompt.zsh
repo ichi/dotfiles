@@ -15,7 +15,7 @@ esac
 PROMPT="%{$fg[red]%}[%*] %n${PROMPT_MARK}%{$reset_color%}"
 PROMPT2="%{$fg[red]%}%_%%%{$reset_color%}"
 
-RPROMPT="%1(v|%{$fg[green]%}(%1v%3(v|%{$fg[red]%}:%3v|)%2(v|%{$fg[yellow]%}⚡|)%{$fg[green]%})%{$reset_color%}|)%{$bg[magenta]$fg[white]%}[ %/ ]%{$reset_color%}"
+RPROMPT="%1(v|%{$fg[green]%}(%1v%3(v|%{$fg[red]%}:%3v|)%2(v|%{$fg[yellow]%}⚡|)%{$fg[green]%})%{$reset_color%}|)%{$bg[magenta]$fg[white]%}[ %~ ]%{$reset_color%}"
 RPROMPT2="${RPROMPT}"
 
 SPROMPT="%{$fg[red]%}%r is correct? [n,y,a,e]:%{$reset_color%} "
