@@ -8,7 +8,6 @@ FILES="
 .caprc
 .colordiffrc
 .emacs.d
-Gemfile
 .git-flow-completion.zsh
 .gitconfig
 .gitignore_global
@@ -19,6 +18,7 @@ Gemfile
 .tmux.conf
 .zsh.d
 .zshrc
+Gemfile
 "
 
 rm -fr ${HOME}/.emacs #emacs.d/init.elに移行の為

@@ -17,3 +17,6 @@ export NODE_PATH=/usr/local/lib/node_modules
 
 ## おれおれ
 export PATH=$HOME/bin:$PATH
+
+## freetds
+export FREETDSCONF=/usr/local/Cellar/freetds/0.91/etc/freetds.conf
