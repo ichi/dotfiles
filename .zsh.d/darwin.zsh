@@ -1,6 +1,12 @@
 case "${OSTYPE}" in
 darwin*)
 
+  ### alias
+  alias diff='colordiff'
+  alias fcd='source ~/bin/fcd.sh'
+  alias here='open .'
+
+
   ### alias mac app
   alias preview='open -a Preview'
   alias firefox='open -a Firefox'

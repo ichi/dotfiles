@@ -8,14 +8,11 @@ case "${OSTYPE}" in
 esac
 alias ll='ls -al'
 function cd() { builtin cd $@ } # && ls; }
-alias diff='colordiff'
 alias cd..='cd ..'
 alias cd/='cd /'
 alias grepb='grenp --binary-files=text'
 alias -g L="| less -R"
 alias -g G="| grep"
-alias fcd='source ~/bin/fcd.sh'
-alias here='open .'
 alias new='echo >'
 alias zshrc='emacs ~/.zshrc'
 alias be='bundle exec'
