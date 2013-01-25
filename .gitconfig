@@ -32,7 +32,8 @@
 [core]
 	editor = "emacs -nw"
 	excludesfile = ~/.gitignore_global
-	pager = nkf -w | less -R
+#	pager = nkf -w | less -R
+	pager = less -R
 [push]
 	default = matching
 
