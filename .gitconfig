@@ -34,6 +34,8 @@
 	excludesfile = ~/.gitignore_global
 #	pager = nkf -w | less -R
 	pager = less -R
+	filemode = false
+
 [push]
 	default = matching
 
