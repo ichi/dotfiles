@@ -4,7 +4,7 @@ darwin*)
   ;;
 *)
   if [[ -d $HOME/.rbenv ]]; then
-    export PATH="$HOME/.rbenv/bin:$PATH"
+    export PATH="$HOME/.rbenv/shims:$PATH"
   fi
   ;;
 esac
