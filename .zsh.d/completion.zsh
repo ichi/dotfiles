@@ -44,6 +44,7 @@ fi
 
 ### git-escape-magic
 # https://github.com/knu/zsh-git-escape-magic
+fpath=($ZSHHOME/functions/zsh-git-escape-magic $fpath)
 autoload -Uz git-escape-magic
 git-escape-magic
 
