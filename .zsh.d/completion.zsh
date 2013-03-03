@@ -52,3 +52,8 @@ git-escape-magic
 ### zsh-completions
 # https://github.com/zsh-users/zsh-completions
 fpath=($ZSHHOME/completions/zsh-completions/src $fpath)
+
+
+# completion init
+autoload -U compinit
+compinit -u

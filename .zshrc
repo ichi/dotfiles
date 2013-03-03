@@ -39,10 +39,6 @@ setopt hist_ignore_all_dups hist_save_nodups
 # プロンプト表示時に変数展開
 setopt prompt_subst
 
-# デフォルトの補完機能を有効
-autoload -U compinit
-compinit -u
-
 # ^Iで補完可能な一覧を表示する。(曖昧補完)
 setopt auto_list
 
