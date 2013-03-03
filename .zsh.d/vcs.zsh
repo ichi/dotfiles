@@ -24,7 +24,6 @@ function git-root() {
 
 #### git-flow
 alias gf='git flow'
-source ~/.git-flow-completion.zsh
 
 
 #### alias mercurial

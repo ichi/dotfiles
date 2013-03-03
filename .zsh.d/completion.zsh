@@ -46,3 +46,8 @@ fi
 # https://github.com/knu/zsh-git-escape-magic
 autoload -Uz git-escape-magic
 git-escape-magic
+
+
+### zsh-completions
+# https://github.com/zsh-users/zsh-completions
+fpath=($ZSHHOME/completions/zsh-completions/src $fpath)
