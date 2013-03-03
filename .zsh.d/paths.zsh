@@ -9,7 +9,9 @@ darwin*)
 esac
 
 ## pear
-export PATH=$(pear config-get bin_dir):$PATH
+if pear config-get bin_dir &>/dev/null; then
+  export PATH=$(pear config-get bin_dir):$PATH
+fi
 
 ## zsh functions
 fpath=($ZSHHOME/functions $fpath)
