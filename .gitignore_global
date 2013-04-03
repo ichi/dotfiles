@@ -13,3 +13,6 @@ tags
 .hg
 .idea
 .idea/*
+
+.bundle
+vendor/bundle
