@@ -42,6 +42,8 @@ darwin*)
   ### homebrew
   # SEE: /etc/paths
 
+  ### bundler
+  export BUNDLER_EDITOR=subl
 
   ### z.sh
   . `brew --prefix`/etc/profile.d/z.sh
