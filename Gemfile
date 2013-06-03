@@ -16,6 +16,8 @@ gem 'magic-commenter'
 
 gem 'rdefs'
 gem 'sass'
+
 gem 'rb-fsevent'
+gem 'iconv'
 
 gem 'proxylocal'
