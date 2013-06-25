@@ -1,5 +1,5 @@
 case "${OSTYPE}" in
-	darwin*)
+	darwin* | freebsd*)
 			alias ls='ls -AFG'
 			;;
 	*)
