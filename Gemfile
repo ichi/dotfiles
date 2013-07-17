@@ -21,3 +21,10 @@ gem 'rb-fsevent'
 gem 'iconv'
 
 gem 'proxylocal'
+
+case RUBY_PLATFORM
+when /darwin/
+  gem 'cocoapods'
+#when /win32/
+#  gem 'bar'
+end
