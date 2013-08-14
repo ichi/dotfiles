@@ -28,3 +28,5 @@ when /darwin/
 #when /win32/
 #  gem 'bar'
 end
+
+gem 'jeweler'
