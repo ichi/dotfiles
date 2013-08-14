@@ -18,6 +18,7 @@ fpath=($ZSHHOME/functions $fpath)
 
 ## npm
 export NODE_PATH=/usr/local/lib/node_modules
+export PATH=/usr/local/share/npm/bin:$PATH
 
 ## おれおれ
 export PATH=$HOME/bin:$PATH
