@@ -4,3 +4,6 @@
 [submodule ".zsh.d/functions/zsh-git-escape-magic"]
 	path = .zsh.d/functions/zsh-git-escape-magic
 	url = https://github.com/knu/zsh-git-escape-magic
+[submodule ".zsh.d/plugins/zaw"]
+	path = .zsh.d/plugins/zaw
+	url = git@github.com:zsh-users/zaw.git

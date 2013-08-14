@@ -89,6 +89,13 @@ setopt pushd_ignore_dups
 # スペルチェック
 setopt correct
 
+# cdr
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':chpwd:*' recent-dirs-max 5000
+zstyle ':chpwd:*' recent-dirs-default yes
+zstyle ':completion:*' recent-dirs-insert both
+
 
 
 ### prompt
@@ -109,6 +116,9 @@ source $ZSHHOME/java.zsh
 ### vcs
 source $ZSHHOME/vcs.zsh
 source $ZSHHOME/vcs_info.zsh
+
+### zaw
+source $ZSHHOME/zaw.zsh
 
 ### completion
 source $ZSHHOME/completion.zsh
