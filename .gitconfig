@@ -37,7 +37,7 @@
 	filemode = false
 
 [push]
-	default = matching
+	default = upstream
 
 [merge]
 	tool = git-p4merge

@@ -16,3 +16,5 @@ tags
 
 .bundle
 vendor/bundle
+
+*.ichi.*
