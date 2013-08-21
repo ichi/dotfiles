@@ -5,6 +5,7 @@ gem 'rake'
 gem 'capistrano'
 gem 'capistrano-ext'
 gem 'capistrano_colors'
+gem 'capistrano-colorized-stream'
 
 gem 'rak'
 
