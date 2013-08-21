@@ -7,3 +7,6 @@
 [submodule ".zsh.d/plugins/zaw"]
 	path = .zsh.d/plugins/zaw
 	url = git@github.com:zsh-users/zaw.git
+[submodule ".zsh.d/functions/timetracker"]
+	path = .zsh.d/functions/timetracker
+	url = https://gist.github.com/6290619.git

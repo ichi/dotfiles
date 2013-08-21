@@ -48,5 +48,11 @@ darwin*)
   ### z.sh
   . `brew --prefix`/etc/profile.d/z.sh
 
+  ### timetracker
+  ### http://qiita.com/hayamiz/items/d64730b61b7918fbb970
+  if [ -f $ZSHHOME/functions/timetracker/timetracker.zsh ]; then
+    source $ZSHHOME/functions/timetracker/timetracker.zsh
+  fi
+
   ;;
 esac
