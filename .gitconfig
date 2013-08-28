@@ -46,7 +46,8 @@
 	cmd = git-p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
 	trustExitCode = false
 
-#[diff]
+[diff]
+	algorithm = histogram # default|patience|histogram
 #  external = git-p4diff
 
 #[branch]
