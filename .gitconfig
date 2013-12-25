@@ -23,6 +23,7 @@
 	ls = log --decorate=full --name-status
 	st = status
 	mn = merge --no-ff
+	cch= "!f() { git cherry -v "$@" | awk '{ if($1 == \"+\"){ color = \"green\" } if($1 == \"-\"){ color = \"red\" } cmd = \"git show --date=short --no-notes --pretty=format:\\047%C\" color $1 \" %h %Cgreen%cd %Cblue%cn%x09%Creset%s\\047 --summary \" $2; cmd | getline t; close(cmd); print t }' ;}; f"
 
 [color "branch"]
        current = yellow reverse
@@ -35,16 +36,25 @@
 #	pager = nkf -w | less -R
 	pager = less -R
 	filemode = false
+	quotepath = false
+	whitespace = cr-at-eol
 
 [push]
 	default = upstream
 
-[merge]
-	tool = git-p4merge
+[pull]
+#	rebase = true
 
-[mergetool "git-p4merge"]
-	cmd = git-p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
-	trustExitCode = false
+[merge]
+	tool = p4merge
+
+[mergetool]
+  keepBackup = false
+
+[mergetool "p4merge"]
+  path = p4merge
+  keepTemporaries = false
+  trustExitCode = false
 
 [diff]
 	algorithm = histogram # default|patience|histogram
