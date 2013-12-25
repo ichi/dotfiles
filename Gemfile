@@ -31,3 +31,4 @@ when /darwin/
 end
 
 gem 'jeweler'
+gem 'termit'
