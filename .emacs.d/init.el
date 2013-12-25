@@ -42,7 +42,10 @@
 (setq vc-follow-symlinks t)
 
 ;;tabのデフォルトは4つ
-(setq-default tab-width 4)
+(setq-default tab-width 2)
+
+;; scroll up/down時にカーソルをバッファ先頭/終端へ
+(setq scroll-error-top-bottom t)
 
 ;;タブキー
 ;;(setq indent-line-function 'indent-relative-maybe)
