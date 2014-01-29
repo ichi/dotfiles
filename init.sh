@@ -18,6 +18,7 @@ FILES="
 .tmux.conf
 .zsh.d
 .zshrc
+Brewfile
 Gemfile
 "
 
