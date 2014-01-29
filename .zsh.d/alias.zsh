@@ -17,21 +17,27 @@ alias new='echo >'
 alias zshrc='emacs ~/.zshrc'
 alias be='bundle exec'
 alias rspec='rspec -cfs'
+# function ssh() {
+#     local window_name=$(tmux display -p '#{window_name}')
+#     tmux rename-window $@
+#     command ssh $@
+#     tmux rename-window $window_name
+# }
 function sshconfig(){
     if [ "$1" != "" -a "$1" = "-e" ]
     then
-  emacs ~/.ssh/config;
+      emacs ~/.ssh/config;
     else
-  less ~/.ssh/config;
+      less ~/.ssh/config;
     fi
 }
 alias sshconf='sshconfig'
 function note(){
     if [ "$*" != '' ]
     then
-  echo "$*\n" >> ~/.note
+      echo "$*\n" >> ~/.note
     else
-  emacs ~/.note
+      emacs ~/.note
     fi
 }
 alias memo='note'
