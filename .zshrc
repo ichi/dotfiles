@@ -43,7 +43,7 @@ setopt prompt_subst
 setopt auto_list
 
 # 補完候補を詰めて表示
-setopt list_packed 
+setopt list_packed
 
 # 補完の時に大文字小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -53,6 +53,9 @@ setopt auto_menu
 
 # 補完候補のカーソル選択を有効に
 zstyle ':completion:*:default' menu select=1
+
+# 補完はverbose
+zstyle ':completion:*' verbose yes
 
 # 先方予測機能を有効に設定
 #autoload predict-on
@@ -124,3 +127,5 @@ source $ZSHHOME/zaw.zsh
 source $ZSHHOME/completion.zsh
 
 
+
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh # This loads NVM

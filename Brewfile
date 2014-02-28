@@ -23,7 +23,6 @@ install elasticsearch || true
 install emacs || true
 install git || true
 install git-flow || true
-install git-now || true
 install heroku-toolbelt || true
 install hub || true
 install imagemagick || true
