@@ -1,7 +1,7 @@
 ## android-sdk
 case "${OSTYPE}" in
 darwin*)
-  export ANDROID_HOME=$HOME/Development/adt-bundle-mac/sdk/
+  export ANDROID_HOME=$HOME/Development/adt-bundle-mac/sdk
   export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME:$PATH
   ;;
 *)
