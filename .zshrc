@@ -110,8 +110,9 @@ source $ZSHHOME/alias.zsh
 ### mac only
 source $ZSHHOME/darwin.zsh
 
-### ruby
-source $ZSHHOME/ruby.zsh
+### env
+source $ZSHHOME/rbenv.zsh
+source $ZSHHOME/phpenv.zsh
 
 ### java
 source $ZSHHOME/java.zsh
