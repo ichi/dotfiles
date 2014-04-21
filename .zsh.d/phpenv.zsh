@@ -1,5 +1,5 @@
 ### phpenv
 if [[ -d $HOME/.phpenv ]]; then
-  export PATH="$HOME/.phpenv/bin:$PATH"
+  export PATH="$PATH:$HOME/.phpenv/bin"
   eval "$(phpenv init -)";
 fi
