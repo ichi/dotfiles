@@ -31,3 +31,5 @@ end
 
 gem 'jeweler'
 gem 'termit'
+
+gem 'ronn'
