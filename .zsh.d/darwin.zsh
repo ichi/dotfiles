@@ -54,5 +54,8 @@ darwin*)
     source $ZSHHOME/functions/timetracker/timetracker.zsh
   fi
 
+  ### direnv
+  eval "$(direnv hook zsh)"
+
   ;;
 esac

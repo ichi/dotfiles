@@ -130,5 +130,10 @@ source $ZSHHOME/zaw.zsh
 source $ZSHHOME/completion.zsh
 
 
-
-[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh # This loads NVM
+if [[ -s $HOME/.nvm/nvm.sh ]]; then
+  source $HOME/.nvm/nvm.sh
+  if [ "$TMUX" != "" ]; then
+    nvm deactivate
+    nvm use default
+  fi
+fi
