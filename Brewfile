@@ -5,6 +5,7 @@ tap homebrew/apache
 tap homebrew/dupes
 tap homebrew/versions
 tap josegonzalez/php
+tap peco/peco
 
 # brew install & link
 install readline || true
@@ -31,6 +32,7 @@ install memcached || true
 install mysql || true
 install nkf || true
 install node || true
+install peco || true
 install pcre || true
 install php54 || true
 install php54-memcached || true
