@@ -7,6 +7,7 @@ FILES="
 .antrc
 .caprc
 .colordiffrc
+.ctags
 .emacs.d
 .git-flow-completion.zsh
 .gitconfig

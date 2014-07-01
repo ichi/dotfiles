@@ -1,0 +1,7 @@
+--langmap=Html:+.ctp
+
+--php-kinds=cfd
+
+--langmap=Ruby:+(Rakefile)
+--langmap=Ruby:+(Gemfile)
+--langmap=Ruby:+(Capfile)
