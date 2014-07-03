@@ -123,8 +123,8 @@ source $ZSHHOME/java.zsh
 source $ZSHHOME/vcs.zsh
 source $ZSHHOME/vcs_info.zsh
 
-### zaw
-source $ZSHHOME/zaw.zsh
+### peco
+source $ZSHHOME/peco.zsh
 
 ### completion
 source $ZSHHOME/completion.zsh
