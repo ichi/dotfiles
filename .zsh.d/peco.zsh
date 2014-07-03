@@ -30,14 +30,14 @@ if which peco > /dev/null 2>&1; then
 
     # select branch
     function peco-select-branch(){
-        RBUFFER="$(git branch -a | peco | sed s/^\*// | awk '{print $1}')"
+        RBUFFER="$(git branch -av | peco | sed s/^\*// | awk '{print $1}')"
         CURSOR=$#BUFFER
     }
     zle -N peco-select-branch
     bindkey '^j' peco-select-branch
 
     # git checkout
-    alias gcp='git checkout $(git branch -l | peco)'
+    alias gcp='git checkout $(git branch -lv | peco)'
     # git merge
-    alias gmp='git merge $(git branch -l | peco)'
+    alias gmp='git merge $(git branch -lv | peco)'
 fi
