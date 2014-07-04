@@ -29,15 +29,18 @@ if which peco > /dev/null 2>&1; then
     bindkey '^_' peco-cdr
 
     # select branch
+    function _peco-select-branch(){
+        git branch $@ | peco | sed s/^\*// | awk '{print $1}'
+    }
     function peco-select-branch(){
-        RBUFFER="$(git branch -av | peco | sed s/^\*// | awk '{print $1}')"
+        RBUFFER="$(_peco-select-branch -av)"
         CURSOR=$#BUFFER
     }
     zle -N peco-select-branch
     bindkey '^j' peco-select-branch
 
     # git checkout
-    alias gcp='git checkout $(git branch -lv | peco)'
+    alias gcp='git checkout $(_peco-select-branch -lv)'
     # git merge
-    alias gmp='git merge $(git branch -lv | peco)'
+    alias gmp='git merge $(_peco-select-branch -lv)'
 fi
