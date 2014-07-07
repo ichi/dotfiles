@@ -1,7 +1,7 @@
 # ------------------------------
 # Editor
 # ------------------------------
-Pry.editor = 'subl'
+Pry.editor = 'atom'
 
 
 # ------------------------------
@@ -19,8 +19,8 @@ if defined? Hirb
     def enable_output_method
       @output_method = true
       @old_print = Pry.config.print
-      Pry.config.print = proc do |output, value|
-        Hirb::View.view_or_page_output(value) || @old_print.call(output, value)
+      Pry.config.print = proc do |*args|
+        Hirb::View.view_or_page_output(args[1]) || @old_print.call(*args)
       end
     end
 
@@ -36,7 +36,7 @@ end
 
 # ------------------------------
 # Syntax Highlighting
-# 
+#
 # SEE: http://qiita.com/khlizard/items/d5f3257ee885943f53a1
 # ------------------------------
 def Pry.set_color sym, color
