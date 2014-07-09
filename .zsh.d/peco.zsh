@@ -28,9 +28,18 @@ if which peco > /dev/null 2>&1; then
     zle -N peco-cdr
     bindkey '^_' peco-cdr
 
+    # http://k0kubun.hatenablog.com/entry/2014/07/06/033336
+    function peco-kill(){
+        for pid in `ps aux | peco | awk '{ print $2 }'`
+        do
+            kill $pid
+            echo "Killed ${pid}"
+        done
+    }
+
     # select branch
     function _peco-select-branch(){
-        git branch $@ | peco | sed s/^\*// | awk '{print $1}'
+        git branch $@ | peco | sed s/^\*// | awk '{ print $1 }'
     }
     function peco-select-branch(){
         RBUFFER="$(_peco-select-branch -av)"
@@ -38,6 +47,7 @@ if which peco > /dev/null 2>&1; then
     }
     zle -N peco-select-branch
     bindkey '^j' peco-select-branch
+    alias -g B='`peco-select-branch`'
 
     # git checkout
     alias gcp='git checkout $(_peco-select-branch -lv)'
