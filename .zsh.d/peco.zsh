@@ -47,7 +47,6 @@ if which peco > /dev/null 2>&1; then
     }
     zle -N peco-select-branch
     bindkey '^j' peco-select-branch
-    alias -g B='`peco-select-branch`'
 
     # git checkout
     alias gcp='git checkout $(_peco-select-branch -lv)'
