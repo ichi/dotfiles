@@ -5,3 +5,5 @@
 --langmap=Ruby:+(Rakefile)
 --langmap=Ruby:+(Gemfile)
 --langmap=Ruby:+(Capfile)
+
+--exclude=**/spec/*
