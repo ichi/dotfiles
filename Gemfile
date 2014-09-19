@@ -33,3 +33,5 @@ gem 'jeweler'
 gem 'termit'
 
 gem 'ronn'
+
+gem 'git-issue'

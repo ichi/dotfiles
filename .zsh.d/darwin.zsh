@@ -43,7 +43,7 @@ darwin*)
   # SEE: /etc/paths
 
   ### bundler
-  export BUNDLER_EDITOR=subl
+  export BUNDLER_EDITOR=atom
 
   ### z.sh
   . `brew --prefix`/etc/profile.d/z.sh
