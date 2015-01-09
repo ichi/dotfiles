@@ -19,10 +19,12 @@
 
 
 ;;ロードパス
-(setq load-path (append
-                 '("~/.emacs.d"
-                   "~/.emacs.d/packages")
-                 load-path))
+;; (setq load-path (append
+;;                  '("~/.emacs.d"
+;;                    "~/.emacs.d/packages")
+;;                  load-path))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/env") t)
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/packages") t)
 
 ;;行数表示
 (line-number-mode t)
@@ -109,7 +111,7 @@
 (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
 
 ;;環境別設定
-(cond 
+(cond
  ;;cocoa
  ((and (eq system-type 'darwin) (eq window-system 'ns))
   (progn
