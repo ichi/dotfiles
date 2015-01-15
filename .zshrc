@@ -112,9 +112,10 @@ source $ZSHHOME/alias.zsh
 ### mac only
 source $ZSHHOME/darwin.zsh
 
-### env
+### version manager
 source $ZSHHOME/rbenv.zsh
 source $ZSHHOME/phpenv.zsh
+export PATH=$HOME/.nodebrew/current/bin:$PATH # nodebrew
 
 ### java
 source $ZSHHOME/java.zsh
@@ -128,12 +129,3 @@ source $ZSHHOME/peco.zsh
 
 ### completion
 source $ZSHHOME/completion.zsh
-
-
-if [[ -s $HOME/.nvm/nvm.sh ]]; then
-  source $HOME/.nvm/nvm.sh
-  if [ "$TMUX" != "" ]; then
-    nvm deactivate
-    nvm use default
-  fi
-fi
