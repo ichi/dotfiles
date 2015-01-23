@@ -1,0 +1,2 @@
+'.editor':
+  'ctrl-cmd-l': 'rails-latest-migration:find'

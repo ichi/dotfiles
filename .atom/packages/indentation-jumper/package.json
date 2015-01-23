@@ -1,0 +1,33 @@
+{
+  "name": "indentation-jumper",
+  "main": "./lib/main",
+  "version": "0.1.1",
+  "description": "Jump between lines of same indentation with `alt-up`/`alt-down`.",
+  "activationEvents": [
+    "indentation-jumper:down",
+    "indentation-jumper:up",
+    "indentation-jumper:select-down",
+    "indentation-jumper:select-up"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/7even/atom-indentation-jumper"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "# Indentation Jumper\n\nA simple package designed to ease the code navigation in Atom.\n\n![demo](https://cloud.githubusercontent.com/assets/351591/2673000/c47bcfa2-c0ed-11e3-9c2f-3edeedadba5a.gif)\n\n### Hotkeys\n\n`⌥↓` - jump to next line with same indentation as the current line.\n\n`⌥↑` - jump to previous line with same indentation as the current line.\n\n`⇧⌥↓` - select down to next line with same indentation.\n\n`⇧⌥↑` - select up to previous line with same indentation.\n\nHeavily inspired by corresponding TextMate built-in functionality.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/7even/atom-indentation-jumper/issues"
+  },
+  "homepage": "https://github.com/7even/atom-indentation-jumper",
+  "_id": "indentation-jumper@0.1.1",
+  "dist": {
+    "shasum": "938db57175387a9766d750142a7178cd7a71b083"
+  },
+  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11464-5145-12ueoc9/package.tgz",
+  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11464-5145-12ueoc9/package.tgz"
+}

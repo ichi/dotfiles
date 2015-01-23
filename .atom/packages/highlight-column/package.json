@@ -1,0 +1,28 @@
+{
+  "name": "highlight-column",
+  "main": "./lib/highlight-column-view",
+  "version": "0.3.2",
+  "private": true,
+  "description": "Highlight column the cursor is at",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tony612/highlight-column"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "# Highlight-column [![Build Status](https://travis-ci.org/tony612/highlight-column.svg?branch=master)](https://travis-ci.org/tony612/highlight-column)\n\nYou can config the shortkey to toggle the highlight, such as:\n\n    '.editor:not(.mini)':\n      'cmd-shift-c': 'highlight-column:toggle'\n\nHighlight column the cursor is at.\n\n![Screenshot with dark theme](https://f.cloud.github.com/assets/1253659/2365736/b60c9b90-a6da-11e3-8081-fc8753783435.png)\n\nAnd for light theme\n\n![Screenshot with dark theme](https://f.cloud.github.com/assets/1253659/2365739/f9c3c746-a6da-11e3-95aa-2590d855cd8f.png)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/tony612/highlight-column/issues"
+  },
+  "homepage": "https://github.com/tony612/highlight-column",
+  "_id": "highlight-column@0.3.2",
+  "dist": {
+    "shasum": "01615e841cfe17209f0f58e9b402583922081637"
+  },
+  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11469-2807-13vsc5c/package.tgz",
+  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11469-2807-13vsc5c/package.tgz"
+}

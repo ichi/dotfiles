@@ -1,0 +1,41 @@
+{
+  "name": "selection-count",
+  "main": "./lib/selection-count",
+  "version": "1.6.3",
+  "description": "Counts selected characters.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iSheeft/selection-count"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "# Selection count package\n\nAdd selection count (number of chars selected) to the atom editor.\n\n![Selection count in action](http://m.UploadEdit.com/b034/1400091768865.gif)\n\nBy default '# characters selected' is displayed,\nbut you can now change it to '#c' for instance.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/iSheeft/selection-count/issues"
+  },
+  "homepage": "https://github.com/iSheeft/selection-count",
+  "_id": "selection-count@1.6.3",
+  "dist": {
+    "shasum": "e1684407aad56e686b93201bdb356e6b161cb783"
+  },
+  "_resolved": "/private/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-115019-15403-1bmgnx0/package.tgz",
+  "_from": "/private/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-115019-15403-1bmgnx0/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/selection-count-view.coffee",
+        "lib/selection-count.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}

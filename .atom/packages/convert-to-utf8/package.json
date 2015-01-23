@@ -1,0 +1,33 @@
+{
+  "name": "convert-to-utf8",
+  "main": "./lib/convert-to-utf8",
+  "version": "0.0.4",
+  "description": "ConvertToUTF8 package for editing and saving files encoded in Shift_JIS, etc",
+  "activationEvents": [
+    "convert-to-utf8:open_shift_jis",
+    "convert-to-utf8:save_shift_jis"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dongri/convert-to-utf8"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "jconv": "0.1.5"
+  },
+  "readme": "# ConvertToUTF8\n\nConvertToUTF8 package for editing and saving files encoded in Shift_JIS, etc.\n\n![A screenshot of your spankin' package](https://dl.dropboxusercontent.com/u/358152/github/convert-to-utf8/convert-to-utf8-1.png)\n\n![A screenshot of your spankin' package](https://dl.dropboxusercontent.com/u/358152/github/convert-to-utf8/convert-to-utf8-2.png)\n\n\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/dongri/convert-to-utf8/issues"
+  },
+  "homepage": "https://github.com/dongri/convert-to-utf8",
+  "_id": "convert-to-utf8@0.0.4",
+  "dist": {
+    "shasum": "7af915e6f9f70b1cfbd3a21fe46edbd9c4d20fa0"
+  },
+  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114523-70553-13z25rg/package.tgz",
+  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114523-70553-13z25rg/package.tgz"
+}

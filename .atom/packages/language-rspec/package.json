@@ -1,0 +1,27 @@
+{
+  "name": "language-rspec",
+  "main": "./lib/language-rspec",
+  "version": "0.2.1",
+  "description": "RSpec language package for Atom",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paveldruzyak/language-rspec"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "# RSpec language support in Atom\n\nAdds syntax highlighting and snippets to RSpec file in Atom.\n\nOriginally [converted](http://atom.io/docs/latest/converting-a-text-mate-bundle)\nfrom the [RSpec TextMate bundle](https://github.com/rspec/rspec-tmbundle).\n\nContributions are greatly appreciated. Please fork this repository and open a\npull request to add snippets, make grammar tweaks, etc.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/paveldruzyak/language-rspec/issues"
+  },
+  "homepage": "https://github.com/paveldruzyak/language-rspec",
+  "_id": "language-rspec@0.2.1",
+  "dist": {
+    "shasum": "203374dd7acc0d575cfd1adf2463aa206613f33b"
+  },
+  "_resolved": "/private/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114822-5652-1fsd1q5/package.tgz",
+  "_from": "/private/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114822-5652-1fsd1q5/package.tgz"
+}

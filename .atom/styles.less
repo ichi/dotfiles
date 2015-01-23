@@ -1,0 +1,116 @@
+/*
+ * Your Stylesheet
+ *
+ * This stylesheet is loaded when Atom starts up and is reloaded automatically
+ * when it is changed.
+ *
+ * If you are unfamiliar with LESS, you can read more about it here:
+ * http://www.lesscss.org
+ */
+
+
+.tree-view {
+}
+
+.editor {
+  &.mini{
+    font-size: 12px !important;
+  }
+
+  .cursor{}
+
+  .fold-marker:after{
+    color: cyan;
+    font-size: 1.2em;
+    width: 1em;
+    height: 1em;
+    vertical-align: bottom;
+  }
+
+  .gutter{
+    .line-number{
+      &.git-line-added ,
+      &.git-line-removed ,
+      &.git-line-modified {
+        padding-left: calc(0.5em - 0.5em);
+        border-left-width: 0.5em;
+      }
+
+      &.git-line-added {
+        // border-left-color: #008000;
+        border-left-color: #7cf76e;
+      }
+      // &.git-line-removed {
+      //   border-left-color: #ff0000;
+      // }
+      // &.git-line-modified {
+      //   border-left-color: #ffa500;
+      // }
+    }
+  }
+}
+
+.tree-view {
+  font-size: 12px;
+}
+
+.comment {
+  font-style: normal;
+  color: #808080;
+}
+
+.tab-bar{
+  .title{
+    &.icon-search{
+      color: #e93bc6;
+    }
+
+    &.icon-tools{
+      color: green;
+    }
+  }
+
+  .tab.active{
+    -webkit-flex: 1;
+    min-width: inherit;
+
+    &:before, &:after, > .title{
+      background-image: -webkit-linear-gradient(#c1e8ff, #f0f0f0);
+    }
+  }
+}
+
+// Minimap
+.with-minimap .vertical-scrollbar {
+  opacity: 0;
+  width: 0;
+}
+
+// Git Blame
+.git-blame {
+  .blame-lines {
+    .blame-line {
+      .date {
+        color: #000;
+      }
+    }
+  }
+}
+
+// File Icons
+@import "packages/file-icons/stylesheets/file-icons";
+.ctp-icon     { .mf; content: "\f137"; }
+.lock-icon    { .octicons; content: "\f06a"; }
+.tag-icon     { .octicons; content: "\f015"; }
+
+@{pane-tab-selector}, .icon-file-text, .icon-file-media, .icon-book{
+  &:before{ color: inherit !important; }
+
+  &[data-name$=".lock"]:before     { .lock-icon; }
+  &[data-name$=".ctp"]:before      { .ctp-icon; }
+  &[data-name$=".css"]:before      { .code-icon; }
+
+  &[data-name="Rakefile"]:before   { .ruby-icon; }
+  &[data-name="Capfile"]:before    { .ruby-icon; }
+  &[data-name="tags"]:before       { .tag-icon; }
+}

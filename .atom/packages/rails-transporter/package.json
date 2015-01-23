@@ -1,0 +1,773 @@
+{
+  "name": "rails-transporter",
+  "main": "./lib/rails-transporter",
+  "version": "1.1.1",
+  "description": "Open related Rails files depending on current context",
+  "activationCommands": {
+    "atom-workspace": [
+      "rails-transporter:open-controller",
+      "rails-transporter:open-view-finder",
+      "rails-transporter:open-layout",
+      "rails-transporter:open-model",
+      "rails-transporter:open-helper",
+      "rails-transporter:open-spec",
+      "rails-transporter:open-partial-template",
+      "rails-transporter:open-asset",
+      "rails-transporter:open-migration-finder",
+      "rails-transporter:open-view",
+      "rails-transporter:open-factory"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hmatsuda/rails-transporter"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^0.21.0",
+    "pluralize": "0.0.9",
+    "temp": "~0.6.0",
+    "wrench": "^1.5",
+    "underscore": "1.x",
+    "change-case": "2.1.6"
+  },
+  "readme": "# Rails Transporter [![Build Status](https://travis-ci.org/hmatsuda/rails-transporter.svg?branch=master)](https://travis-ci.org/hmatsuda/rails-transporter) [![Build status](https://ci.appveyor.com/api/projects/status/jnr0p97ero2wh1j2/branch/master?svg=true)](https://ci.appveyor.com/project/hmatsuda/rails-transporter/branch/master)\n\nThis package provides commands to open file depending on file which is being opened by active editor.\n\n![screenshot](http://cl.ly/image/43053A1J2b17/rails-transporter.gif)\n\n## Command Description\n\n### open-controller\nThis command provides 2 features.\n\n#### Open related controller\nIt opens controller file from `model`, `view` or `ontroller-spec`.\n\ne.g. When active editor is opening: \n`app/models/user.rb`, `app/views/users/*.html.erb` or `spec/controllers/users_controller_spec.rb`,\n`open-controller` opens `app/controllers/users_controller.rb`.\n\n#### Open controller concern\nIt opens concern file from controller.\n\ne.g. If active editor opens below file and cursor is on the `include` method,\n```ruby\nclass BlogsController < ApplicationController\n  include Blog::Taggable\nend\n```\n`open-controller` opens `app/controllers/concerns/blog/taggable.rb`.\n\nIf no controller or concern found, show dialog to create new file.\n\n### open-model\nThis command provides 2 features.\n\n#### Open related model\nIt opens related model file from `controller`, `view`, `model-spec` or `factory`.\n\ne.g. When active editor is opening: \n`app/controllers/users_controller.rb`, `app/views/users/*.html.erb`, `spec/models/user_spec.rb` or `spec/factories/users.rb`,\n\n`open-model` opens `app/models/user.rb`.\n\n#### Open model concern\nIt opens concern file from model.\n\ne.g. If active editor opens below file and cursor is on the `include` method,\n```ruby\nclass Item < ActiveRecord::Base\n  include Searchable\nend\n```\n`open-model` opens `app/models/concerns/searchable.rb`.\n\nIf no model or concern found, show dialog to create new file.\n\n### open-view\nIt opens related view for action method of controller.\n\nWhen active editor is opening controller and cursor is inside action method, `open-view` opens the related view file.\n\ne.g. When you open a below controller,\n```ruby\nclass UsersController < ApplicationController\n  def index\n    @users = User.all\n  end\n  \n  def show\n    @user = User.find(params[:id])\n  end\nend\n```\n\nif cursor is inside `index` method, `open-view` opens `app/views/users/index.html.erb`\nelse if cursor is inside `show` method, `open-view` opens `app/views/users/show.html.erb` else, do nothing.\n\nIf no related view found, show dialog to create new file.\n\nIf you want to change template engine like haml, override default setting in setting view.\n![View File Extension](http://cl.ly/image/2m31390Z0Z34/Settings_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_-_Atom.png)\n\n### open-view-finder\nIt opens related view files of controller.\n\ne.g. When active editor is opening `app/controllers/blogs_controller.rb`, `open-view-finder` opens related view list.\n![](http://cl.ly/image/1t0A0D220S3C/blogs_controller_rb_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)\n\n### open-layout\nIt opens related layout from `layout` method in controller.\n\ne.g. When active editor is opening controller, `open-layout` opens the related view layout file.\nThis command provides 2 behavior to open layout file. When active editor is opening a below controller,\n```ruby\nclass UsersController < ApplicationController\n  \n  layout 'user_dashboard'\n  \nend\n```\nFirst, cursor is on the `layout` method, `open-layout` opens `app/views/layouts/user_dashboard.html.erb` if it exists.\n\nSecond, when cursor isn't on the `layout` method, it opens `app/views/layouts/users.html.erb` if it doesn't exist, opens `app/views/layouts/application.html.erb`.\n\nThe first behavior has a priority to apply.\n\n### open-helper\nIt opens related helper from `controller`, `model`, `view` or `helper-spec`.\n\ne.g. When active editor is opening: \n\n`app/controllers/users_controller.rb`, `app/models/user.rb`, `app/views/users/*.html.erb` or `spec/helpers/users_helper_spec.rb`,\n\n`open-helper` opens `app/helpers/users_helper.rb`.\n\nIf no helper found, show dialog to create new file.\n\n\n### open-spec\nIt opens related spec from `controller`, `model`, `helper` or `factory`.\n\ne.g. When active editor is opening: \n\n`app/controllers/users_controller.rb`, it opens `spec/controllers/users_controller_spec.rb`.\n\n`app/models/user.rb` or `spec/factories/users.rb`, it opens `spec/models/user_spec.rb`.\n\n`app/helpers/users_helper.rb`, it opens `spec/helpers/users_helper_spec.rb`.\n\n\n\nIf no spec found, show dialog to create new file.\n\n### open-partial-template\nIt opens partial template from `render` method.\n\ne.g. When active editor is opening a below view file and cursor is on the `render` method,\n```ruby\n<section id=\"contents\">\n\n<%= render 'sidebar' %>\n\n</section>\n```\n`open-partial-template` opens `app/views/users/_sidebar.html.erb`.\n\nIf no related view found, show dialog to create new file.\n\n### open-asset\nIt opens related asset file from view or asset file.\n\ne.g. \n* When active editor is opening a below view,\n```html\n<html>\n<html>\n<head>\n<%= stylesheet_link_tag \"user\" %>\n<%= javascript_include_tag \"user\" %>\n<%= csrf_meta_tags %>\n</head>\n<body>\n<%= yield %>\n</body>\n</html>\n```\nwhen cursor is on `javascript_include_tag` method, it opens `app/assets/javascripts/user.js`,\nwhen cursor is on `stylesheet_link_tag` method, it opens `app/assets/stylesheets/user.css`.\n\n* When it is opening a asset file as following and cursor is on the `require` method,\n```coffee\n//= require my_library\n```\nit opens javascript file if it exists.\n\n* When it is opening a asset file as following and cursor is on the `require_tree` or `require_directory` method,\n```coffee\n//= require_tree shared\n//= require_directory shared\n```\nit opens related asset file list\n![](http://cl.ly/image/1G2D240f1A0i/application01_js_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)\n\n### open-mingration-finder\nIt opens all of migration list.\n![](http://cl.ly/image/3y0F2D1H1w2F/application01_js_-__Users_hakutoitoi__ghq_github_com_hmatsuda_rails-transporter_spec_fixtures_-_Atom.png)\n\n### open-factory\nIt opens related factory file from `model` or `model-spec`.\n\ne.g. When active editor is opening: \n\n`app/models/user.rb`, or `spec/models/user_spec.rb`,\n\n`open-spec` opens `spec/factories/blogs.rb`.\n\nIf no factory found, show dialog to create new file.\n\n## Default Keymaps\nCommand | Keymap\n--------|-------\nopen-controller|`ctrl-r c`\nopen-view-finder|`ctrl-r v f`\nopen-view|`ctrl-r v`\nopen-layout|`ctrl-r l`\nopen-model|`ctrl-r m`\nopen-helper|`ctrl-r h`\nopen-spec|`ctrl-r s`\nopen-partial-template|`ctrl-r p`\nopen-asset|`ctrl-r a`\nopen-migration-finder|`ctrl-r d m`\nopen-factory|`ctrl-r f`\n\n## Requirement\n* Ruby 1.9.3+\n* Rails 2.0.0+\n\n## Contributors\n* joseramonc\n\n## Contributing\n1. Fork it\n2. Create your feature branch (git checkout -b my-new-feature)\n3. Commit your changes (git commit -am 'Add some feature')\n4. Push to the branch (git push origin my-new-feature)\n5. Create new Pull Request\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/hmatsuda/rails-transporter/issues"
+  },
+  "homepage": "https://github.com/hmatsuda/rails-transporter",
+  "_id": "rails-transporter@1.1.1",
+  "dist": {
+    "shasum": "893c7e794c9bbf1e639a023bfa9c42127a6a51f4"
+  },
+  "_resolved": "/private/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-115019-15395-8j3i4/package.tgz",
+  "_from": "/private/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-115019-15395-8j3i4/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "fuzzaldrin",
+        "version": "2.1.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/lib/fuzzaldrin.js"
+      },
+      {
+        "name": "grim",
+        "version": "0.12.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/lib/grim.js"
+      },
+      {
+        "name": "emissary",
+        "version": "1.3.1",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/lib/emissary.js"
+      },
+      {
+        "name": "harmony-collections",
+        "version": "0.3.7",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/harmony-collections/harmony-collections.js"
+      },
+      {
+        "name": "mixto",
+        "version": "1.0.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/mixto/lib/mixin.js"
+      },
+      {
+        "name": "property-accessors",
+        "version": "1.1.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/property-accessors/lib/property-accessors.js"
+      },
+      {
+        "name": "harmony-collections",
+        "version": "0.3.7",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/harmony-collections.js"
+      },
+      {
+        "name": "underscore-plus",
+        "version": "1.6.6",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/lib/underscore-plus.js"
+      },
+      {
+        "name": "underscore",
+        "version": "1.6.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/node_modules/underscore/underscore.js"
+      },
+      {
+        "name": "space-pen",
+        "version": "4.3.4",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/lib/space-pen.js"
+      },
+      {
+        "name": "grim",
+        "version": "1.1.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/lib/grim.js"
+      },
+      {
+        "name": "coffeestack",
+        "version": "0.7.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/index.js"
+      },
+      {
+        "name": "coffee-script",
+        "version": "1.7.1",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/coffee-script.js"
+      },
+      {
+        "name": "mkdirp",
+        "version": "0.3.5",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/index.js"
+      },
+      {
+        "name": "source-map",
+        "version": "0.1.43",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js"
+      },
+      {
+        "name": "amdefine",
+        "version": "0.1.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js"
+      },
+      {
+        "name": "emissary",
+        "version": "1.3.1",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/lib/emissary.js"
+      },
+      {
+        "name": "harmony-collections",
+        "version": "0.3.7",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/harmony-collections/harmony-collections.js"
+      },
+      {
+        "name": "mixto",
+        "version": "1.0.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/mixto/lib/mixin.js"
+      },
+      {
+        "name": "property-accessors",
+        "version": "1.1.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/property-accessors/lib/property-accessors.js"
+      },
+      {
+        "name": "harmony-collections",
+        "version": "0.3.7",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/harmony-collections.js"
+      },
+      {
+        "name": "underscore-plus",
+        "version": "1.6.6",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/lib/underscore-plus.js"
+      },
+      {
+        "name": "underscore",
+        "version": "1.6.0",
+        "path": "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/underscore.js"
+      },
+      {
+        "name": "change-case",
+        "version": "2.1.6",
+        "path": "node_modules/change-case/change-case.js"
+      },
+      {
+        "name": "camel-case",
+        "version": "1.1.1",
+        "path": "node_modules/change-case/node_modules/camel-case/camel-case.js"
+      },
+      {
+        "name": "constant-case",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/constant-case/constant-case.js"
+      },
+      {
+        "name": "dot-case",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/dot-case/dot-case.js"
+      },
+      {
+        "name": "is-lower-case",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/is-lower-case/is-lower-case.js"
+      },
+      {
+        "name": "is-upper-case",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/is-upper-case/is-upper-case.js"
+      },
+      {
+        "name": "lower-case",
+        "version": "1.1.1",
+        "path": "node_modules/change-case/node_modules/lower-case/lower-case.js"
+      },
+      {
+        "name": "param-case",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/param-case/param-case.js"
+      },
+      {
+        "name": "pascal-case",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/pascal-case/pascal-case.js"
+      },
+      {
+        "name": "path-case",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/path-case/path-case.js"
+      },
+      {
+        "name": "sentence-case",
+        "version": "1.1.1",
+        "path": "node_modules/change-case/node_modules/sentence-case/sentence-case.js"
+      },
+      {
+        "name": "snake-case",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/snake-case/snake-case.js"
+      },
+      {
+        "name": "swap-case",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/swap-case/swap-case.js"
+      },
+      {
+        "name": "title-case",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/title-case/title-case.js"
+      },
+      {
+        "name": "upper-case",
+        "version": "1.1.1",
+        "path": "node_modules/change-case/node_modules/upper-case/upper-case.js"
+      },
+      {
+        "name": "upper-case-first",
+        "version": "1.1.0",
+        "path": "node_modules/change-case/node_modules/upper-case-first/upper-case-first.js"
+      },
+      {
+        "name": "pluralize",
+        "version": "0.0.9",
+        "path": "node_modules/pluralize/pluralize.js"
+      },
+      {
+        "name": "temp",
+        "version": "0.6.0",
+        "path": "node_modules/temp/lib/temp.js"
+      },
+      {
+        "name": "osenv",
+        "version": "0.0.3",
+        "path": "node_modules/temp/node_modules/osenv/osenv.js"
+      },
+      {
+        "name": "rimraf",
+        "version": "2.1.4",
+        "path": "node_modules/temp/node_modules/rimraf/rimraf.js"
+      },
+      {
+        "name": "graceful-fs",
+        "version": "1.2.3",
+        "path": "node_modules/temp/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js"
+      },
+      {
+        "name": "underscore",
+        "version": "1.7.0",
+        "path": "node_modules/underscore/underscore.js"
+      },
+      {
+        "name": "wrench",
+        "version": "1.5.8",
+        "path": "node_modules/wrench/lib/wrench.js"
+      }
+    ],
+    "extensions": {
+      ".coffee": [
+        "lib/asset-finder-view.coffee",
+        "lib/base-finder-view.coffee",
+        "lib/file-opener.coffee",
+        "lib/migration-finder-view.coffee",
+        "lib/rails-transporter.coffee",
+        "lib/rails-util.coffee",
+        "lib/view-finder-view.coffee",
+        "node_modules/atom-space-pen-views/lib/main.coffee",
+        "node_modules/atom-space-pen-views/lib/scroll-view.coffee",
+        "node_modules/atom-space-pen-views/lib/select-list-view.coffee",
+        "node_modules/atom-space-pen-views/lib/text-editor-view.coffee"
+      ],
+      ".js": [
+        "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/lib/filter.js",
+        "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/lib/fuzzaldrin.js",
+        "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/lib/matcher.js",
+        "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/lib/scorer.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/lib/deprecation.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/lib/grim.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/lib/behavior.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/lib/emissary.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/lib/emitter.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/lib/helpers.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/lib/signal.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/lib/subscriber.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/lib/subscription.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/harmony-collections/harmony-collections.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/harmony-collections/harmony-collections.min.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/mixto/lib/mixin.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/property-accessors/lib/property-accessors.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/harmony-collections.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/harmony-collections.min.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/lib/underscore-plus.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/node_modules/underscore/underscore.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/lib/space-pen.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/lib/deprecation.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/lib/grim.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/index.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/browser.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/cake.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/coffee-script.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/command.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/grammar.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/helpers.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/index.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/lexer.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/nodes.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/optparse.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/parser.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/register.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/repl.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/rewriter.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/scope.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script/sourcemap.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/examples/pow.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/index.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/register.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/Makefile.dryice.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/assert-shim.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/mini-require.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/suffix-browser.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/test-prefix.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build/test-suffix.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/array-set.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64-vlq.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/base64.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/binary-search.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/mapping-list.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-consumer.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-map-generator.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/source-node.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map/util.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/amdefine.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/intercept.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/lib/behavior.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/lib/emissary.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/lib/emitter.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/lib/helpers.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/lib/signal.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/lib/subscriber.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/lib/subscription.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/harmony-collections/harmony-collections.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/harmony-collections/harmony-collections.min.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/mixto/lib/mixin.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/property-accessors/lib/property-accessors.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/harmony-collections.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/harmony-collections.min.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/lib/underscore-plus.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/underscore.js",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/vendor/jquery.js",
+        "node_modules/change-case/change-case.js",
+        "node_modules/change-case/node_modules/camel-case/camel-case.js",
+        "node_modules/change-case/node_modules/constant-case/constant-case.js",
+        "node_modules/change-case/node_modules/dot-case/dot-case.js",
+        "node_modules/change-case/node_modules/is-lower-case/is-lower-case.js",
+        "node_modules/change-case/node_modules/is-upper-case/is-upper-case.js",
+        "node_modules/change-case/node_modules/lower-case/lower-case.js",
+        "node_modules/change-case/node_modules/param-case/param-case.js",
+        "node_modules/change-case/node_modules/pascal-case/pascal-case.js",
+        "node_modules/change-case/node_modules/path-case/path-case.js",
+        "node_modules/change-case/node_modules/sentence-case/sentence-case.js",
+        "node_modules/change-case/node_modules/sentence-case/vendor/camel-case-regexp.js",
+        "node_modules/change-case/node_modules/sentence-case/vendor/non-word-regexp.js",
+        "node_modules/change-case/node_modules/sentence-case/vendor/trailing-digit-regexp.js",
+        "node_modules/change-case/node_modules/snake-case/snake-case.js",
+        "node_modules/change-case/node_modules/swap-case/swap-case.js",
+        "node_modules/change-case/node_modules/title-case/title-case.js",
+        "node_modules/change-case/node_modules/upper-case/upper-case.js",
+        "node_modules/change-case/node_modules/upper-case-first/upper-case-first.js",
+        "node_modules/change-case/test.js",
+        "node_modules/pluralize/pluralize.js",
+        "node_modules/pluralize/test.js",
+        "node_modules/temp/examples/grepcount.js",
+        "node_modules/temp/examples/pdfcreator.js",
+        "node_modules/temp/lib/temp.js",
+        "node_modules/temp/node_modules/osenv/osenv.js",
+        "node_modules/temp/node_modules/rimraf/node_modules/graceful-fs/graceful-fs.js",
+        "node_modules/temp/node_modules/rimraf/rimraf.js",
+        "node_modules/underscore/underscore-min.js",
+        "node_modules/underscore/underscore.js",
+        "node_modules/wrench/lib/wrench.js"
+      ],
+      ".json": [
+        "node_modules/atom-space-pen-views/node_modules/fuzzaldrin/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/harmony-collections/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/mixto/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/property-accessors/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/node_modules/underscore/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/package.json",
+        "node_modules/atom-space-pen-views/node_modules/grim/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/api.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/node_modules/mkdirp/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/node_modules/amdefine/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/harmony-collections/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/mixto/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/property-accessors/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/node_modules/underscore/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/package.json",
+        "node_modules/atom-space-pen-views/node_modules/space-pen/package.json",
+        "node_modules/atom-space-pen-views/package.json",
+        "node_modules/change-case/node_modules/camel-case/package.json",
+        "node_modules/change-case/node_modules/constant-case/package.json",
+        "node_modules/change-case/node_modules/dot-case/package.json",
+        "node_modules/change-case/node_modules/is-lower-case/package.json",
+        "node_modules/change-case/node_modules/is-upper-case/package.json",
+        "node_modules/change-case/node_modules/lower-case/package.json",
+        "node_modules/change-case/node_modules/param-case/package.json",
+        "node_modules/change-case/node_modules/pascal-case/package.json",
+        "node_modules/change-case/node_modules/path-case/package.json",
+        "node_modules/change-case/node_modules/sentence-case/package.json",
+        "node_modules/change-case/node_modules/snake-case/package.json",
+        "node_modules/change-case/node_modules/swap-case/package.json",
+        "node_modules/change-case/node_modules/title-case/package.json",
+        "node_modules/change-case/node_modules/upper-case/package.json",
+        "node_modules/change-case/node_modules/upper-case-first/package.json",
+        "node_modules/change-case/package.json",
+        "node_modules/pluralize/component.json",
+        "node_modules/pluralize/package.json",
+        "node_modules/temp/node_modules/osenv/package.json",
+        "node_modules/temp/node_modules/rimraf/node_modules/graceful-fs/package.json",
+        "node_modules/temp/node_modules/rimraf/package.json",
+        "node_modules/temp/package.json",
+        "node_modules/underscore/package.json",
+        "node_modules/wrench/package.json",
+        "package.json"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "lib",
+          "",
+          "spec/fixtures/app/assets/javascripts",
+          "spec/fixtures/app/assets/javascripts/application02",
+          "spec/fixtures/app/assets/javascripts/shared",
+          "spec/fixtures/app/assets/javascripts/shared/subdir",
+          "spec/fixtures/lib/assets/javascripts",
+          "spec/fixtures/public",
+          "spec/fixtures/vendor/assets/javascripts",
+          "spec"
+        ],
+        "dependencies": {
+          "atom-space-pen-views": "^0.21.0",
+          "pluralize": "0.0.9",
+          "temp": "~0.6.0",
+          "wrench": "^1.5",
+          "underscore": "1.x",
+          "change-case": "2.1.6"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/lib",
+          "node_modules/atom-space-pen-views"
+        ],
+        "dependencies": {
+          "fuzzaldrin": "^2.1.0",
+          "grim": "^0.12.0",
+          "space-pen": "^4.3.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/grim/lib",
+          "node_modules/atom-space-pen-views/node_modules/grim"
+        ],
+        "dependencies": {
+          "underscore-plus": "^1.0.0",
+          "emissary": "^1.2.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/lib",
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary"
+        ],
+        "dependencies": {
+          "underscore-plus": "1.x",
+          "mixto": "1.x",
+          "property-accessors": "^1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/property-accessors/lib",
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/emissary/node_modules/property-accessors"
+        ],
+        "dependencies": {
+          "mixto": "1.x"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus/lib",
+          "node_modules/atom-space-pen-views/node_modules/grim/node_modules/underscore-plus"
+        ],
+        "dependencies": {
+          "underscore": "~1.6.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/lib",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/vendor"
+        ],
+        "dependencies": {
+          "grim": "^1.0.0",
+          "underscore-plus": "1.x"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/lib",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim"
+        ],
+        "dependencies": {
+          "coffeestack": "^0.7.0",
+          "emissary": "^1.2.0",
+          "underscore-plus": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack"
+        ],
+        "dependencies": {
+          "coffee-script": "~1.7.0",
+          "source-map": "~0.1.31"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script/lib/coffee-script",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/coffee-script"
+        ],
+        "dependencies": {
+          "mkdirp": "~0.3.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/build",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib/source-map",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/lib",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/test",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/coffeestack/node_modules/source-map/test/source-map"
+        ],
+        "dependencies": {
+          "amdefine": ">=0.0.4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/lib",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary"
+        ],
+        "dependencies": {
+          "underscore-plus": "1.x",
+          "mixto": "1.x",
+          "property-accessors": "^1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/property-accessors/lib",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/grim/node_modules/emissary/node_modules/property-accessors"
+        ],
+        "dependencies": {
+          "mixto": "1.x"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus/lib",
+          "node_modules/atom-space-pen-views/node_modules/space-pen/node_modules/underscore-plus"
+        ],
+        "dependencies": {
+          "underscore": "~1.6.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case"
+        ],
+        "dependencies": {
+          "camel-case": "^1.0.0",
+          "constant-case": "^1.0.0",
+          "dot-case": "^1.0.0",
+          "is-lower-case": "^1.0.0",
+          "is-upper-case": "^1.0.0",
+          "lower-case": "^1.0.0",
+          "param-case": "^1.0.0",
+          "pascal-case": "^1.0.0",
+          "path-case": "^1.0.0",
+          "sentence-case": "^1.0.0",
+          "snake-case": "^1.0.0",
+          "swap-case": "^1.0.0",
+          "title-case": "^1.0.0",
+          "upper-case": "^1.0.0",
+          "upper-case-first": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/camel-case"
+        ],
+        "dependencies": {
+          "sentence-case": "^1.1.1",
+          "upper-case": "^1.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/constant-case"
+        ],
+        "dependencies": {
+          "snake-case": "^1.1.0",
+          "upper-case": "^1.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/dot-case"
+        ],
+        "dependencies": {
+          "sentence-case": "^1.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/is-lower-case"
+        ],
+        "dependencies": {
+          "lower-case": "^1.1.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/is-upper-case"
+        ],
+        "dependencies": {
+          "upper-case": "^1.1.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/param-case"
+        ],
+        "dependencies": {
+          "sentence-case": "^1.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/pascal-case"
+        ],
+        "dependencies": {
+          "camel-case": "^1.1.1",
+          "upper-case-first": "^1.1.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/path-case"
+        ],
+        "dependencies": {
+          "sentence-case": "^1.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/sentence-case",
+          "node_modules/change-case/node_modules/sentence-case/vendor"
+        ],
+        "dependencies": {
+          "lower-case": "^1.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/snake-case"
+        ],
+        "dependencies": {
+          "sentence-case": "^1.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/swap-case"
+        ],
+        "dependencies": {
+          "lower-case": "^1.1.1",
+          "upper-case": "^1.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/title-case"
+        ],
+        "dependencies": {
+          "sentence-case": "^1.1.1",
+          "upper-case": "^1.0.3"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/change-case/node_modules/upper-case-first"
+        ],
+        "dependencies": {
+          "upper-case": "^1.1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/temp/examples",
+          "node_modules/temp/lib",
+          "node_modules/temp",
+          "node_modules/temp/test"
+        ],
+        "dependencies": {
+          "rimraf": "~2.1.4",
+          "osenv": "0.0.3"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/temp/node_modules/rimraf",
+          "node_modules/temp/node_modules/rimraf/test"
+        ],
+        "dependencies": {
+          "graceful-fs": "~1"
+        }
+      }
+    ]
+  }
+}

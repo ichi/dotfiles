@@ -1,0 +1,95 @@
+{
+  "name": "autocomplete-paths",
+  "main": "./lib/autocomplete-paths",
+  "version": "0.9.1",
+  "description": "Adds path autocompletion to autocomplete+",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atom-community/autocomplete-paths"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "underscore-plus": ">=1.1.2",
+    "fuzzaldrin": ">=1.0.0"
+  },
+  "readme": "# autocomplete-paths package [![Build Status](https://travis-ci.org/atom-community/autocomplete-paths.svg?branch=master)](https://travis-ci.org/atom-community/autocomplete-paths)\n\n[View the changelog](https://github.com/atom-community/autocomplete-paths/blob/master/CHANGELOG.md)\n\nAdds path autocompletion to autocomplete+\n\n![autocomplete-paths](http://s1.directupload.net/images/140411/p5kvife6.gif)\n\n## Installation\n\nYou can install autocomplete-paths using the Preferences pane.\n\n**Please make sure you have autocomplete-plus installed as well**\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/atom-community/autocomplete-paths/issues"
+  },
+  "homepage": "https://github.com/atom-community/autocomplete-paths",
+  "_id": "autocomplete-paths@0.9.1",
+  "dist": {
+    "shasum": "95e967f9adae38141f9f2ed5447e1d180ab630d6"
+  },
+  "_resolved": "/private/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-115019-15323-tpz8jm/package.tgz",
+  "_from": "/private/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-115019-15323-tpz8jm/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "fuzzaldrin",
+        "version": "2.1.0",
+        "path": "node_modules/fuzzaldrin/lib/fuzzaldrin.js"
+      },
+      {
+        "name": "underscore-plus",
+        "version": "1.6.6",
+        "path": "node_modules/underscore-plus/lib/underscore-plus.js"
+      },
+      {
+        "name": "underscore",
+        "version": "1.6.0",
+        "path": "node_modules/underscore-plus/node_modules/underscore/underscore.js"
+      }
+    ],
+    "extensions": {
+      ".coffee": [
+        "lib/autocomplete-paths.coffee",
+        "lib/paths-provider.coffee"
+      ],
+      ".js": [
+        "node_modules/fuzzaldrin/lib/filter.js",
+        "node_modules/fuzzaldrin/lib/fuzzaldrin.js",
+        "node_modules/fuzzaldrin/lib/matcher.js",
+        "node_modules/fuzzaldrin/lib/scorer.js",
+        "node_modules/underscore-plus/lib/underscore-plus.js",
+        "node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
+        "node_modules/underscore-plus/node_modules/underscore/underscore.js"
+      ],
+      ".json": [
+        "node_modules/fuzzaldrin/package.json",
+        "node_modules/underscore-plus/node_modules/underscore/package.json",
+        "node_modules/underscore-plus/package.json",
+        "package.json"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "lib",
+          "",
+          "spec",
+          "spec/fixtures",
+          "spec/issues"
+        ],
+        "dependencies": {
+          "underscore-plus": ">=1.1.2",
+          "fuzzaldrin": ">=1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/underscore-plus/lib",
+          "node_modules/underscore-plus"
+        ],
+        "dependencies": {
+          "underscore": "~1.6.0"
+        }
+      }
+    ]
+  }
+}

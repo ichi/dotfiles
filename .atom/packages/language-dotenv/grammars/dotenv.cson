@@ -1,0 +1,11 @@
+'name': 'Dotenv'
+'scopeName': 'source.dotenv'
+'fileTypes': [
+  'env'
+]
+'patterns': [
+  {
+    'match': '^#.*$'
+    'name': 'comment.line.dotenv'
+  }
+]

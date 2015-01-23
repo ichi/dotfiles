@@ -1,0 +1,31 @@
+{
+  "name": "font-viewer",
+  "main": "./lib/main",
+  "version": "0.1.0",
+  "description": "Preview font files in an editor in Atom.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ericfreese/font-viewer"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {
+    "fs-plus": "~2",
+    "underscore-plus": "~1",
+    "freetype2": "~0.1.2"
+  },
+  "readme": "# Font Viewer\n\n\nPreview font files in an editor in Atom. Support zooming via `⌘+`, `⌘-`, and `⌘0`.\n\nShows a preview of all mapped characters. Currently supports `.otf`, `.ttf`, and `.woff`\n\n![Font Viewer](http://i.imgur.com/WF2iej3.png)\n\nBased on [image-view](https://github.com/atom/image-view). Uses the [freetype2](https://www.npmjs.org/package/freetype2) module for font file parsing.\n\nhttps://atom.io/packages/font-viewer\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/ericfreese/font-viewer/issues"
+  },
+  "homepage": "https://github.com/ericfreese/font-viewer",
+  "_id": "font-viewer@0.1.0",
+  "dist": {
+    "shasum": "c5f6ea75687bc5606b1793b74135d9ddc7e9987b"
+  },
+  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114526-21181-orsq9a/package.tgz",
+  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114526-21181-orsq9a/package.tgz"
+}

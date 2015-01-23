@@ -1,0 +1,66 @@
+"*":
+  editor:
+    fontFamily: "Andale Mono"
+    fontSize: 11
+    showInvisibles: true
+    showIndentGuide: true
+    autoIndentOnPaste: false
+    preferredLineLength: 150
+  core:
+    ignoredNames: [
+      "cache/*"
+      "logs/*"
+      ".git"
+      ".hg"
+      ".svn"
+      ".DS_Store"
+      "Thumbs.db"
+    ]
+    disabledPackages: [
+      "emmet"
+      "trailing-spaces"
+      "minimap-highlight-selected"
+      "file-type-icons"
+      "selection-count"
+      "script"
+      "spell-check"
+      "sublime-tabs"
+      "convert-to-utf8"
+      "font-viewer"
+      "font-viewer"
+    ]
+    themes: [
+      "atom-light-ui"
+      "twilight"
+    ]
+    destroyEmptyPanes: false
+  "exception-reporting":
+    userId: "a29de0bc-b892-084d-ef5b-9031a316db17"
+  "release-notes":
+    viewedVersion: "0.94.0"
+  welcome:
+    showOnStartup: false
+  metrics:
+    userId: "05a88ba77ee8477cd135a07208e7bc414956d7ca"
+  "highlight-line":
+    enableBackgroundColor: false
+    enableUnderline: true
+  "highlight-column":
+    opacity: 0.75
+    enableHighlight: true
+  "custom-title":
+    template: "<%= fileName %><% if (relativeFilePath) { %> [<%= relativeFilePath %>]<% } %><% if (projectName) { %> - <%= projectName %><% } %>"
+".diff.source":
+  editor: {}
+"highlight-column":
+  opacity: 0.15
+  enableHighlight: false
+"exception-reporting":
+  userId: "3a23e2c1-8256-7bcf-76c6-0d8bcfc97def"
+welcome:
+  showOnStartup: false
+metrics:
+  userId: "c3de9fe83fc2f8df51d521928e249da7bb8784c9"
+core: {}
+editor:
+  invisibles: {}

@@ -5,6 +5,7 @@ CMD_DIR=$(cd $(dirname $0);pwd)
 
 FILES="
 .antrc
+.atom
 .caprc
 .colordiffrc
 .ctags

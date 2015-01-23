@@ -1,0 +1,29 @@
+{
+  "name": "language-dotenv",
+  "version": "0.3.0",
+  "description": ".env file support in Atom",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rjocoleman/language-dotenv"
+  },
+  "license": "MIT",
+  "main": "./lib/main",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "emissary": "1.x"
+  },
+  "readme": "# language-dotenv package\n\n[![Build Status](https://travis-ci.org/rjocoleman/language-dotenv.svg)](https://travis-ci.org/rjocoleman/language-dotenv)\n\nLanguage support for `.env` files in Atom.\n\n\n## Configuration\n\nAdditional filenames for `.env` files can be set in Settings.\n\nThese are a list i.e. `.env.foo, .env.bar, .env.baz`\nThe default additional filenames are `.env.production, .env.development, .env.test`\n\n`.env` itself is not required in the list - it is hard coded.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/rjocoleman/language-dotenv/issues"
+  },
+  "homepage": "https://github.com/rjocoleman/language-dotenv",
+  "_id": "language-dotenv@0.3.0",
+  "dist": {
+    "shasum": "7be3ed11c6e41f9b0c9e817a6b1a811fbcc14b8c"
+  },
+  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11459-49994-1gxm1pr/package.tgz",
+  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11459-49994-1gxm1pr/package.tgz"
+}
