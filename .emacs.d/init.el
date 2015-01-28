@@ -49,6 +49,9 @@
 ;; scroll up/down時にカーソルをバッファ先頭/終端へ
 (setq scroll-error-top-bottom t)
 
+;;タブではなくスペースを使う
+(setq-default indent-tabs-mode nil)
+
 ;;タブキー
 ;;(setq indent-line-function 'indent-relative-maybe)
 
