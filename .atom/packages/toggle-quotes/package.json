@@ -1,6 +1,6 @@
 {
   "name": "toggle-quotes",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "main": "./lib/toggle-quotes",
   "description": "Quickly toggle between single and double quotes",
   "repository": {
@@ -22,12 +22,10 @@
     "url": "https://github.com/atom/toggle-quotes/issues"
   },
   "homepage": "https://github.com/atom/toggle-quotes",
-  "_id": "toggle-quotes@0.9.0",
-  "dist": {
-    "shasum": "0976650438f44993599ec4559a9649e36e4d14ae"
-  },
-  "_resolved": "/private/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-115022-93195-29ov3i/package.tgz",
-  "_from": "/private/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-115022-93195-29ov3i/package.tgz",
+  "_id": "toggle-quotes@0.10.0",
+  "_shasum": "a7bd6dc3e3787e9229665b26dc909f5b5ec4e202",
+  "_resolved": "file:../d-115028-56518-rmaj8v/package.tgz",
+  "_from": "../d-115028-56518-rmaj8v/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],
