@@ -53,6 +53,8 @@
     template: "<%= fileName %><% if (relativeFilePath) { %> [<%= relativeFilePath %>]<% } %><% if (projectName) { %> - <%= projectName %><% } %>"
   "autocomplete-plus":
     confirmCompletion: "enter"
+  "git-blame": {}
+  "todo-show": {}
 ".js.rails.source source.jquery.js":
   editor:
     preferredLineLength: 150
@@ -68,14 +70,9 @@
 ".html.ruby.text":
   editor:
     preferredLineLength: 150
-".diff.source":
-  editor: {}
 ".slim.text":
   editor:
     preferredLineLength: 150
-editor:
-  invisibles: {}
-core: {}
 metrics:
   userId: "c3de9fe83fc2f8df51d521928e249da7bb8784c9"
 welcome:

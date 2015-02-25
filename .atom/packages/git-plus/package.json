@@ -1,7 +1,7 @@
 {
   "name": "git-plus",
   "main": "./lib/git-plus",
-  "version": "4.3.6",
+  "version": "4.3.7",
   "description": "Do git things without the terminal",
   "activationEvents": [
     "git-plus:menu",
@@ -61,10 +61,10 @@
     "url": "https://github.com/akonwi/git-plus/issues"
   },
   "homepage": "https://github.com/akonwi/git-plus",
-  "_id": "git-plus@4.3.6",
-  "_shasum": "b3fd221f4d438143b94cafd129572a6abca303a5",
-  "_resolved": "file:../d-115028-56503-6pgw0x/package.tgz",
-  "_from": "../d-115028-56503-6pgw0x/package.tgz",
+  "_id": "git-plus@4.3.7",
+  "_shasum": "321b5318600ef994db6a2ee8f7256c710cb44a25",
+  "_resolved": "file:../d-115030-86551-11u6csy/package.tgz",
+  "_from": "../d-115030-86551-11u6csy/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [

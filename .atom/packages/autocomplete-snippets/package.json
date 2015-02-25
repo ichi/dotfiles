@@ -1,7 +1,7 @@
 {
   "name": "autocomplete-snippets",
   "main": "./lib/autocomplete-snippets",
-  "version": "0.3.2",
+  "version": "1.0.0",
   "description": "Adds snippets to autocomplete+ suggestions",
   "repository": {
     "type": "git",
@@ -17,16 +17,16 @@
     "fuzzaldrin": "~1.0.0",
     "season": "~2.0.0"
   },
-  "readme": "# autocomplete+ snippet suggestions\n\n[View the changelog](https://github.com/atom-community/autocomplete-snippets/blob/master/CHANGELOG.md)\n\nAdds snippets to autocomplete+ suggestions\n\n![autocomplete-snippets](http://s7.directupload.net/images/140411/kgdlgsgx.gif)\n\n## Installation\n\nYou can install autocomplete-snippets using the Preferences pane.\n\n**Please make sure you have autocomplete-plus installed as well**\n\n## Features\n\n* Adds user snippets and language snippets to the autocomplete+ suggestions list\n",
+  "readme": "# autocomplete+ snippet suggestions [![Build Status](https://travis-ci.org/atom-community/autocomplete-snippets.svg)](https://travis-ci.org/atom-community/autocomplete-snippets)\n\n[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/atom-community/autocomplete-snippets?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n\n[View the changelog](https://github.com/atom-community/autocomplete-snippets/blob/master/CHANGELOG.md)\n\nAdds snippets to autocomplete+ suggestions\n\n![autocomplete-snippets](http://s7.directupload.net/images/140411/kgdlgsgx.gif)\n\n## Installation\n\nYou can install autocomplete-snippets using the Preferences pane.\n\n**Please make sure you have autocomplete-plus installed as well**\n\n## Features\n\n* Adds user snippets and language snippets to the autocomplete+ suggestions list\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/atom-community/autocomplete-snippets/issues"
   },
   "homepage": "https://github.com/atom-community/autocomplete-snippets",
-  "_id": "autocomplete-snippets@0.3.2",
-  "_shasum": "d7e95c7c3cbe061b7b63f5acf4255db6623234ec",
-  "_resolved": "file:../d-115028-56137-j4werl/package.tgz",
-  "_from": "../d-115028-56137-j4werl/package.tgz",
+  "_id": "autocomplete-snippets@1.0.0",
+  "_shasum": "28c73e29109529ad1f9f4f2f31c4ef6837f90cb3",
+  "_resolved": "file:../d-115030-86584-uxz60j/package.tgz",
+  "_from": "../d-115030-86584-uxz60j/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -184,7 +184,6 @@
     "extensions": {
       ".coffee": [
         "lib/autocomplete-snippets.coffee",
-        "lib/snippets-loader.coffee",
         "lib/snippets-provider.coffee",
         "node_modules/season/node_modules/cson-safe/node_modules/coffee-script-redux/node_modules/StringScanner/src/StringScanner.coffee",
         "node_modules/season/node_modules/cson-safe/node_modules/coffee-script-redux/node_modules/cscodegen/src/cscodegen.coffee"
