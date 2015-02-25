@@ -11,27 +11,27 @@ gem 'rak'
 gem 'wirble'
 gem 'pry'
 
-gem 'watchr'
-gem 'magic-commenter'
+# gem 'watchr'
+# gem 'magic-commenter'
 
-gem 'rdefs'
+# gem 'rdefs'
 gem 'sass'
 
-#gem 'rb-fsevent'
+# gem 'rb-fsevent'
 gem 'iconv'
 
 gem 'proxylocal'
 
 case RUBY_PLATFORM
 when /darwin/
-  gem 'cocoapods'
+#  gem 'cocoapods'
 #when /win32/
 #  gem 'bar'
 end
 
-gem 'jeweler'
-gem 'termit'
+# gem 'jeweler'
+# gem 'termit'
 
-gem 'ronn'
+# gem 'ronn'
 
-gem 'git-issue'
+# gem 'git-issue'
