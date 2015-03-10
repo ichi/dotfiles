@@ -2,9 +2,13 @@ GitHistoryView = require "./git-history-view"
 
 class GitHistory
 
-    configDefaults:
-        maxCommits: 100,
-        cursorShouldBeInHistoryPane: yes
+    config:
+        diffWithHead:
+            type: "boolean"
+            default: no
+        maxCommits:
+            type: "integer"
+            default: 100
 
     activate: ->
         atom.commands.add "atom-text-editor",

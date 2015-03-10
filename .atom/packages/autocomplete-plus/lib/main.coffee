@@ -1,8 +1,4 @@
-_ = require 'underscore-plus'
-AutocompleteManager = require './autocomplete-manager'
-Provider = require './provider'
-Suggestion = require './suggestion'
-{deprecate} = require 'grim'
+{Disposable, CompositeDisposable} = require 'atom'
 
 module.exports =
   config:
@@ -18,11 +14,12 @@ module.exports =
       type: 'integer'
       default: 100
       order: 2
-    maxSuggestions:
-      title: 'Maximum Suggestions'
-      description: 'The list of suggestions will be limited to this number.'
+    maxVisibleSuggestions:
+      title: 'Maximum Visible Suggestions'
+      description: 'The suggestion list will only show this many suggestions.'
       type: 'integer'
       default: 10
+      minimum: 1
       order: 3
     confirmCompletion:
       title: 'Keymap For Confirming A Suggestion'
@@ -42,7 +39,7 @@ module.exports =
       title: 'File Blacklist'
       description: 'Suggestions will not be provided for files matching this list.'
       type: 'array'
-      default: ['.*', '*.md']
+      default: ['.*']
       items:
         type: 'string'
       order: 6
@@ -66,88 +63,91 @@ module.exports =
       type: 'boolean'
       default: false
       order: 9
+    minimumWordLength:
+      description: "Only autocomplete when you've typed at least this many characters."
+      type: 'integer'
+      default: 1
+      order: 10
     enableBuiltinProvider:
       title: 'Enable Built-In Provider'
       description: 'The package comes with a built-in provider that will provide suggestions using the words in your current buffer or all open buffers. You will get better suggestions by installing additional autocomplete+ providers. To stop using the built-in provider, disable this option.'
       type: 'boolean'
       default: true
-      order: 10
+      order: 11
+    builtinProviderBlacklist:
+      title: 'Built-In Provider Blacklist'
+      description: 'Don\'t use the built-in provider for these selector(s).'
+      type: 'string'
+      default: '.source.gfm'
+      order: 12
+    backspaceTriggersAutocomplete:
+      title: 'Allow Backspace To Trigger Autocomplete'
+      description: 'If enabled, typing `backspace` will show the suggestion list if suggestions are available. If disabled, suggestions will not be shown while backspacing.'
+      type: 'boolean'
+      default: true
+      order: 13
+    suggestionListFollows:
+      title: 'Suggestions List Follows'
+      description: 'With "Cursor" the suggestion list appears at the cursor\'s position. With "Word" it appers at the beginning of the word that\'s being completed.'
+      type: 'string'
+      default: 'Cursor'
+      enum: ['Cursor', 'Word']
+      order: 14
+    defaultProvider:
+      description: 'Using the Symbol provider is experimental. You must reload Atom to use a new provider after changing this option.'
+      type: 'string'
+      default: 'Fuzzy'
+      enum: ['Fuzzy', 'Symbol']
+      order: 15
 
   # Public: Creates AutocompleteManager instances for all active and future editors (soon, just a single AutocompleteManager)
   activate: ->
-    @autocompleteManager = new AutocompleteManager()
+    # Upgrade to the new config key name
+    oldMax = atom.config.get('autocomplete-plus.maxSuggestions')
+    if oldMax? and oldMax isnt 10
+      atom.config.transact ->
+        atom.config.set('autocomplete-plus.maxVisibleSuggestions', oldMax)
+        atom.config.unset('autocomplete-plus.maxSuggestions')
+
+    @getAutocompleteManager()
 
   # Public: Cleans everything up, removes all AutocompleteManager instances
   deactivate: ->
     @autocompleteManager?.dispose()
     @autocompleteManager = null
 
-  registerProviderForEditorView: (provider, editorView) ->
-    @registerProviderForEditor(provider, editorView?.getModel())
+  getAutocompleteManager: ->
+    unless @autocompleteManager?
+      AutocompleteManager = require './autocomplete-manager'
+      @autocompleteManager = new AutocompleteManager()
+    @autocompleteManager
 
-  # Public: Finds the autocomplete for the given TextEditor
-  # and registers the given provider
-  #
-  # provider - The new {Provider}
-  # editor - The {TextEditor} we should register the provider with
-  registerProviderForEditor: (provider, editor) ->
-    return unless @autocompleteManager?.providerManager?
-    return unless editor?.getGrammar()?.scopeName?
-    deprecate """
-      registerProviderForEditor and registerProviderForEditorView are no longer supported.
-      Use [service-hub](https://github.com/atom/service-hub) instead:
-        ```
-        # Example:
-        provider =
-          requestHandler: (options) ->
-            # Build your suggestions here...
+  consumeSnippets: (snippetsManager) ->
+    @getAutocompleteManager().setSnippetsManager(snippetsManager)
 
-            # Return your suggestions as an array of anonymous objects
-            [{
-              word: 'ohai',
-              prefix: 'ohai',
-              label: '<span style="color: red">ohai</span>',
-              renderLabelAsHtml: true,
-              className: 'ohai'
-            }]
-          selector: '.source.js,.source.coffee' # This provider will be run on JavaScript and Coffee files
-          dispose: ->
-            # Your dispose logic here
-        registration = atom.services.provide('autocomplete.provider', '1.0.0', {provider: provider})
-        ```
-    """
-    return @autocompleteManager.providerManager.registerLegacyProvider(provider, '.' + editor?.getGrammar()?.scopeName)
+  ###
+  Section: Provider API
+  ###
 
-  # Public: unregisters the given provider
-  #
-  # provider - The {Provider} to unregister
-  unregisterProvider: (provider) ->
-    return unless @autocompleteManager?.providerManager?
-    deprecate """
-      unregisterProvider is no longer supported.
-      Use [service-hub](https://github.com/atom/service-hub) instead:
-        ```
-        # Example:
-        provider =
-          requestHandler: (options) ->
-            # Build your suggestions here...
+  # 1.0.0 API
+  # service - {provider: provider1}
+  consumeProviderLegacy: (service) ->
+    # TODO API: Deprecate, tell them to upgrade to 2.0
+    return unless service?.provider?
+    @consumeProvider([service.provider], '1.0.0')
 
-            # Return your suggestions as an array of anonymous objects
-            [{
-              word: 'ohai',
-              prefix: 'ohai',
-              label: '<span style="color: red">ohai</span>',
-              renderLabelAsHtml: true,
-              className: 'ohai'
-            }]
-          selector: '.source.js,.source.coffee' # This provider will be run on JavaScript and Coffee files
-          dispose: ->
-            # Your dispose logic here
-        registration = atom.services.provide('autocomplete.provider', '1.0.0', {provider: provider})
-        registration.dispose() # << unregisters your provider
-        ```
-    """
-    @autocompleteManager.providerManager.unregisterLegacyProvider(provider)
+  # 1.1.0 API
+  # service - {providers: [provider1, provider2, ...]}
+  consumeProvidersLegacy: (service) ->
+    # TODO API: Deprecate, tell them to upgrade to 2.0
+    @consumeProvider(service?.providers, '1.1.0')
 
-  Provider: Provider # TODO: This is deprecated, and will be removed soon
-  Suggestion: Suggestion # TODO: This is deprecated, and will be removed soon
+  # 2.0.0 API
+  # providers - either a provider or a list of providers
+  consumeProvider: (providers, apiVersion='2.0.0') ->
+    providers = [providers] if providers? and not Array.isArray(providers)
+    return unless providers?.length > 0
+    registrations = new CompositeDisposable
+    for provider in providers
+      registrations.add @getAutocompleteManager().providerManager.registerProvider(provider, apiVersion)
+    registrations

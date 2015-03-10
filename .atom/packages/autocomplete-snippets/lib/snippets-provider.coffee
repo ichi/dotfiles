@@ -8,14 +8,13 @@ class SnippetsProvider
 
   requestHandler: (options) ->
     return unless options?.cursor? and options.prefix?.length
-    scopeSnippets = atom.config.get('snippets', scope: options.cursor.getScopeDescriptor())
+    scopeSnippets = atom.config.get('snippets', {scope: options.cursor.getScopeDescriptor()})
     snippets = []
     for key, val of scopeSnippets
       val.label = key
       snippets.push(val)
 
     suggestions = @findSuggestionsForWord(snippets, options.prefix)
-
     return unless suggestions?.length
     return suggestions
 
@@ -36,5 +35,3 @@ class SnippetsProvider
       suggestion
 
     return results
-
-  dispose: ->

@@ -7,7 +7,7 @@
 
 @git-blame-bg-color: @base-background-color;
 
-.git-blame-mount {
+atom-text-editor::shadow .git-blame-mount {
   position: relative;
 
   .git-blame {
@@ -45,6 +45,15 @@
           .hash, .date {
             font-size: 90%;
             padding-right: @component-padding;
+          }
+
+          a.hash {
+            color: @text-color;
+            text-decoration: none;
+          }
+
+          a.hash:hover {
+            text-decoration: underline;
           }
 
           &.no-commit {

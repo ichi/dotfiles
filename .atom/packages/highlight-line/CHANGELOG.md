@@ -1,6 +1,13 @@
 ## Change Log
 
-### Upcoming
+### v0.10.1 2015/03/01
+- Fix 1px border above the status bar. ([@richrace] #[62])
+
+### v0.10.0 2015/02/28
+- Fix deprecations ([@skulled])
+- Fix Specs ([@richrace])
+
+### v0.9.3 2015/01/14
 - Support for Shadow Dom ([@richrace])
 
 ### v0.9.0 2014/09/04
@@ -133,3 +140,5 @@
 [@richrace]: https://github.com/richrace
 [@kelp404]: https://github.com/kelp404
 [@sniperbat]: https://github.com/sniperbat
+[@skulled]: https://github.com/skulled
+[62]: https://github.com/richrace/highlight-line/issues/62

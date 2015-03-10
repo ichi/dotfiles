@@ -32,7 +32,7 @@
 
   // Checklist icon
   &[data-name$="TODO"]:before { .checklist-icon; .medium-yellow; }
-  
+
   //Makefile icon
   &[data-name$="Makefile"]:before { .checklist-icon; .medium-yellow; }
   &[data-name$="makefile"]:before { .checklist-icon; .medium-yellow; }
@@ -79,12 +79,12 @@
 
   // HTML5 icon
   &[data-name$=".html"]:before { .html5-icon; .medium-orange; }
-  &[data-name$=".shtml"]:before { .html5-icon; .medium-cyan; }
-  &[data-name$=".haml"]:before { .html5-icon; .light-red;     }
+  &[data-name$=".shtml"]:before { .html5-icon; .medium-cyan;  }
+  &[data-name$=".haml"]:before { .haml-icon; .medium-yellow;  }
   &[data-name$=".jade"]:before { .html5-icon; .medium-green;  }
   &[data-name$=".jsp"]:before  { .html5-icon; .medium-purple; }
   &[data-name$=".ctp"]:before  { .html5-icon; .medium-blue;   }
-  &[data-name$=".ejs"]:before  { .html5-icon; .medium-green; }
+  &[data-name$=".ejs"]:before  { .html5-icon; .medium-green;  }
 
   // Mustache icon
   &[data-name$=".hbs"]:before,
@@ -104,9 +104,14 @@
   &[data-name=".mailmap"]:before        { .gear-icon;                 }
   &[data-name$=".editorconfig"]:before  { .gear-icon; .medium-orange; }
   &[data-name$=".jshintrc"]:before      { .gear-icon; .medium-yellow; }
+  &[data-name$=".jshintignore"]:before  { .gear-icon;                 }
   &[data-name$=".jscsrc"]:before        { .gear-icon; .medium-yellow; }
   &[data-name$=".module"]:before        { .gear-icon; .medium-blue;   }
   &[data-name$=".htaccess"]:before      { .gear-icon; .medium-red;    }
+
+  // Nodemon icon
+  &[data-name="nodemon.json"]:before,
+  &[data-name=".nodemonignore"]:before  { .gear-icon; .medium-green;  }
 
   // Npm icon
   &[data-name=".npmrc"]:before           { .node-icon; }
@@ -156,11 +161,16 @@
 
   // JavaScript icon
   &[data-name$=".js"]:before  { .js-icon; .medium-yellow; }
-  &[data-name$=".jsx"]:before { .js-icon; .medium-green; }
   &[data-name$=".ts"]:before  { .js-icon; .medium-purple; }
+  &[data-name$=".es6"]:before  { .js-icon; .medium-yellow; }
+
+  // JSX icon
+  &[data-name$=".jsx"]:before { .react-icon; .medium-blue; }
+  /* &[data-name$=".jsx"]:before { .jsx-icon; .medium-blue; } */
 
   // Coffee icon
   &[data-name$=".coffee"]:before    { .coffee-icon; .medium-maroon; }
+  &[data-name$=".cjsx"]:before      { .coffee-icon; .dark-maroon; }
   &[data-name$=".litcoffee"]:before { .coffee-icon; .light-maroon;  }
 
 
@@ -192,6 +202,8 @@
   .selected > &[data-name$=".go"]:before {
     -webkit-text-stroke-width: 0px !important;
   }
+  &[data-name$=".gohtml"]:before { .html5-icon; .dark-blue; }
+
 
   // Scala
   &[data-name$=".scala"]:before { .scala-icon; .medium-green; }
@@ -215,7 +227,7 @@
   &[data-name$=".m"]:before       { .objc-icon; .medium-blue; }
   &[data-name$=".mm"]:before      { .objc-icon; .medium-blue; }
   &[data-name$=".swift"]:before   { .swift-icon; .medium-green; }
-  
+
   ///D lang icon
   &[data-name$=".d"]:before     { .cpp-icon; .medium-blue; }
   &[data-name$=".di"]:before     { .cpp-icon; .medium-blue; }
@@ -241,6 +253,12 @@
 
   // txt
   &[data-name$=".txt"]:before { .medium-cyan;   }
+
+  // Assembly and binary
+  &[data-name$=".o"]:before,
+  &[data-name$=".out"]:before,
+  &[data-name$=".s"]:before,
+  &[data-name$=".asm"]:before { .binary-icon; .medium-red; }
 
   // shell
   &[data-name$=".sh"]:before,
@@ -270,6 +288,12 @@
   &[data-name="Gulpfile.coffee"]:before,
   &[data-name="gulpfile.coffee"]:before { .gulp-icon; .medium-maroon; }
 
+  // Ionic icon
+  &[data-name="ionic.project"]:before { .ionic-icon; .medium-blue; }
+
+  // NGINX icon
+  &[data-name$=".conf"]:before { .nginx-icon; .dark-green; }
+
   // Travis icon
   &[data-name^=".travis"]:before { .travis-icon; .medium-red; }
 
@@ -287,7 +311,7 @@
   &[data-name$=".psd1"]:before { .terminal-icon; .medium-blue; }
   &[data-name$=".ps1m"]:before { .terminal-icon; .medium-blue; }
   &[data-name$=".ps1xml"]:before { .terminal-icon; .medium-blue; }
-  
+
   // Readme
   &[data-name="README.md"]:before,
   &[data-name="Readme.md"]:before,
@@ -297,6 +321,11 @@
   &[data-name$=".png"]:before { .image-icon; .medium-orange; }
   &[data-name$=".gif"]:before { .image-icon; .medium-yellow; }
   &[data-name$=".jpg"]:before { .image-icon; .medium-green;  }
+
+  // Config files
+  &[data-name$=".ini"]:before { .config-icon; .medium-yellow; }
+  &[data-name$=".properties"]:before { .config-icon; .medium-purple; }
+  &[data-name$=".toml"]:before { .config-icon; .dark-maroon; }
 }
 
 body.file-icons-colourless {
@@ -308,5 +337,13 @@ body.file-icons-colourless {
 body.file-icons-force-show-icons {
   .tree-view .entry > .header > .name:before, .tree-view .entry > .name:before {
     display: inherit;
+  }
+}
+
+body.file-icons-on-changes {
+  .file.entry.list-item:not(.status-modified) {
+    .name.icon:before {
+      color: inherit !important;
+    }
   }
 }

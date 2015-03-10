@@ -1,6 +1,6 @@
-{waitForAutocomplete} = require('./spec-helper')
-describe "Async providers", ->
-  [completionDelay, editorView, editor, autocompleteManager, registration] = []
+{waitForAutocomplete} = require './spec-helper'
+describe 'Async providers', ->
+  [completionDelay, editorView, editor, mainModule, autocompleteManager, registration] = []
 
   beforeEach ->
     runs ->
@@ -19,33 +19,41 @@ describe "Async providers", ->
     waitsForPromise -> atom.workspace.open('sample.js').then (e) ->
       editor = e
 
-    waitsForPromise -> atom.packages.activatePackage('language-javascript')
+    waitsForPromise ->
+      atom.packages.activatePackage('language-javascript')
 
     # Activate the package
     waitsForPromise -> atom.packages.activatePackage('autocomplete-plus').then (a) ->
-      autocompleteManager = a.mainModule.autocompleteManager
+      mainModule = a.mainModule
+
+    waitsFor ->
+      mainModule.autocompleteManager?.ready
+
+    runs ->
+      autocompleteManager = mainModule.autocompleteManager
 
   afterEach ->
     registration?.dispose()
 
-  it "should provide completions when a provider returns a promise that results in an array of suggestions", ->
-    runs ->
+  describe 'when an async provider is registered', ->
+    beforeEach ->
       testAsyncProvider =
-        requestHandler: (options) ->
-          return new Promise (resolve) ->
+        getSuggestions: (options) ->
+          return new Promise((resolve) ->
             setTimeout ->
               resolve(
                 [{
-                  word: "asyncProvided",
-                  prefix: "asyncProvided",
-                  label: "asyncProvided"
+                  text: 'asyncProvided',
+                  replacementPrefix: 'asyncProvided',
+                  rightLabel: 'asyncProvided'
                 }]
               )
             , 10
+            )
         selector: '.source.js'
-        dispose: ->
-      registration = atom.services.provide('autocomplete.provider', '1.0.0', {provider: testAsyncProvider})
+      registration = atom.packages.serviceHub.provide('autocomplete.provider', '2.0.0', testAsyncProvider)
 
+    it 'should provide completions when a provider returns a promise that results in an array of suggestions', ->
       editor.moveToBottom()
       editor.insertText('o')
 
@@ -53,4 +61,50 @@ describe "Async providers", ->
 
       runs ->
         suggestionListView = atom.views.getView(autocompleteManager.suggestionList)
-        expect(suggestionListView.querySelector('li .label')).toHaveText('asyncProvided')
+        expect(suggestionListView.querySelector('li .completion-label')).toHaveText('asyncProvided')
+
+  describe 'when a provider takes a long time to provide suggestions', ->
+    beforeEach ->
+      testAsyncProvider =
+        selector: '.source.js'
+        getSuggestions: (options) ->
+          return new Promise((resolve) ->
+            setTimeout ->
+              resolve(
+                [{
+                  text: 'asyncProvided',
+                  replacementPrefix: 'asyncProvided',
+                  rightLabel: 'asyncProvided'
+                }]
+              )
+            , 1000
+            )
+      registration = atom.packages.serviceHub.provide('autocomplete.provider', '2.0.0', testAsyncProvider)
+
+    it 'does not show the suggestion list when it is triggered then no longer needed', ->
+      runs ->
+        editorView = atom.views.getView(editor)
+
+        editor.moveToBottom()
+        editor.insertText('o')
+
+        # Waiting will kick off the suggestion request
+        advanceClock(autocompleteManager.suggestionDelay * 2)
+
+      waits(0)
+
+      runs ->
+        # Waiting will kick off the suggestion request
+        editor.insertText(' ')
+        waitForAutocomplete()
+
+        # Expect nothing because the provider has not come back yet
+        expect(editorView.querySelector('.autocomplete-plus')).not.toExist()
+
+        # Wait til the longass provider comes back
+        advanceClock(1000)
+
+      waits(0)
+
+      runs ->
+        expect(editorView.querySelector('.autocomplete-plus')).not.toExist()

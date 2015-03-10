@@ -1,7 +1,7 @@
 "*":
   editor:
     fontFamily: "Andale Mono"
-    fontSize: 11
+    fontSize: 12
     showInvisibles: true
     showIndentGuide: true
     autoIndentOnPaste: false
@@ -61,24 +61,24 @@
 ".rails.rjs.ruby.source":
   editor:
     preferredLineLength: 150
-".ruby.source.sql":
+".html.ruby.text":
   editor:
     preferredLineLength: 150
 ".rails.ruby.source":
   editor:
     preferredLineLength: 150
-".html.ruby.text":
+".ruby.source.sql":
   editor:
     preferredLineLength: 150
 ".slim.text":
   editor:
     preferredLineLength: 150
-metrics:
-  userId: "c3de9fe83fc2f8df51d521928e249da7bb8784c9"
-welcome:
-  showOnStartup: false
-"exception-reporting":
-  userId: "3a23e2c1-8256-7bcf-76c6-0d8bcfc97def"
 "highlight-column":
   opacity: 0.15
   enableHighlight: false
+"exception-reporting":
+  userId: "3a23e2c1-8256-7bcf-76c6-0d8bcfc97def"
+welcome:
+  showOnStartup: false
+metrics:
+  userId: "c3de9fe83fc2f8df51d521928e249da7bb8784c9"

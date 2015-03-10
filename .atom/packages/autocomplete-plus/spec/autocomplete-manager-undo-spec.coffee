@@ -1,7 +1,7 @@
-{waitForAutocomplete} = require('./spec-helper')
+{waitForAutocomplete} = require './spec-helper'
 
-describe "Autocomplete Manager", ->
-  [completionDelay, editorView, editor, autocompleteManager] = []
+describe 'Autocomplete Manager', ->
+  [completionDelay, editorView, editor, mainModule, autocompleteManager] = []
 
   beforeEach ->
     runs ->
@@ -17,20 +17,28 @@ describe "Autocomplete Manager", ->
       workspaceElement = atom.views.getView(atom.workspace)
       jasmine.attachToDOM(workspaceElement)
 
-  describe "Undo a completion", ->
+  describe 'Undo a completion', ->
     beforeEach ->
-      runs -> atom.config.set('autocomplete-plus.enableAutoActivation', true)
+      runs ->
+        atom.config.set('autocomplete-plus.enableAutoActivation', true)
 
       waitsForPromise -> atom.workspace.open('sample.js').then (e) ->
         editor = e
 
-      waitsForPromise -> atom.packages.activatePackage('language-javascript')
+      waitsForPromise ->
+        atom.packages.activatePackage('language-javascript')
 
       # Activate the package
       waitsForPromise -> atom.packages.activatePackage('autocomplete-plus').then (a) ->
-        autocompleteManager = a.mainModule.autocompleteManager
+        mainModule = a.mainModule
 
-    it "restors the previous state", ->
+      waitsFor ->
+        mainModule.autocompleteManager?.ready
+
+      runs ->
+        autocompleteManager = mainModule.autocompleteManager
+
+    it 'restores the previous state', ->
 
       # Trigger an autocompletion
       editor.moveToBottom()

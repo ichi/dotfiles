@@ -1,4 +1,5 @@
-{View, Range} = require 'atom'
+{Range} = require 'atom'
+{View} = require 'atom-space-pen-views'
 _ = require 'underscore-plus'
 
 module.exports =
@@ -8,19 +9,28 @@ class HighlightedAreaView extends View
 
   initialize: ->
     @views = []
-    atom.workspaceView.on "selection:changed", @handleSelection
+    @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
+      @subscribeToActiveTextEditor()
+    @subscribeToActiveTextEditor()
 
   attach: ->
-    atom.workspaceView.prependToBottom(this)
+    panel = atom.workspace.addBottomPanel(item: this)
+    panel.hide()
 
   destroy: =>
-    atom.workspaceView.off 'selection:changed', @handleSelection
-    @unsubscribe()
+    @activeItemSubscription.dispose()
+    @selectionSubscription?.dispose()
     @remove()
     @detach()
 
+  subscribeToActiveTextEditor: ->
+    @selectionSubscription?.dispose()
+    @selectionSubscription = @getActiveEditor()?.onDidChangeSelectionRange =>
+      @handleSelection()
+    @handleSelection()
+
   getActiveEditor: ->
-    atom.workspace.getActiveEditor()
+    atom.workspace.getActiveTextEditor()
 
   handleSelection: =>
     @removeMarkers()
@@ -37,7 +47,8 @@ class HighlightedAreaView extends View
     result = regex.exec(text)
 
     return unless result?
-    return if result.length is 0 or
+    return if result[0].length < atom.config.get(
+      'highlight-selected.minimumLength') or
               result.index isnt 0 or
               result[0] isnt result.input
 

@@ -87,15 +87,44 @@ atom-text-editor, atom-text-editor::shadow{
 }
 
 // Git Blame
-.git-blame {
-  .blame-lines {
-    .blame-line {
-      .date {
-        color: #000;
-      }
+atom-text-editor::shadow .git-blame-mount .git-blame .git-blame-scroller .blame-lines .blame-line{
+  color: black;
+
+  a.hash{
+    color: blue;
+
+    &:visited{
+      color: purple;
     }
   }
 }
+
+// 検索結果
+atom-text-editor::shadow{
+  .highlight.current-result .region {
+    border-color: red;
+    background: red;
+    color: white;
+  }
+  .highlight.find-result .region {
+    border-color: red;
+  }
+}
+
+
+// atom-text-editor::shadow{
+//   // .git-blame-mount{
+//      .git-blame{
+//         // .git-blame-scroller{
+//             .blame-lines{
+//               .blame-line{
+//                 color: red;
+//               }
+//             }
+//         // }
+//     //  }
+//   }
+// }
 
 // File Icons
 @import "packages/file-icons/stylesheets/file-icons";

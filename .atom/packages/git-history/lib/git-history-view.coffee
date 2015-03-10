@@ -1,26 +1,39 @@
 path = require "path"
 fs = require "fs"
-{$$} = require "atom-space-pen-views"
-{SelectListView, BufferedProcess} = require "atom"
+{$$, SelectListView} = require "atom-space-pen-views"
+{BufferedProcess} = require "atom"
 
 class GitHistoryView extends SelectListView
 
     initialize: (@file) ->
-        super
-        @_setup() if file
+        super()
+        @show() if file
 
-    _setup: ->
+    show: ->
         @setLoading "Loading history for #{path.basename(@file)}"
-        @addClass "overlay from-top"
-        atom.workspaceView.append this
-        @focusFilterEditor()
+        @panel ?= atom.workspace.addModalPanel(item: this)
+        @panel.show()
+        @storeFocusedElement()
         @_loadLogData()
+        @focusFilterEditor()
+
+    cancel: ->
+        super()
+        @panel?.hide()
 
     _loadLogData: ->
         logItems = []
 
         stdout = (output) ->
-            output = output.replace("\n", "").trim()
+            output = output.replace('\n', '')
+            matches = output.match(/{"author": ".*?","relativeDate": ".*?","fullDate": ".*?","message": "(.*?)","hash": "[a-f0-9]*?"},/g)
+            output = ''
+            if matches?
+              for match in matches
+                message = match.match(/{"author": ".*?","relativeDate": ".*?","fullDate": ".*?","message": "(.*)","hash": "[a-f0-9]*?"},/)[1]
+                messageEscaped = message.replace(/\\/g, "\\\\").replace(/\"/g, "\\\"")
+                output += match.replace(message, messageEscaped)
+
             if output?.substring(output.length - 1) is ","
                 output = output.substring(0, output.length - 1)
 
@@ -36,7 +49,7 @@ class GitHistoryView extends SelectListView
         @_fetchFileHistory(stdout, exit)
 
     _fetchFileHistory: (stdout, exit) ->
-        format = "{\"hash\": \"%h\",\"author\": \"%an\",\"relativeDate\": \"%cr\",\"fullDate\": \"%ad\",\"message\": \"%f\"},"
+        format = "{\"author\": \"%an\",\"relativeDate\": \"%cr\",\"fullDate\": \"%ad\",\"message\": \"%s\",\"hash\": \"%h\"},"
 
         new BufferedProcess {
             command: "git",
@@ -47,7 +60,7 @@ class GitHistoryView extends SelectListView
                 "--max-count=#{@_getMaxNumberOfCommits()}",
                 "--pretty=format:#{format}",
                 "--topo-order",
-                "--date=short",
+                "--date=local",
                 @file
             ],
             stdout,
@@ -57,15 +70,20 @@ class GitHistoryView extends SelectListView
     _getMaxNumberOfCommits: ->
         return atom.config.get("git-history.maxCommits")
 
+    _isDiffEnabled: ->
+        return atom.config.get("git-history.diffWithHead")
+
     getFilterKey: -> "message"
 
     viewForItem: (logItem) ->
         fileName = path.basename(@file)
         $$ ->
-            @li =>
-                @div class: "text-highlight text-huge", logItem.message
-                @div "#{logItem.author} - #{logItem.relativeDate} (#{logItem.fullDate})"
-                @div class: "text-info", "#{logItem.hash} - #{fileName}"
+            @li class: "two-lines", =>
+                @div class: "pull-right", =>
+                  @span class: "secondary-line", "#{logItem.hash}"
+                @span class: "primary-line", logItem.message
+                @div class: "secondary-line", "#{logItem.author} authored #{logItem.relativeDate}"
+                @div class: "secondary-line", "#{logItem.fullDate}"
 
     confirmed: (logItem) ->
         fileContents = ""
@@ -73,32 +91,38 @@ class GitHistoryView extends SelectListView
             fileContents += output
 
         exit = (code) =>
-            activateHistoryPane = atom.config.get("git-history.cursorShouldBeInHistoryPane")
             if code is 0
                 outputDir = "#{atom.getConfigDirPath()}/.git-history"
                 fs.mkdir outputDir if not fs.existsSync outputDir
                 outputFilePath = "#{outputDir}/#{logItem.hash}-#{path.basename(@file)}"
                 fs.writeFile outputFilePath, fileContents, (error) ->
                     if not error
-                        originalPane = atom.workspace.getActivePane()
-                        options = {split: "right", activatePane: activateHistoryPane}
-                        atom.workspace.open(outputFilePath, options).done ->
-                            originalPane.activate() if not activateHistoryPane
+                        options = {split: "right", activatePane: yes}
+                        atom.workspace.open(outputFilePath, options)
             else
                 @setError "Could not retrieve history for #{path.basename(@file)}"
 
         @_loadRevision logItem.hash, stdout, exit
-        @cancel()
 
     _loadRevision: (hash, stdout, exit) ->
+        showDiff = @_isDiffEnabled()
+        diffArgs = [
+            "-C",
+            path.dirname(@file),
+            "diff",
+            "-U9999999",
+            "HEAD:#{atom.project.getRepo()?.relativize(@file)}",
+            "#{hash}:#{atom.project.getRepo()?.relativize(@file)}"
+        ]
+        showArgs = [
+            "-C",
+            path.dirname(@file),
+            "show",
+            "#{hash}:#{atom.project.getRepo().relativize(@file)}"
+        ]
         new BufferedProcess {
             command: "git",
-            args: [
-                "-C",
-                path.dirname(@file),
-                "show",
-                "#{hash}:#{atom.project.getRepo().relativize(@file)}"
-            ],
+            args: if showDiff then diffArgs else showArgs,
             stdout,
             exit
         }
