@@ -1,8 +1,2 @@
 /.emacs.d/auto-save-list/*
 /.emacs.d/backup/*
-
-/.atom/.node-gyp/*
-# /.atom/packages/*
-/.atom/storage/*
-/.atom/compile-cache/*
-/.atom/projects.cson
