@@ -38,6 +38,7 @@
 	filemode = false
 	quotepath = false
 	whitespace = cr-at-eol
+	precomposeunicode = true
 
 [push]
 	default = upstream

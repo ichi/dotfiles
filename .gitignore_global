@@ -19,3 +19,6 @@ vendor/bundle
 
 *.ichi.*
 .note
+.note.*
+
+.envrc
