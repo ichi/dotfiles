@@ -1,6 +1,6 @@
 {
   "name": "ssh-config",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "ssh config syntax",
   "repository": {
     "type": "git",
@@ -17,10 +17,18 @@
     "url": "https://github.com/lalyos/ssh-config/issues"
   },
   "homepage": "https://github.com/lalyos/ssh-config",
-  "_id": "ssh-config@0.10.0",
-  "dist": {
-    "shasum": "3b507468522dc84ec299e64785cfe27c5db348a8"
-  },
-  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114523-67471-1rab5pg/package.tgz",
-  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114523-67471-1rab5pg/package.tgz"
+  "_id": "ssh-config@0.10.1",
+  "_shasum": "26540911f3ed87aa9b3fb6d4598c925eb1bfb298",
+  "_resolved": "file:../d-115322-46739-1dde2zm/package.tgz",
+  "_from": "../d-115322-46739-1dde2zm/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

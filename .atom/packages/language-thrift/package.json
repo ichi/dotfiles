@@ -1,6 +1,6 @@
 {
   "name": "language-thrift",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Syntax highlighting and snippets for Thrift files.",
   "repository": {
     "type": "git",
@@ -17,9 +17,18 @@
     "url": "https://github.com/davidcelis/language-thrift/issues"
   },
   "homepage": "https://github.com/davidcelis/language-thrift",
-  "_id": "language-thrift@1.0.0",
-  "dist": {
-    "shasum": "51e884d873b00879e80d310a73b8531bfda91a3e"
-  },
-  "_from": "/Users/ichi/.atom/.node-gyp/.atom/.apm/language-thrift/1.0.0/package.tgz"
+  "_id": "language-thrift@1.0.1",
+  "_shasum": "fccea39fb33d1be9a760db41ee5f9b38b5104a82",
+  "_resolved": "file:../d-115426-14502-1epuvpk/package.tgz",
+  "_from": "../d-115426-14502-1epuvpk/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

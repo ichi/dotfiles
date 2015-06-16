@@ -1,8 +1,7 @@
-{Subscriber} = require 'emissary'
 
-StatusBarView = require './status-bar-view'
-dmpmod        = require 'diff_match_patch'
-dmp           = new dmpmod.diff_match_patch()
+SubAtom = require 'sub-atom'
+dmpmod  = require 'diff_match_patch'
+dmp     = new dmpmod.diff_match_patch()
 
 DIFF_EQUAL  =  0
 DIFF_INSERT =  1
@@ -11,58 +10,70 @@ DIFF_DELETE = -1
 paneInfo = [null, null]
 
 class ScrlSync
-  Subscriber.includeInto @
-  
   activate: (state) ->
-    @statusBarView = null
-    atom.workspaceView.command "scroll-sync:toggle", => 
-      if not @statusBarView then @startTracking()
-      else                       @stopTracking()
+    console.log 'activate scrlsync'
+    @subs = new SubAtom
+    @tracking = no
+    @subToggle = new SubAtom
+    @subToggle.add atom.commands.add 'atom-workspace', 'scroll-sync:toggle': =>
+      if not @tracking then @startTracking() else @stopTracking()
+
+  consumeStatusBar: (statusBar) ->
+    console.log 'consumeStatusBar'
+    statusBarEle = document.createElement 'a'
+    statusBarEle.classList.add 'inline-block'
+    statusBarEle.classList.add 'text-highlight'
+    statusBarEle.setAttribute 'href', '#'
+    statusBarEle.textContent = 'ScrlSync'
+    statusBarEle.style.display = 'none'
+    statusBarEle.addEventListener 'click', => @stopTracking()
+    @statusBarTile = statusBar.addLeftTile item: statusBarEle, priority: 100
 
   startTracking: -> 
-    paneView   = atom.workspaceView.getActivePaneView()
-    editorView = atom.workspaceView.getActiveView()
-    if not paneView or not editorView then stopTracking(); return
+    @tracking = yes
+    @statusBarTile.item.style.display = 'inline-block'
+    pane   = atom.workspace.getActivePane()
+    editor = atom.workspace.getActiveTextEditor()
+    editorEle = atom.views.getView editor
+    if not pane or not editor then @stopTracking(); return
     
-    editor = editorView.getEditor()
     buffer = editor.getBuffer()
-    @subscribe buffer, "destroyed", => @stopTracking?()
+    @subs.add buffer, "destroyed", => @stopTracking()
     paneInfo[0] = {
-      buffer, editor, editorView, paneView
+      buffer, editor, editor, pane
       lineTop:
-        editor.bufferPositionForScreenPosition( [editorView.getFirstVisibleScreenRow(), 0] ).row
+        editor.bufferPositionForScreenPosition( [editorEle.getFirstVisibleScreenRow(), 0] ).row
       lineBot:
-        editor.bufferPositionForScreenPosition( [editorView.getLastVisibleScreenRow(),  0] ).row
+        editor.bufferPositionForScreenPosition( [editorEle.getLastVisibleScreenRow(),  0] ).row
     }
-    paneView = null
-    paneViews = atom.workspaceView.getPaneViews()
-    for pv in paneViews
-      if pv isnt paneInfo[0].paneView
-        paneView = pv
+    pane = null
+    panes = atom.workspace.getPanes()
+    for pv in panes
+      if pv isnt paneInfo[0].pane
+        pane = pv
         break
-    if not paneView then @stopTracking(); return
-    $editorView = paneView.find '.editor:visible'
-    if $editorView.length is 0 then stopTracking(); return
-    editorView = $editorView.view()
-    editor = editorView.getEditor()
+    if not pane then @stopTracking(); return
+    
+    editor = pane.getActiveEditor()
+    if not editor then @stopTracking(); return
+    editorEle = atom.views.getView editor
+    
     buffer = editor.getBuffer()
-    @subscribe buffer, "destroyed", => @stopTracking?()
+    @subs.add buffer, "destroyed", => @stopTracking?()
     paneInfo[1] = {
-      buffer, editor, editorView
+      buffer, editor, editor
       lineTop:
-        editor.bufferPositionForScreenPosition( [editorView.getFirstVisibleScreenRow(), 0] ).row
+        editor.bufferPositionForScreenPosition( [editorEle.getFirstVisibleScreenRow(), 0] ).row
       lineBot:
-        editor.bufferPositionForScreenPosition( [editorView.getLastVisibleScreenRow(),  0] ).row
+        editor.bufferPositionForScreenPosition( [editorEle.getLastVisibleScreenRow(),  0] ).row
     }
     
     @textChanged()
     @scrollPosChanged 0
 
-    @statusBarView = new StatusBarView @
-  
     for pane in [0..1] then do (pane) =>
-      @subscribe paneInfo[pane].buffer, 'contents-modified',     @textChanged
-      @subscribe paneInfo[pane].editor, 'scroll-top-changed', => @scrollPosChanged pane
+      @subs.add paneInfo[pane].buffer, 'contents-modified',   @textChanged
+      @subs.add paneInfo[pane].editor.onDidChangeScrollTop => @scrollPosChanged pane
 
   textChanged: ->
     diffs = dmp.diff_main paneInfo[0].buffer.getText(), paneInfo[1].buffer.getText()
@@ -79,50 +90,43 @@ class ScrlSync
         if diffType in [DIFF_EQUAL, DIFF_DELETE] then map0by1.push m1by0Len
     paneInfo[0].mapToOther = map0by1
     paneInfo[1].mapToOther = map1by0
-    
+
   scrollPosChanged: (pane) -> 
       thisInfo  = paneInfo[pane]
       otherInfo = paneInfo[1-pane]
       if not thisInfo or not otherInfo or thisInfo.scrolling then return
       
-      thisEditor     = thisInfo.editor
-      thisEditorView = thisInfo.editorView
+      thisEditor = thisInfo.editor
+      thisEditorEle = atom.views.getView thisEditor
+        
       thisTop = thisInfo.lineTop = \
          thisEditor.bufferPositionForScreenPosition( \
-        [thisEditorView.getFirstVisibleScreenRow(), 0] ).row
+        [thisEditorEle.getFirstVisibleScreenRow(), 0] ).row
       thisBot = thisInfo.lineBot = \
          thisEditor.bufferPositionForScreenPosition( \
-        [thisEditorView.getLastVisibleScreenRow(),  0] ).row
+        [thisEditorEle.getLastVisibleScreenRow(),  0] ).row
       thisMid = Math.min thisInfo.mapToOther.length-1, Math.floor (thisTop + thisBot) / 2
       
-      othereditorView = otherInfo.editorView
-
-      otherTopScrnPixPos = othereditorView.pixelPositionForScreenPosition \
-                          [othereditorView.getFirstVisibleScreenRow(), 0]
-      otherBotScrnPixPos = othereditorView.pixelPositionForScreenPosition \
-                          [othereditorView.getLastVisibleScreenRow(), 0]
-      otherHalfScrnHgtPix = Math.floor (otherBotScrnPixPos.top - otherTopScrnPixPos.top) / 2
-      
+      otherEditor = otherInfo.editor
+      otherEditorEle = atom.views.getView otherEditor
       otherMid = Math.min otherInfo.mapToOther.length-1, thisInfo.mapToOther[thisMid] 
-      otherPos    = [otherMid, 0]
-      otherPixPos = othereditorView.pixelPositionForBufferPosition otherPos
+      otherPos = [otherMid, 0]
       
       otherInfo.scrolling = yes
-      othereditorView.scrollTop otherPixPos.top - otherHalfScrnHgtPix
+      otherEditor.scrollToBufferPosition otherPos, center: true
       otherInfo.scrolling = no
 
   stopTracking: ->
-    @unsubscribe()
+    @tracking = no
+    @subs.dispose()
+    @subs.clear()
+    @statusBarTile.item.style.display = 'none'
     paneInfo = [null, null]
-    @statusBarView?.destroy()
-    @statusBarView = null
   
   deactivate: -> 
-    @stopTracking
-
+    @subToggle.dispose()
+    @stopTracking()
+    @statusBarTile?.destroy()
+    @statusBarTile = null
+    
 module.exports = new ScrlSync
-
-
-
-    
-    

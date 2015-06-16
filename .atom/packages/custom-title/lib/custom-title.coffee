@@ -39,19 +39,21 @@ module.exports =
 
 		atom.workspace.updateWindowTitle = ->
 			if template
-				projectPath = atom.project.getPath()
+				projectPath = atom.project.getPaths()[0]
 				projectName = if projectPath then path.basename(projectPath) else null
 
 				item = atom.workspace.getActivePaneItem()
 
 				fileName = item?.getTitle?() ? 'untitled'
 				filePath = item?.getPath?()
+				fileInProject = false
 
-				repo = atom.project.getRepo()
+				repo = atom.project.getRepositories()[0]
 				gitHead = repo?.getShortHead()
 
 				gitAdded = null
 				gitDeleted = null
+				relativeFilePath = null
 
 				devMode = atom.inDevMode()
 				safeMode = atom.inSafeMode?()
@@ -70,10 +72,13 @@ module.exports =
 
 				if filePath and projectPath
 					relativeFilePath = path.relative(projectPath, filePath)
+					if filePath.startsWith(projectPath)
+						fileInProject = true
 
 				try
+
 					title = template {
-						projectPath, projectName,
+						projectPath, projectName, fileInProject,
 						filePath, relativeFilePath, fileName,
 						gitHead, gitAdded, gitDeleted
 						devMode, safeMode
@@ -99,7 +104,7 @@ module.exports =
 
 	deactivate: ->
 		@subscriptions?.dispose()
-		@configSub?.off()
+		@configSub?.dispose()
 		atom.workspace.updateWindowTitle = _updateWindowTitle
 
 	serialize: ->

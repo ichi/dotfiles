@@ -1,7 +1,7 @@
 {
   "name": "line-jumper",
   "main": "./lib/line-jumper",
-  "version": "0.13.0",
+  "version": "0.14.1",
   "private": true,
   "description": "Move the cursor and select 10 lines at a time",
   "repository": {
@@ -19,10 +19,21 @@
     "url": "https://github.com/benogle/line-jumper/issues"
   },
   "homepage": "https://github.com/benogle/line-jumper",
-  "_id": "line-jumper@0.13.0",
-  "dist": {
-    "shasum": "dcf1a640e9e40cfb6d5048aa30e1ab4458d8d02a"
-  },
-  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114224-59896-19ac4fo/package.tgz",
-  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114224-59896-19ac4fo/package.tgz"
+  "_id": "line-jumper@0.14.1",
+  "_shasum": "b22a9562c9616b537e92b205af2523c47f7bb6ca",
+  "_resolved": "file:../d-11553-45607-cr3vvh/package.tgz",
+  "_from": "../d-11553-45607-cr3vvh/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/line-jumper.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

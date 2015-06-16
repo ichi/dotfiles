@@ -1,20 +1,20 @@
 module.exports = {
   voidElements: ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'],
 
-  configDefaults: {
-      'closeTagOn </': true
+  config: {
+      'closeTagOn </': { type: 'boolean', default: true }
   },
 
   activate: function(state) {
     var _this = this;
 
-    atom.workspaceView.eachEditorView(function(editorView) {
-        editorView.editor.buffer.on('changed', function(e) {
-          _this.bufferChanged(e);
-        });
+    atom.workspace.observeTextEditors(function(editor) {
+      editor.getBuffer().onDidChange(function(e) {
+        _this.bufferChanged(e);
+      });
     });
 
-    return atom.workspaceView.command("tag:close-tag", (function(_this) {
+    return atom.commands.add("atom-workspace", "tag:close-tag", (function(_this) {
       return function() {
         return _this.closeTag();
       };
@@ -22,18 +22,18 @@ module.exports = {
   },
 
   closeTag: function() {
-    var editor = atom.workspace.getActiveEditor();
+    var editor = atom.workspace.getActiveTextEditor();
     if (editor === undefined) {
       return;
     }
 
-    var cursorPos = editor.getCursor().getBufferPosition();
+    var cursorPos = editor.getLastCursor().getBufferPosition();
     var buffer = editor.getTextInBufferRange([[0, 0], cursorPos]);
     editor.insertText(this.getClosingTag(buffer));
   },
 
   bufferChanged: function(e) {
-    var editor = atom.workspace.getActiveEditor();
+    var editor = atom.workspace.getActiveTextEditor();
 
     if (editor === undefined || !atom.config.get('tag.closeTagOn </') || e.newText !== '/') {
       return;
@@ -47,7 +47,7 @@ module.exports = {
       return;
     }
 
-    var cursorPos = editor.getCursor().getBufferPosition();
+    var cursorPos = editor.getLastCursor().getBufferPosition();
     var translatedPos = cursorPos.translate([0, -2]);
     var lastTwo = editor.getTextInBufferRange([translatedPos, cursorPos]);
 

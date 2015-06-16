@@ -1,3 +1,29 @@
+## 0.12.0
+- Do not show match groups with no matches
+- Show what happened when no matches where found
+- Command to only scan todos in open files (find-in-open-files)
+
+## 0.11.0
+- Use alt+shift+t on windows and linux
+- Same patterns as language-todo, thanks @KylePDavis
+- Work on reopen tabs
+- Line break long match texts
+- Scan progress when loading todos
+
+## 0.10.0
+- Strip common block comment endings (e.g. '*/')
+- Truncate matches over 120 characters
+- Configurable where the pane opens with openListInDirection
+- Updated styling
+- Save and refresh buttons
+
+## 0.9.0
+- Removed all deprecation calls for Atom 1.0
+- Valid ignore syntax for node_modules, vendor and bower_components
+- Toggle todo view
+- Working keymap ctrl-shift-t
+- New maintainer of atom-todo-show @MRodalgaard
+
 ## 0.8.0
 - Change how the ignore paths are handled.
 - https://github.com/jamischarles/atom-todo-show/pull/35

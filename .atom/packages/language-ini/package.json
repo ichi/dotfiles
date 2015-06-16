@@ -1,6 +1,6 @@
 {
   "name": "language-ini",
-  "version": "1.7.0",
+  "version": "1.10.0",
   "description": "Syntax support for ini files.",
   "repository": {
     "type": "git",
@@ -26,10 +26,10 @@
   },
   "readme": "# Syntax support for Ini files in Atom\n\nContributions are welcome and bonus are awarded for pull requests. Please fork and send a pull requests for updates to grammars, snippets or documentation.\n",
   "readmeFilename": "README.md",
-  "_id": "language-ini@1.7.0",
-  "_shasum": "17be8a9a8e09bb5bea2608d04041fd1f2de657df",
-  "_resolved": "file:../d-115210-57093-ltzzgk/package.tgz",
-  "_from": "../d-115210-57093-ltzzgk/package.tgz",
+  "_id": "language-ini@1.10.0",
+  "_shasum": "d4fe5fdb1d2e26727430c6e7a414d7ad3dfb57b5",
+  "_resolved": "file:../d-115322-46634-i7rae7/package.tgz",
+  "_from": "../d-115322-46634-i7rae7/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],

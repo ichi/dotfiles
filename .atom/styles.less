@@ -13,9 +13,9 @@
 }
 
 atom-text-editor, atom-text-editor::shadow{
-  &.mini{
-    font-size: 12px !important;
-  }
+  // &.mini{
+  //   font-size: 12px !important;
+  // }
 
   .cursor{}
 
@@ -81,10 +81,12 @@ atom-text-editor, atom-text-editor::shadow{
 }
 
 // Minimap
-.with-minimap .vertical-scrollbar {
+atom-text-editor .vertical-scrollbar,
+atom-text-editor::shadow .vertical-scrollbar {
   opacity: 0;
   width: 0;
 }
+
 
 // Git Blame
 atom-text-editor::shadow .git-blame-mount .git-blame .git-blame-scroller .blame-lines .blame-line{
@@ -111,35 +113,23 @@ atom-text-editor::shadow{
   }
 }
 
-
-// atom-text-editor::shadow{
-//   // .git-blame-mount{
-//      .git-blame{
-//         // .git-blame-scroller{
-//             .blame-lines{
-//               .blame-line{
-//                 color: red;
-//               }
-//             }
-//         // }
-//     //  }
-//   }
-// }
-
 // File Icons
-@import "packages/file-icons/stylesheets/file-icons";
+@import "packages/file-icons/styles/colors"; // to use the colours
+@import "packages/file-icons/styles/icons";  // to use the defined icons
 .ctp-icon     { .mf; content: "\f137"; }
 .lock-icon    { .octicons; content: "\f06a"; }
-.tag-icon     { .octicons; content: "\f015"; }
+.tag-icon { .octicons; content: "\f015"; }
 
-@{pane-tab-selector}, .icon-file-text, .icon-file-media, .icon-book{
-  &:before{ color: inherit !important; }
+@import "packages/file-icons/styles/items";
+@{pane-tab-selector}, .icon-file-text {
+  &[data-name$=".ctp"]:before   { .ctp-icon; }
+  &[data-name$=".lock"]:before  { .lock-icon; }
+  &[data-name="tags"]:before    { .tag-icon; }
+}
 
-  &[data-name$=".lock"]:before     { .lock-icon; }
-  &[data-name$=".ctp"]:before      { .ctp-icon; }
-  &[data-name$=".css"]:before      { .code-icon; }
-
-  &[data-name="Rakefile"]:before   { .ruby-icon; }
-  &[data-name="Capfile"]:before    { .ruby-icon; }
-  &[data-name="tags"]:before       { .tag-icon; }
+// markdown preview
+.markdown-preview {
+  atom-text-editor {
+    background: black; // 黒背景のテーマなので
+  }
 }

@@ -36,7 +36,12 @@ module.exports =
       "File Based":
         command: "bash"
         args: (context) -> ['-c', "xcrun clang++ -fcolor-diagnostics -Wc++11-extensions -Wall -include stdio.h -include iostream " + context.filepath + " -o /tmp/cpp.out && /tmp/cpp.out"]
-
+  
+  'C# Script File':
+    "File Based":
+      command: "scriptcs"
+      args: (context) -> ['-script', context.filepath]
+  
   CoffeeScript:
     "Selection Based":
       command: "coffee"
@@ -73,8 +78,13 @@ module.exports =
 
   'F#':
     "File Based":
-      command: "fsharpi"
+      command: if GrammarUtils.OperatingSystem.isWindows() then "fsi" else "fsharpi"
       args: (context) -> ['--exec', context.filepath]
+
+  Forth:
+    "File Based":
+      command: "gforth"
+      args: (context) -> [context.filepath]
 
   Gherkin:
     "File Based":
@@ -129,6 +139,22 @@ module.exports =
       command: "julia"
       args: (context) -> [context.filepath]
 
+  Kotlin:
+    "Selection Based":
+      command: "bash"
+      args: (context) ->
+        code = context.getCode(true)
+        tmpFile = GrammarUtils.createTempFileWithCode(code, ".kt")
+        jarName = tmpFile.replace /\.kt$/, ".jar"
+        args = ['-c', "kotlinc #{tmpFile} -include-runtime -d #{jarName} && java -jar #{jarName} && rm #{jarName}"]
+        return args
+    "File Based":
+      command: "bash"
+      args: (context) ->
+        jarName = context.filename.replace /\.kt$/, ".jar"
+        args = ['-c', "kotlinc #{context.filepath} -include-runtime -d #{jarName} && java -jar #{jarName} && rm #{jarName}"]
+        return args
+
   LilyPond:
     "File Based":
       command: "lilypond"
@@ -145,6 +171,11 @@ module.exports =
       command: "sbcl"
       args: (context) -> ['--noinform', '--script', context.filepath]
 
+  'Literate Haskell':
+    "File Based":
+      command: "runhaskell"
+      args: (context) -> [context.filepath]
+
   LiveScript:
     "Selection Based":
       command: "lsc"
@@ -156,7 +187,10 @@ module.exports =
   Lua:
     "Selection Based":
       command: "lua"
-      args: (context)  -> ['-e', context.getCode()]
+      args: (context) ->
+        code = context.getCode(true)
+        tmpFile = GrammarUtils.createTempFileWithCode(code)
+        [tmpFile]
     "File Based":
       command: "lua"
       args: (context) -> [context.filepath]
@@ -188,6 +222,11 @@ module.exports =
       "File Based":
         command: "bash"
         args: (context) -> ['-c', "xcrun clang++ -fcolor-diagnostics -Wc++11-extensions -Wall -include stdio.h -include iostream -framework Cocoa " + context.filepath + " -o /tmp/objc-cpp.out && /tmp/objc-cpp.out"]
+
+  ocaml:
+    "File Based":
+      command: "ocaml"
+      args: (context) -> [context.filepath]
 
   PHP:
     "Selection Based":
@@ -224,6 +263,14 @@ module.exports =
   R:
     "File Based":
       command: "Rscript"
+      args: (context) -> [context.filepath]
+
+  Racket:
+    "Selection Based":
+      command: "racket"
+      args: (context) -> ['-e', context.getCode()]
+    "File Based":
+      command: "racket"
       args: (context) -> [context.filepath]
 
   RSpec:

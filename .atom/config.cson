@@ -1,11 +1,13 @@
 "*":
   editor:
-    fontFamily: "Andale Mono"
-    fontSize: 12
+    fontFamily: "Ricty Diminished Discord"
+    autoIndentOnPaste: false
+    invisibles:
+      {}
+    preferredLineLength: 100
+    fontSize: 13
     showInvisibles: true
     showIndentGuide: true
-    autoIndentOnPaste: false
-    invisibles: {}
   core:
     ignoredNames: [
       "cache/*"
@@ -18,20 +20,52 @@
     ]
     disabledPackages: [
       "emmet"
-      "trailing-spaces"
       "minimap-highlight-selected"
       "file-type-icons"
-      "selection-count"
       "script"
       "spell-check"
       "sublime-tabs"
-      "convert-to-utf8"
+      "color-picker"
+      "white-cursor"
+      "css-color-highlighting"
+      "editorconfig"
+      "toggle-quotes"
+      "git-history"
+      "indentation-jumper"
+      "language-apache"
+      "language-chef"
+      "language-docker"
+      "language-dotenv"
+      "language-gradle"
+      "language-haml"
+      "language-hosts"
+      "language-ini"
+      "language-lisp"
+      "language-rspec"
+      "language-scala"
+      "language-thrift"
+      "line-jumper"
+      "merge-conflicts"
+      "symbol-gen"
+      "project-manager"
+      "resize-panes"
+      "ruby-string-interpolation"
+      "status-tab-spacing"
+      "scroll-sync"
+      "ssh-config"
+      "sort-lines"
+      "space-tab"
+      "woah-there-mousewheel"
+      "trailing-spaces"
       "font-viewer"
-      "font-viewer"
+      "function-name-in-status-bar"
+      "autocomplete-php"
+      "autocomplete"
+      "minimap"
     ]
     themes: [
       "atom-light-ui"
-      "twilight"
+      "twilight-syntax"
     ]
     destroyEmptyPanes: false
   "exception-reporting":
@@ -52,45 +86,75 @@
     template: "<%= fileName %><% if (relativeFilePath) { %> [<%= relativeFilePath %>]<% } %><% if (projectName) { %> - <%= projectName %><% } %>"
   "autocomplete-plus":
     confirmCompletion: "enter"
-  "git-blame": {}
+  "git-blame":
+    {}
   "todo-show":
     findTheseRegexes: [
       "FIXMEs"
       "/FIXME:?(.+$)/g"
       "TODOs"
-      "/(TODO:?(.+$)|@todo:?(.+$))/g"
+      "/(?:TODO|@todo):?(.+$)/g"
+      "NOTEs"
+      "/(?:NOTE|@note):?(.+$)/g"
       "CHANGEDs"
       "/CHANGED:?(.+$)/g"
       "XXXs"
       "/XXX:?(.+$)/g"
     ]
-  "markdown-preview": {}
-  "tree-view": {}
-  "view-tail-large-files": {}
+  "markdown-preview":
+    {}
+  "tree-view":
+    {}
+  "view-tail-large-files":
+    {}
+  minimap:
+    plugins:
+      "find-and-replace": true
+      selection: true
+      "git-diff": false
+  "git-history":
+    {}
+  "file-icons":
+    onChanges: true
+    coloured: false
+  "related-files":
+    {}
+  "white-cursor":
+    {}
+  "highlight-selected":
+    {}
+  "fuzzy-finder":
+    {}
+  autocomplete:
+    includeCompletionsFromAllBuffers: true
+  "command-toolbar":
+    {}
+  "git-blame-plus":
+    {}
 ".js.rails.source source.jquery.js":
   editor:
     preferredLineLength: 150
 ".rails.rjs.ruby.source":
   editor:
     preferredLineLength: 150
-".ruby.source.sql":
+".html.ruby.text":
   editor:
     preferredLineLength: 150
 ".rails.ruby.source":
   editor:
     preferredLineLength: 150
-".html.ruby.text":
+".ruby.source.sql":
   editor:
     preferredLineLength: 150
 ".slim.text":
   editor:
     preferredLineLength: 150
-metrics:
-  userId: "c3de9fe83fc2f8df51d521928e249da7bb8784c9"
-welcome:
-  showOnStartup: false
-"exception-reporting":
-  userId: "3a23e2c1-8256-7bcf-76c6-0d8bcfc97def"
 "highlight-column":
   opacity: 0.15
   enableHighlight: false
+"exception-reporting":
+  userId: "3a23e2c1-8256-7bcf-76c6-0d8bcfc97def"
+welcome:
+  showOnStartup: false
+metrics:
+  userId: "c3de9fe83fc2f8df51d521928e249da7bb8784c9"

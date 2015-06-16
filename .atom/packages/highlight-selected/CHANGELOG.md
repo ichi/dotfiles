@@ -1,5 +1,11 @@
 ## Change Log
 
+### v0.9.3 (2015/05/15)
+- Fix `Uncaught TypeError: Cannot read property 'dispose' of undefined` ([@yongkangchen])
+
+### v0.9.2 (2015/04/18)
+- Fix hide highlight on multi select ([@hmatsuda])
+
 ### v0.9.1 (2015/03/01)
 - Fix 1px border on panel ([@richrace])
 

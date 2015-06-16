@@ -10,7 +10,7 @@ This package provides commands to open file depending on file which is being ope
 This command provides 2 features.
 
 #### Open related controller
-It opens controller file from `model`, `view` or `ontroller-spec`.
+It opens controller file from `model`, `view`, `controller-spec` or `requests-spec`.
 
 e.g. When active editor is opening: 
 `app/models/user.rb`, `app/views/users/*.html.erb` or `spec/controllers/users_controller_spec.rb`,
@@ -210,12 +210,19 @@ open-asset|`ctrl-r a`
 open-migration-finder|`ctrl-r d m`
 open-factory|`ctrl-r f`
 
+## Configurations
+
+You can change these from the Settings menu.
+
+- `newFileExtention`: Extension of the view files. Use this to support [Haml](http://haml.info/), [Slim](http://slim-lang.com/), etc.
+
 ## Requirement
 * Ruby 1.9.3+
 * Rails 2.0.0+
 
 ## Contributors
 * joseramonc
+* chibicode
 
 ## Contributing
 1. Fork it

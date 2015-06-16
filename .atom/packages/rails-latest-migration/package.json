@@ -1,11 +1,13 @@
 {
   "name": "rails-latest-migration",
   "main": "./lib/rails-latest-migration",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "description": "Opens the latest migration in a Rails app",
-  "activationEvents": [
-    "rails-latest-migration:find"
-  ],
+  "activationCommands": {
+    "atom-workspace": [
+      "rails-latest-migration:find"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/alexpls/rails-latest-migration-atom"
@@ -15,16 +17,27 @@
     "atom": ">0.50.0"
   },
   "dependencies": {},
-  "readme": "# Rails Latest Migration\n\nAdds a shortcut for quickly opening up the latest migration in your Rails app.\n\nPorted over from my Sublime Text plugin by the same name: [Rails Latest Migration - Sublime](https://github.com/alexpls/Rails-Latest-Migration).\n\nUsage\n--\n### Via Command Pallette\n1. Open up your Rails project *(note: for the plugin to work the project must have been opened in Atom at its root)*.\n2. Bring up the command pallette (CMD+SHIFT+P on Mac, CTRL+SHIFT+P on Windows).\n3. Type in \"latest\", and select \"Rails Latest Migration: Find\" from the list.\n4. And there it is, your latest migration!\n\n### Via keymap\n1. Open up your Rails project *(note: for the plugin to work the project must have been opened in Atom at its root)*.\n2. Type \"CTRL-CMD-l\", and there it is, your latest migration!\n\nThanks\n--\nThanks to @jonathansimmons for suggesting this plugin, and providing me with the Atom beta invite that allowed me to build it!\n",
+  "readme": "# Rails Latest Migration\n\nAdds a shortcut for quickly opening up the latest migration in your Rails app.\n\nPorted over from my Sublime Text plugin by the same name: [Rails Latest Migration - Sublime](https://github.com/alexpls/Rails-Latest-Migration).\n\n[Find Rails Latest Migration on the atom.io package manager here.](https://atom.io/packages/rails-latest-migration)\n\nUsage\n--\n### Via Command Pallette\n1. Open up your Rails project *(note: for the plugin to work the project must have been opened in Atom at its root)*.\n2. Bring up the command pallette (CMD+SHIFT+P on Mac, CTRL+SHIFT+P on Windows).\n3. Type in \"latest\", and select \"Rails Latest Migration: Find\" from the list.\n4. And there it is, your latest migration!\n\n### Via keymap\n1. Open up your Rails project *(note: for the plugin to work the project must have been opened in Atom at its root)*.\n2. Type \"CTRL-CMD-L\", and there it is, your latest migration!\n\nThanks\n--\nThanks to @jonathansimmons for suggesting this plugin, and providing me with the Atom beta invite that allowed me to build it!\n\nLicense\n--\nThe MIT License (MIT) - for more info see [LICENSE.md](https://github.com/alexpls/rails-latest-migration-atom/blob/master/LICENSE.md)\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/alexpls/rails-latest-migration-atom/issues"
   },
   "homepage": "https://github.com/alexpls/rails-latest-migration-atom",
-  "_id": "rails-latest-migration@1.1.0",
-  "dist": {
-    "shasum": "3ba436460fac25af885b994f76724e3a852fe04e"
-  },
-  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114310-34279-1ktmw2s/package.tgz",
-  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-114310-34279-1ktmw2s/package.tgz"
+  "_id": "rails-latest-migration@1.1.4",
+  "_shasum": "1790035aa927965f8e98e3c6c502222e782fd843",
+  "_resolved": "file:../d-115415-70198-mo3nhv/package.tgz",
+  "_from": "../d-115415-70198-mo3nhv/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/rails-latest-migration.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

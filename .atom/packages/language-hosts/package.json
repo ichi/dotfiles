@@ -1,6 +1,6 @@
 {
   "name": "language-hosts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "/etc/hosts file support in Atom",
   "repository": {
     "type": "git",
@@ -11,16 +11,24 @@
     "atom": ">0.50.0"
   },
   "dependencies": {},
-  "readme": "# language-hosts package\n\nLanguage support for `/etc/hosts` files in Atom.\n",
+  "readme": "# language-hosts package\n\n[![Build Status](https://travis-ci.org/rjocoleman/language-hosts.svg)](https://travis-ci.org/rjocoleman/language-hosts)\n\nLanguage support for `/etc/hosts` files in Atom.\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/rjocoleman/language-hosts/issues"
   },
   "homepage": "https://github.com/rjocoleman/language-hosts",
-  "_id": "language-hosts@0.1.1",
-  "dist": {
-    "shasum": "f9ef10380af6c7d00ddc699289ac8703b5505106"
-  },
-  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11459-49912-1xcm6dr/package.tgz",
-  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11459-49912-1xcm6dr/package.tgz"
+  "_id": "language-hosts@0.1.2",
+  "_shasum": "375a9cc8799a7d2ab7034e63017016163b4ad621",
+  "_resolved": "file:../d-115426-14489-1axgc0/package.tgz",
+  "_from": "../d-115426-14489-1axgc0/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

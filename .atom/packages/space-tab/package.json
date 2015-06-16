@@ -1,7 +1,7 @@
 {
   "name": "space-tab",
   "main": "./lib/space-tab",
-  "version": "0.1.0",
+  "version": "0.4.1",
   "private": true,
   "description": "Coverts leading tabs to spaces or vice versa",
   "repository": {
@@ -19,10 +19,21 @@
     "url": "https://github.com/jamesmacfie/space-tab/issues"
   },
   "homepage": "https://github.com/jamesmacfie/space-tab",
-  "_id": "space-tab@0.1.0",
-  "dist": {
-    "shasum": "6fb52f0df2b2fa22934083a134b5239b3886f892"
-  },
-  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11432-48288-s4y3cl/package.tgz",
-  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11432-48288-s4y3cl/package.tgz"
+  "_id": "space-tab@0.4.1",
+  "_shasum": "16f07c5a36ccce78e7d16b8f487e6810fedc27f6",
+  "_resolved": "file:../d-11555-78315-1ei19rn/package.tgz",
+  "_from": "../d-11555-78315-1ei19rn/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/space-tab.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

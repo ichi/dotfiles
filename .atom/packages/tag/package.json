@@ -1,7 +1,7 @@
 {
   "name": "tag",
   "main": "./lib/tag",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Sublime Text-inspired HTML & XML Tag menu and functions. Close Tag (⌥⌘.)",
   "keywords": [
     "tag",
@@ -29,10 +29,21 @@
     "url": "https://github.com/uzyn/tag/issues"
   },
   "homepage": "https://github.com/uzyn/tag",
-  "_id": "tag@0.2.3",
-  "dist": {
-    "shasum": "695c6ba6c744e9c9f5ae3270c0ec785c861ce5d8"
-  },
-  "_resolved": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11475-38486-795k7f/package.tgz",
-  "_from": "/var/folders/mr/tnpm7lm978x18j8sncdg5mg40000gn/T/d-11475-38486-795k7f/package.tgz"
+  "_id": "tag@0.3.0",
+  "_shasum": "6163c29181655f41ebe44c51c8c88f9216d5105c",
+  "_resolved": "file:../d-115426-14620-vspbu4/package.tgz",
+  "_from": "../d-115426-14620-vspbu4/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".js": [
+        "lib/tag.js"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

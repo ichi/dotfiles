@@ -3,10 +3,11 @@ Path = require 'path'
 
 module.exports =
   activate: ->
-    atom.workspaceView.command "rails-latest-migration:find", => @find()
+    atom.commands.add "atom-workspace",
+      "rails-latest-migration:find": => @find()
 
   find: ->
-    dir = atom.project.getRootDirectory()
+    dir = atom.project.getDirectories()[0]
 
     if @isRailsDir(dir)
       latest_migration_path = @getLatestMigration(dir)
@@ -15,7 +16,7 @@ module.exports =
       else
         alert "Uh oh! Could not find any migrations in your db/migrate directory. Please add some and try again."
     else
-      alert "Uh oh! This doesn't look like a Rails project. Please open up the root of a Rails app and try again."
+      alert "Uh oh! This doesn't look like a Rails project. Please open a Rails project and try again."
 
   isRailsDir: (dir) ->
     expected_rails_files = ['app', 'db', 'config', 'Gemfile']

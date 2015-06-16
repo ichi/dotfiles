@@ -1,0 +1,34 @@
+{
+  "name": "twilight-syntax-spacegray-eighties",
+  "theme": "syntax",
+  "version": "0.3.0",
+  "description": "Twilight syntax theme for GitHub's Atom IDE, optimized for the Spacegray Eighties theme.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cannikin/twilight-syntax-spacegray-eighties"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "readme": "twilight-syntax-spacegray-ui\n============================\n\nTwilight theme for GitHub's Atom IDE optimized for the [Spacegray Eighties UI theme](http://http://atom.io/packages/spacegray-eighties-ui).\n\nPorted from the Twilight TextMate theme.\n\nCredit to [emilyemorehouse's Spacegray Eighties port](https://github.com/emilyemorehouse/spacegray-eighties-ui) of [my port](https://github.com/cannikin/spacegray-dark-ui)!\n\n![screenshot](http://ridingtheclutch.com.s3.amazonaws.com/images/twilight-syntax-spacegray-eighties.png)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/cannikin/twilight-syntax-spacegray-eighties/issues"
+  },
+  "homepage": "https://github.com/cannikin/twilight-syntax-spacegray-eighties",
+  "_id": "twilight-syntax-spacegray-eighties@0.3.0",
+  "_shasum": "0bca31120e2618ad8426d9345b71233eb3e6b05f",
+  "_resolved": "file:../d-11555-5781-1dm196e/package.tgz",
+  "_from": "../d-11555-5781-1dm196e/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}

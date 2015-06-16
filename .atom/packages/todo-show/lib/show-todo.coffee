@@ -1,81 +1,79 @@
-# All this file really does is handle the following
-# 1) Defines Regex defaults
-# 2) Instantiates the commands, the panes, and then calls showTodoView.renderTodos()
+# This file handles configuration defaults, opening of pane and commands
 
-# Deps
-querystring = require 'querystring'
 url = require 'url'
-fs = require 'fs-plus'
 
-# Local files
 ShowTodoView = require './show-todo-view'
 
-
 module.exports =
-  showTodoView: null
-  configDefaults:
-    findTheseRegexes: [
-      'FIXMEs'
-      '/FIXME:?(.+$)/g'
-      'TODOs' #title
-      '/TODO:?(.+$)/g'
-      'CHANGEDs'
-      '/CHANGED:?(.+$)/g'
-      'XXXs'
-      '/XXX:?(.+$)/g'
-    ],
-    ignoreThesePaths: [
-      '/node_modules/'
-      '/vendor/'
-    ]
+  config:
+    # title, regex, title, regex...
+    findTheseRegexes:
+      type: 'array'
+      default: [ # based on atom/language-todo
+        'FIXMEs'
+        '/\\b@?FIXME:?(.+$)/g'
+        'TODOs'
+        '/\\b@?TODO:?(.+$)/g'
+        'CHANGEDs'
+        '/\\b@?CHANGED:?(.+$)/g'
+        'XXXs'
+        '/\\b@?XXX:?(.+$)/g'
+        'IDEAs'
+        '/\\b@?IDEA:?(.+$)/g'
+        'HACKs'
+        '/\\b@?HACK:?(.+$)/g'
+        'NOTEs'
+        '/\\b@?NOTE:?(.+$)/g'
+        'REVIEWs'
+        '/\\b@?REVIEW:?(.+$)/g'
+      ]
+      items:
+        type: 'string'
+    # ignore filter using node-ignore
+    ignoreThesePaths:
+      type: 'array'
+      default: [
+        '*/node_modules/'
+        '*/vendor/'
+        '*/bower_components/'
+      ]
+      items:
+        type: 'string'
+    # split direction to open list
+    openListInDirection:
+      type: 'string'
+      default: 'right'
+      enum: ['up', 'right', 'down', 'left', 'ontop']
 
-  activate: (state) ->
-    # atom.workspaceView.command 'todo-show:find-in-project', =>
+  activate: ->
     atom.commands.add 'atom-workspace', 'todo-show:find-in-project': =>
-    # @disposables.add atom.commands.add 'atom-workspace', 'todo-show:find-in-project': -> #this one is tied to the one in package.json
-      @show()
-    # @show()
-    # @showTodoView = new ShowTodoView(state.showTodoViewState)
+      @show('todolist-preview:///TODOs')
 
-    # register the todolist URI. Which will then open our custom view
+    atom.commands.add 'atom-workspace', 'todo-show:find-in-open-files': =>
+      @show('todolist-preview:///Open-TODOs')
+
+    # Register the todolist URI, which will then open our custom view
     atom.workspace.addOpener (uriToOpen) ->
-      # console.log('REGISTER OPENER CALLED222', uriToOpen)
-      {protocol, pathname} = url.parse(uriToOpen)
-      pathname = querystring.unescape(pathname) if pathname
+      {protocol, host, pathname} = url.parse(uriToOpen)
+      pathname = decodeURI(pathname) if pathname
       return unless protocol is 'todolist-preview:'
-      # console.log('REGISTER OPENER CALLED444', uriToOpen)
-      new ShowTodoView(pathname)
+      new ShowTodoView(filePath: pathname).renderTodos()
 
+  show: (uri) ->
+    prevPane = atom.workspace.getActivePane()
+    pane = atom.workspace.paneForItem(@showTodoView)
+    direction = atom.config.get('todo-show.openListInDirection')
 
-  # findTodos: ->
-  #   atom.project.scan /todo/, (e) ->
-  #     console.log(e)
+    if pane
+      pane.destroyItem(@showTodoView)
+      # Ignore core.destroyEmptyPanes and close empty pane
+      pane.destroy() if pane.getItems().length is 0
+      return
 
-  deactivate: ->
-    @showTodoView.destroy()
-    #CHANGED
-    #NOTE:
-  serialize: ->
-    showTodoViewState: @showTodoView.serialize()
+    if direction is 'down'
+      prevPane.splitDown() if prevPane.parent.orientation isnt 'vertical'
+    else if direction is 'up'
+      prevPane.splitUp() if prevPane.parent.orientation isnt 'vertical'
 
-  show: (todoContent )->
-    # editor = atom.workspace.getActiveEditor()
-    # return unless editor?
-
-    # unless editor.getGrammar().scopeName is "source.gfm"
-    #   console.warn("Cannot render markdown for '#{editor.getURI() ? 'untitled'}'")
-    #   return
-    #
-    # unless fs.isFileSync(editor.getPath())
-    #   console.warn("Cannot render markdown for '#{editor.getPath() ? 'untitled'}'")
-    #   return
-
-    previousActivePane = atom.workspace.getActivePane()
-    uri = "todolist-preview://TODOs"
-    atom.workspace.open(uri, split: 'right', searchAllPanes: true).done (showTodoView) ->
-      # TODO: we could require it in, and use a similar pattern as the other one...
-      # console.log(arguments)
-      arguments[0].innerHTML = "WE HAVE LIFTOFF"
-      if showTodoView instanceof ShowTodoView
-        showTodoView.renderTodos() #do the initial render
-      previousActivePane.activate()
+    atom.workspace.open(uri, split: direction).done (@showTodoView) =>
+      prevPane.activate()

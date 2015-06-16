@@ -1,32 +1,29 @@
+{CompositeDisposable} = require 'atom'
 {$, TextEditorView, View} = require 'atom-space-pen-views'
 
 git = require '../git'
-StatusView = require '../views/status-view'
+notifier = require '../notifier'
 BranchListView = require '../views/branch-list-view'
-
-module.exports.gitBranches = ->
-  git.cmd
-    args: ['branch'],
-    stdout: (data) ->
-      new BranchListView(data)
 
 class InputView extends View
   @content: ->
     @div =>
       @subview 'branchEditor', new TextEditorView(mini: true, placeholderText: 'New branch name')
 
-  initialize: ->
+  initialize: (@repo) ->
+    @disposables = new CompositeDisposable
     @currentPane = atom.workspace.getActivePane()
     panel = atom.workspace.addModalPanel(item: this)
     panel.show()
 
     destroy = =>
       panel.destroy()
+      @disposables.dispose()
       @currentPane.activate()
 
     @branchEditor.focus()
-    @branchEditor.on 'core:cancel', => destroy()
-    @branchEditor.on 'core:confirm', =>
+    @disposables.add atom.commands.add 'atom-text-editor', 'core:cancel': (event) -> destroy()
+    @disposables.add atom.commands.add 'atom-text-editor', 'core:confirm': (event) =>
       editor = @branchEditor.getModel()
       name = editor.getText()
       if name.length > 0
@@ -35,11 +32,21 @@ class InputView extends View
 
   createBranch: (name) ->
     git.cmd
-      args: ['checkout', '-b', name],
-      stdout: (data) =>
-        new StatusView(type: 'success', message: data.toString())
-        atom.project.getRepo()?.refreshStatus()
+      args: ['checkout', '-b', name]
+      cwd: @repo.getWorkingDirectory()
+      # using `stderr` for success
+      stderr: (data) =>
+        notifier.addSuccess data.toString()
+        git.refresh @repo
+        @repo.destroy() if @repo.destroyable
         @currentPane.activate()
 
-module.exports.newBranch = ->
-  new InputView()
+module.exports.newBranch = (repo) ->
+  new InputView(repo)
+
+module.exports.gitBranches = (repo) ->
+  git.cmd
+    args: ['branch']
+    cwd: repo.getWorkingDirectory()
+    stdout: (data) ->
+      new BranchListView(repo, data)

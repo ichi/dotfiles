@@ -26,13 +26,19 @@ class GitHistoryView extends SelectListView
 
         stdout = (output) ->
             output = output.replace('\n', '')
-            matches = output.match(/{"author": ".*?","relativeDate": ".*?","fullDate": ".*?","message": "(.*?)","hash": "[a-f0-9]*?"},/g)
+            commits = output.match(/{"author": ".*?","relativeDate": ".*?","fullDate": ".*?","message": ".*?","hash": "[a-f0-9]*?"},/g)
             output = ''
-            if matches?
-              for match in matches
-                message = match.match(/{"author": ".*?","relativeDate": ".*?","fullDate": ".*?","message": "(.*)","hash": "[a-f0-9]*?"},/)[1]
+            if commits?
+              for commit in commits
+                freeTextMatches = commit.match(/{"author": "(.*?)","relativeDate": ".*?","fullDate": ".*?","message": "(.*)","hash": "[a-f0-9]*?"},/)
+
+                author = freeTextMatches[1]
+                authorEscaped = author.replace(/\\/g, "\\\\").replace(/\"/g, "\\\"")
+                commitAltered = commit.replace(author, authorEscaped)
+
+                message = freeTextMatches[2]
                 messageEscaped = message.replace(/\\/g, "\\\\").replace(/\"/g, "\\\"")
-                output += match.replace(message, messageEscaped)
+                output += commitAltered.replace(message, messageEscaped)
 
             if output?.substring(output.length - 1) is ","
                 output = output.substring(0, output.length - 1)
@@ -71,7 +77,7 @@ class GitHistoryView extends SelectListView
         return atom.config.get("git-history.maxCommits")
 
     _isDiffEnabled: ->
-        return atom.config.get("git-history.diffWithHead")
+        return atom.config.get("git-history.showDiff")
 
     getFilterKey: -> "message"
 
@@ -95,6 +101,7 @@ class GitHistoryView extends SelectListView
                 outputDir = "#{atom.getConfigDirPath()}/.git-history"
                 fs.mkdir outputDir if not fs.existsSync outputDir
                 outputFilePath = "#{outputDir}/#{logItem.hash}-#{path.basename(@file)}"
+                outputFilePath += ".diff" if @_isDiffEnabled()
                 fs.writeFile outputFilePath, fileContents, (error) ->
                     if not error
                         options = {split: "right", activatePane: yes}
@@ -105,20 +112,21 @@ class GitHistoryView extends SelectListView
         @_loadRevision logItem.hash, stdout, exit
 
     _loadRevision: (hash, stdout, exit) ->
+        repo = r for r in atom.project.getRepositories() when @file.indexOf(r.repo.workingDirectory) != -1
         showDiff = @_isDiffEnabled()
         diffArgs = [
             "-C",
-            path.dirname(@file),
+            repo.repo.workingDirectory.replace(/\\/g, '/'),
             "diff",
             "-U9999999",
-            "HEAD:#{atom.project.getRepo()?.relativize(@file)}",
-            "#{hash}:#{atom.project.getRepo()?.relativize(@file)}"
+            "#{hash}:#{atom.project.relativize(@file)}",
+            "#{atom.project.relativize(@file).replace(/\\/g, '/')}"
         ]
         showArgs = [
             "-C",
             path.dirname(@file),
             "show",
-            "#{hash}:#{atom.project.getRepo().relativize(@file)}"
+            "#{hash}:#{atom.project.relativize(@file).replace(/\\/g, '/')}"
         ]
         new BufferedProcess {
             command: "git",
