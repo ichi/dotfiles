@@ -113,9 +113,7 @@ source $ZSHHOME/alias.zsh
 source $ZSHHOME/darwin.zsh
 
 ### version manager
-source $ZSHHOME/rbenv.zsh
-source $ZSHHOME/phpenv.zsh
-export PATH=$HOME/.nodebrew/current/bin:$PATH # nodebrew
+source $ZSHHOME/env.zsh
 
 ### java
 source $ZSHHOME/java.zsh
