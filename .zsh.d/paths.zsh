@@ -28,3 +28,6 @@ export FREETDSCONF=/usr/local/Cellar/freetds/0.91/etc/freetds.conf
 
 # composer
 export PATH=$HOME/.composer/vendor/bin:$PATH
+
+# go
+export GOPATH=$HOME/.go
