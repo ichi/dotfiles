@@ -31,3 +31,4 @@ export PATH=$HOME/.composer/vendor/bin:$PATH
 
 # go
 export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin
