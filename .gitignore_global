@@ -7,18 +7,32 @@
 .*~
 *~
 .\#*
-.DS_Store
 *.sw[po]
+
+# mac
+.DS_Store
+
+# ctags
 tags
+
+# hg
 .hg
+
+# idea
 .idea
 .idea/*
 
+# bundler
 .bundle
 vendor/bundle
 
+# note
 *.ichi.*
 .note
 .note.*
 
+# direnv
 .envrc
+
+# imdone (atom)
+.imdone
