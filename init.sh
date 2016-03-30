@@ -20,7 +20,6 @@ FILES="
 .zsh.d
 .zshrc
 Brewfile
-Gemfile
 "
 
 rm -fr ${HOME}/.emacs #emacs.d/init.elに移行の為
