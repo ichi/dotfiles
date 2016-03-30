@@ -19,7 +19,6 @@ FILES="
 .tmux.conf
 .zsh.d
 .zshrc
-Brewfile
 "
 
 rm -fr ${HOME}/.emacs #emacs.d/init.elに移行の為
