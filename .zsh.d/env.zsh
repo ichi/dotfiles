@@ -19,6 +19,11 @@ if [[ -d $HOME/.phpenv ]]; then
   eval "$(phpenv init -)";
 fi
 
+### phpbrew
+if [[ -d $HOME/.phpbrew ]]; then
+  source ~/.phpbrew/bashrc
+fi
+
 ### crenv
 if [[ -d $HOME/.crenv ]]; then
   export PATH="$HOME/.crenv/bin:$PATH"
