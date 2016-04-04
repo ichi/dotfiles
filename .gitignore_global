@@ -36,3 +36,6 @@ vendor/bundle
 
 # imdone (atom)
 .imdone
+
+# intellij
+*.iml
