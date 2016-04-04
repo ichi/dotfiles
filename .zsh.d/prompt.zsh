@@ -1,3 +1,4 @@
+autoload -Uz add-zsh-hook
 autoload -Uz colors
 
 # per user
@@ -46,3 +47,9 @@ fi
 PROMPT="${PROMPT} "
 PROMPT2="${PROMPT2} "
 SPROMPT="${SPROMPT} "
+
+# Terminalのカスタムタイトルを設定
+function _chpwd_custom_title() {
+    printf '\e]1;%s\a' `basename $PWD`
+}
+add-zsh-hook chpwd _chpwd_custom_title
