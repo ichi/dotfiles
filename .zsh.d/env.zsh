@@ -21,6 +21,7 @@ fi
 
 ### phpbrew
 if [[ -d $HOME/.phpbrew ]]; then
+  export PHPBREW_RC_ENABLE=1
   source ~/.phpbrew/bashrc
 fi
 
