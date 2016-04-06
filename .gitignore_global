@@ -39,3 +39,7 @@ vendor/bundle
 
 # intellij
 *.iml
+
+# atom
+.tags
+.tags1
