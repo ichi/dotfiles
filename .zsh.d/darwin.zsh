@@ -34,13 +34,8 @@ darwin*)
   alias easytether-status="kextstat |grep EasyTether"
 
 
-  ### Mac Ports
-  #export PATH=$HOME/bin:$PATH:/opt/local/bin:/opt/local/sbin
-  #export MANPATH=/opt/local/man:$MANPATH
-
-
   ### homebrew
-  # SEE: /etc/paths
+  export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
   ### bundler
   export BUNDLER_EDITOR=atom
