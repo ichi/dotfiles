@@ -1,3 +1,6 @@
+## ねんのため
+export PATH=/usr/local/bin:$PATH
+
 ## android-sdk
 case "${OSTYPE}" in
 darwin*)
