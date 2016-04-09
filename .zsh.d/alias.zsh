@@ -30,3 +30,6 @@ function mkcd(){
     cd $1
 }
 function findg(){ find . -type f -exec grep $@ /dev/null {} \; }
+
+# tmuxinator
+alias mux='tmuxinator'
