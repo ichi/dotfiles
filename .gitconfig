@@ -46,6 +46,17 @@
 [pull]
 #	rebase = true
 
+[pager]
+	log  = diff-so-fancy | less
+	show = diff-so-fancy | less
+	diff = diff-so-fancy | less
+
+[diff]
+	compactionHeuristic = true
+
+[interactive]
+	diffFilter = diff-so-fancy
+
 [merge]
 	tool = p4merge
 
@@ -66,5 +77,6 @@
 
 [rerere]
 	enabled = true
+
 [rebase]
 	autosquash = true
