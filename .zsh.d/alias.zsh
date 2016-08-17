@@ -15,7 +15,7 @@ alias -g L="| less -R"
 alias -g G="| grep"
 alias zshrc='emacs ~/.zshrc'
 alias be='bundle exec'
-alias rspec='rspec -cfs'
+# alias rspec='rspec -cfs'
 function sshconfig(){
     if [ "$1" != "" -a "$1" = "-e" ]
     then
