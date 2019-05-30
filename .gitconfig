@@ -60,7 +60,8 @@
 	cmd = code --wait --diff $LOCAL $REMOTE
 
 [interactive]
-	diffFilter = diff-so-fancy
+	# diffFilter = diff-so-fancy
+	diffFilter = diff-highlight
 
 [merge]
 	tool = p4merge
