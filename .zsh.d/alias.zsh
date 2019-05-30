@@ -32,4 +32,16 @@ function mkcd(){
 function findg(){ find . -type f -exec grep $@ /dev/null {} \; }
 
 # tmuxinator
-alias mux='tmuxinator'
+function mux {
+    if [[ $1 == -* ]]
+    then
+        tmuxinator $@
+    else
+        title $1 && tmuxinator $@
+    fi
+}
+
+# title変更
+function title {
+    echo -ne "\033]0;$@\007"
+}
