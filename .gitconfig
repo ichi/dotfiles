@@ -39,6 +39,7 @@
 	quotepath = false
 	whitespace = cr-at-eol
 	precomposeunicode = true
+	autocrlf = false
 
 [push]
 	default = upstream
@@ -53,6 +54,10 @@
 
 [diff]
 	compactionHeuristic = true
+	tool = default-difftool
+
+[difftool "default-difftool"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 
 [interactive]
 	diffFilter = diff-so-fancy
