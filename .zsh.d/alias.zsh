@@ -1,10 +1,10 @@
 case "${OSTYPE}" in
-	darwin* | freebsd*)
-			alias ls='ls -AFG'
-			;;
-	*)
-			alias ls='ls -AF --color'
-			;;
+    darwin* | freebsd*)
+        alias ls='ls -AFG'
+        ;;
+    *)
+        alias ls='ls -AF --color'
+        ;;
 esac
 alias ll='ls -al'
 # function cd() { builtin cd $@ && ls; }
@@ -19,9 +19,9 @@ alias be='bundle exec'
 function sshconfig(){
     if [ "$1" != "" -a "$1" = "-e" ]
     then
-      emacs ~/.ssh/config;
+        emacs ~/.ssh/config;
     else
-      less ~/.ssh/config;
+        less ~/.ssh/config;
     fi
 }
 alias sshconf='sshconfig'
