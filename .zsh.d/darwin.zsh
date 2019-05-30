@@ -38,7 +38,11 @@ darwin*)
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
   ### bundler
-  export BUNDLER_EDITOR=atom
+  if which code > /dev/null 2>&1; then
+    export BUNDLER_EDITOR=code
+  else
+    export BUNDLER_EDITOR=atom
+  fi
 
   ### z.sh
   . `brew --prefix`/etc/profile.d/z.sh
