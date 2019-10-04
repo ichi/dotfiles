@@ -48,9 +48,9 @@
 #	rebase = true
 
 [pager]
-	log  = diff-so-fancy | less
-	show = diff-so-fancy | less
-	diff = diff-so-fancy | less
+	log  = /usr/local/bin/diff-so-fancy | less
+	show = /usr/local/bin/diff-so-fancy | less
+	diff = /usr/local/bin/diff-so-fancy | less
 
 [diff]
 	compactionHeuristic = true
