@@ -50,3 +50,9 @@ vendor/bundle
 
 # solargraph
 .solargraph.yml
+
+# vscode
+.vscode
+
+# editorconfig
+.editorconfig
