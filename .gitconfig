@@ -45,6 +45,7 @@
 	default = upstream
 
 [pull]
+	rebase = false
 #	rebase = true
 
 [pager]
@@ -88,3 +89,6 @@
 	autosquash = true
 [grep]
 	lineNumber = true
+
+[ghq]
+root = ~/.ghq

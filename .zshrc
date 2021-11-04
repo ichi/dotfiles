@@ -106,6 +106,7 @@ alias zcp='noglob zmv -C'
 alias zln='noglob zmv -L'
 
 ### prompt
+source $ZSHHOME/vcs_info.zsh
 source $ZSHHOME/prompt.zsh
 
 ### alias
@@ -122,10 +123,12 @@ source $ZSHHOME/java.zsh
 
 ### vcs
 source $ZSHHOME/vcs.zsh
-source $ZSHHOME/vcs_info.zsh
 
 ### peco
 source $ZSHHOME/peco.zsh
 
 ### completion
 source $ZSHHOME/completion.zsh
+
+### kubectl
+source $ZSHHOME/kubectl.zsh

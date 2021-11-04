@@ -56,3 +56,6 @@ vendor/bundle
 
 # editorconfig
 .editorconfig
+
+# docker-compose
+docker-compose.override.yml

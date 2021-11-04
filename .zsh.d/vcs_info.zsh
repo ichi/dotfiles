@@ -4,9 +4,8 @@ autoload -Uz add-zsh-hook
 autoload -Uz is-at-least
 autoload -Uz colors && colors
 
-zstyle ':vcs_info:*' formats '%s:%b' '%m'
-zstyle ':vcs_info:*' actionformats '%s:%b' '%m' '%a'
-
+zstyle ':vcs_info:*' formats '%b' '%m'
+zstyle ':vcs_info:*' actionformats '%b' '%m' '%a'
 
 if is-at-least 4.3.10; then
     # git 用のフォーマット
@@ -17,7 +16,6 @@ if is-at-least 4.3.10; then
     # zstyle ':vcs_info:git:*' stagedstr "+"    # %c で表示する文字列
     # zstyle ':vcs_info:git:*' unstagedstr "-"  # %u で表示する文字列
 fi
-
 
 # hooks 設定
 if is-at-least 4.3.11; then
@@ -74,7 +72,7 @@ if is-at-least 4.3.11; then
 fi
 
 
-function _precmd_vcs_info() { 
+function _precmd_vcs_info() {
     psvar=()
     LANG=ja_JP.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"

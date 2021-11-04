@@ -17,8 +17,11 @@ if which peco > /dev/null 2>&1; then
     bindkey '^r' peco-select-history
 
     # http://shibayu36.hatenablog.com/entry/2014/06/27/223538
+    function _peco_cdr () {
+        cdr -l | awk '{ print $2 }' | peco
+    }
     function peco-cdr () {
-        local selected_dir=$(cdr -l | awk '{ print $2 }' | peco)
+        local selected_dir=$(_peco_cdr)
         if [ -n "$selected_dir" ]; then
             BUFFER="cd ${selected_dir}"
             zle accept-line
@@ -36,20 +39,69 @@ if which peco > /dev/null 2>&1; then
             echo "Killed ${pid}"
         done
     }
+    alias killp=peco-kill
 
-    # # select branch
-    # function _peco-select-branch(){
-    #     git branch $@ | peco | sed s/^\*// | awk '{ print $1 }'
-    # }
-    # function peco-select-branch(){
-    #     RBUFFER="$(_peco-select-branch -av)"
-    #     CURSOR=$#BUFFER
-    # }
-    # zle -N peco-select-branch
-    # bindkey '^j' peco-select-branch
-    #
-    # # git checkout
-    # alias gcp='git checkout $(_peco-select-branch -lv)'
-    # # git merge
-    # alias gmp='git merge $(_peco-select-branch -lv)'
+    # select branch
+    function _peco-select-branch(){
+        git branch $@ | peco | sed s/^\*// | awk '{ print $1 }'
+    }
+    function peco-select-branch(){
+        RBUFFER="$(_peco-select-branch -av)"
+        CURSOR=$#BUFFER
+    }
+    zle -N peco-select-branch
+    bindkey '^j' peco-select-branch
+    alias -g GB='$(_peco-select-branch)'
+
+    # git checkout
+    alias gcop='git checkout $(_peco-select-branch -lv)'
+    # git merge
+    alias gmnp='git merge $(_peco-select-branch -lv)'
+
+    # ghq
+    if which ghq > /dev/null 2>&1; then
+        function _peco-src () {
+            ghq list -p | peco --query "$LBUFFER"
+        }
+        function peco-src () {
+            local selected_dir=$(_peco-src)
+            if [ -n "$selected_dir" ]; then
+                BUFFER="code ${selected_dir}"
+                CURSOR=$#BUFFER
+            fi
+            zle clear-screen
+        }
+        zle -N peco-src
+        bindkey '^]' peco-src
+        alias ghqp='code $(_peco-src)'
+        alias ghp='code $(_peco-src)'
+        alias -g GHQ='$(_peco-src)'
+    fi
+
+    # kubectl
+    if which kubectl > /dev/null 2>&1; then
+        function _peco-get_pods () {
+            kubectl get pods | peco | awk "{print \$1}"
+        }
+        alias -g KP='$(_peco-get_pods)'
+
+        function _peco-get_namespaces () {
+            kubectl get namespaces | peco | awk "{print \$1}"
+        }
+        alias -g KN='$(_peco-get_namespaces)'
+
+        function kpn () {
+            if [ "$#" -lt 1 ]; then
+                echo "please specify a namespace" >&2
+                return 1
+            fi
+            kubectl get pods -n $1 | peco | awk "{print \$1}"
+        }
+
+        function kcexec () {
+            local pod=$(kpn $1)
+            local container=${pod%-*-*}
+            kubectl exec -it -n $1 -c $container $pod -- /bin/bash
+        }
+    fi
 fi
