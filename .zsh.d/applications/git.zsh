@@ -25,18 +25,3 @@ function git-root() {
 
 #### git-flow
 alias gf='git flow'
-
-
-#### alias mercurial
-alias hgrc='emacs ~/.hgrc'
-alias 'hg?'='hg help'
-alias had='hg add'
-alias hco='hg checkout'
-alias hcm='hg commit'
-alias hst='hg st'
-alias hlo='hg log | nkf -w | less -R'
-alias hls='hg log --style changelog | nkf -w | less -R'
-alias hrv='hg revert'
-alias htip='hg tip'
-alias hti='hg tip'
-alias htp='hg tip'

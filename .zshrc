@@ -121,14 +121,10 @@ source $ZSHHOME/env.zsh
 ### java
 source $ZSHHOME/java.zsh
 
-### vcs
-source $ZSHHOME/vcs.zsh
-
-### peco
-source $ZSHHOME/peco.zsh
-
 ### completion
 source $ZSHHOME/completion.zsh
 
-### kubectl
-source $ZSHHOME/kubectl.zsh
+### applications
+for file in $ZSHHOME/applications/*.zsh; do
+    source "$file"
+done
