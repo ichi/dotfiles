@@ -78,6 +78,13 @@ if which peco > /dev/null 2>&1; then
         alias -g GHQ='$(_peco-src)'
     fi
 
+    # docker
+    if which docker > /dev/null 2>&1; then
+        function dcid () {
+            docker ps --filter="name=$1" --format="table {{.ID}}\t{{.Names}}\t{{.Status}}" | tail -n +2 | peco | cut -d" " -f1
+        }
+    fi
+
     # kubectl
     if which kubectl > /dev/null 2>&1; then
         function _peco-get_pods () {
@@ -95,10 +102,10 @@ if which peco > /dev/null 2>&1; then
                 echo "please specify a namespace" >&2
                 return 1
             fi
-            kubectl get pods -n $1 | peco | awk "{print \$1}"
+            kubectl get pods -n $1 | peco --query=$2 | awk "{print \$1}"
         }
 
-        function kcexec () {
+        function kexec () {
             local pod=$(kpn $1)
             local container=${pod%-*-*}
             kubectl exec -it -n $1 -c $container $pod -- /bin/bash
