@@ -108,7 +108,11 @@ if which peco > /dev/null 2>&1; then
         function kexec () {
             local pod=$(kpn $1)
             local container=${pod%-*-*}
-            kubectl exec -it -n $1 -c $container $pod -- /bin/bash
+            kubectl exec -it -n $1 -c $container $pod -- ${@:2}
+        }
+
+        function kbash () {
+            kexec $1 /bin/bash
         }
     fi
 fi
