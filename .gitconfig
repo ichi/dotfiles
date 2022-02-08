@@ -49,9 +49,9 @@
 #	rebase = true
 
 [pager]
-	log  = /usr/local/bin/diff-so-fancy | less
-	show = /usr/local/bin/diff-so-fancy | less
-	diff = /usr/local/bin/diff-so-fancy | less
+	log  = (which diff-so-fancy > /dev/null && diff-so-fancy || diff-highlight) | less
+	show = (which diff-so-fancy > /dev/null && diff-so-fancy || diff-highlight) | less
+	diff = (which diff-so-fancy > /dev/null && diff-so-fancy || diff-highlight) | less
 
 [diff]
 	compactionHeuristic = true
@@ -61,7 +61,6 @@
 	cmd = code --wait --diff $LOCAL $REMOTE
 
 [interactive]
-	# diffFilter = diff-so-fancy
 	diffFilter = diff-highlight
 
 [merge]
