@@ -16,6 +16,7 @@ alias grm='git rm'
 alias gst='git status'
 alias gmn='git mn' #git merge --no-ff
 alias grh='git reset --hard'
+alias grs='git reset --soft && git reset'
 function git-root() {
   if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     cd `git rev-parse --show-toplevel`
