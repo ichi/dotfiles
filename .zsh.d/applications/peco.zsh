@@ -105,14 +105,31 @@ if which peco > /dev/null 2>&1; then
             kubectl get pods -n $1 | peco --query=$2 | awk "{print \$1}"
         }
 
+        function kn () {
+            if [ "$#" -lt 1 ]; then
+                echo "please specify a namespace" >&2
+                return 1
+            fi
+            kubectl -n $1 ${@:2} $(kpn $1)
+        }
+
         function kexec () {
             local pod=$(kpn $1)
             local container=${pod%-*-*}
+            echo "$pod"
             kubectl exec -it -n $1 -c $container $pod -- ${@:2}
         }
 
         function kbash () {
             kexec $1 /bin/bash
         }
+
+        function klogs () {
+            local pod=$(kpn $1)
+            local container=${pod%-*-*}
+            echo "$pod"
+            kubectl logs -n $1 -c $container ${@:2} $pod
+        }
+
     fi
 fi
