@@ -655,7 +655,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>HackGen-Regular 13</string>
+			<string>HackGen-Regular 15</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1620,7 +1620,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>HackGen-Regular 13</string>
+			<string>HackGen-Regular 15</string>
 			<key>Open Toolbelt</key>
 			<false/>
 			<key>Option Key Sends</key>
