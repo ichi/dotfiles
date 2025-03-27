@@ -40,3 +40,9 @@ fi
 if [[ -d $HOME/.nodebrew ]]; then
   export PATH=$HOME/.nodebrew/current/bin:$PATH
 fi
+
+# fnm
+if which fnm > /dev/null 2>&1; then
+  eval "$(fnm env --use-on-cd --corepack-enabled --shell zsh)"
+fi
+
