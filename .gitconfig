@@ -49,9 +49,9 @@
 #	rebase = true
 
 [pager]
-	log  = (which diff-so-fancy > /dev/null && diff-so-fancy || diff-highlight) | less
-	show = (which diff-so-fancy > /dev/null && diff-so-fancy || diff-highlight) | less
-	diff = (which diff-so-fancy > /dev/null && diff-so-fancy || diff-highlight) | less
+	log  = (which diff-so-fancy > /dev/null && diff-so-fancy || which diff-highlight > /dev/null && diff-highlight || cat) | less
+	show = (which diff-so-fancy > /dev/null && diff-so-fancy || which diff-highlight > /dev/null && diff-highlight || cat) | less
+	diff = (which diff-so-fancy > /dev/null && diff-so-fancy || which diff-highlight > /dev/null && diff-highlight || cat) | less
 
 [diff]
 	compactionHeuristic = true
