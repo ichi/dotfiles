@@ -56,5 +56,8 @@ darwin*)
   ### direnv
   eval "$(direnv hook zsh)"
 
+  ### python
+  export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+
   ;;
 esac
