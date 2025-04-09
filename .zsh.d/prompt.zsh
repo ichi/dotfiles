@@ -13,13 +13,21 @@ esac
 
 
 # common
-PROMPT="%{$fg[red]%}[%*] %n${PROMPT_MARK}%{$reset_color%}"
-PROMPT2="%{$fg[red]%}%_%%%{$reset_color%}"
+# PROMPT="%{$fg[red]%}[%*] %n${PROMPT_MARK}%{$reset_color%}"
+# PROMPT2="%{$fg[red]%}%_%%%{$reset_color%}"
+PROMPT="%F{red}[%*] %n${PROMPT_MARK}%f"
+PROMPT2="%F{red}%_%%%f"
 
+# RPROMPT="%{$bg[magenta]$fg[white]%}[ %~ ]%{$reset_color%}"
+# RPROMPT="%K{magenta}%F{white}[ %~ ]%k%f"
+
+# RPROMPT="%1(v|%{$fg[green]%}(%1v%3(v|%{$fg[red]%}:%3v|)%2(v|%{$fg[yellow]%}⚡|)%{$fg[green]%})%{$reset_color%}|)%{$bg[magenta]$fg[white]%}[ %~ ]%{$reset_color%}"
 RPROMPT="%1(v|%{$fg[green]%}(%1v%3(v|%{$fg[red]%}:%3v|)%2(v|%{$fg[yellow]%}⚡|)%{$fg[green]%})%{$reset_color%}|)%{$bg[magenta]$fg[white]%}[ %~ ]%{$reset_color%}"
+
 RPROMPT2="${RPROMPT}"
 
-SPROMPT="%{$fg[red]%}%r is correct? [n,y,a,e]:%{$reset_color%} "
+# SPROMPT="%{$fg[red]%}%r is correct? [n,y,a,e]:%{$reset_color%} "
+SPROMPT="%F{red}%r is correct? [n,y,a,e]:%f"
 
 
 # per user

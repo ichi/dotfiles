@@ -11,11 +11,6 @@ darwin*)
   alias preview='open -a Preview'
   alias firefox='open -a Firefox'
   alias chrome='open -a Google\ Chrome'
-  alias fireworks='open -a Adobe\ Fireworks\ CS3'
-  alias openoffice='open -a OpenOffice.org.app'
-  alias coteditor='open -a CotEditor.app'
-  alias cot='coteditor'
-  alias coda='open -a Coda.app'
   function url(){
       type=$1;
       shift;
@@ -27,21 +22,12 @@ darwin*)
   }
   alias capture='screencapture -w -i'
 
-  ### easytetherとadbが衝突するので
-  export EASYTETHER_EXT=/System/Library/Extensions/EasyTetherUSBEthernet.kext
-  alias easytether-on="sudo kextload $EASYTETHER_EXT"
-  alias easytether-off="sudo kextunload $EASYTETHER_EXT"
-  alias easytether-status="kextstat |grep EasyTether"
-
-
   ### homebrew
   export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
   ### bundler
   if which code > /dev/null 2>&1; then
     export BUNDLER_EDITOR=code
-  else
-    export BUNDLER_EDITOR=atom
   fi
 
   ### z.sh
@@ -58,6 +44,10 @@ darwin*)
 
   ### python
   export PATH="$(brew --prefix python)/libexec/bin:$PATH"
+
+  ### vscode
+  [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+  [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code-insiders --locate-shell-integration-path zsh)"
 
   ;;
 esac

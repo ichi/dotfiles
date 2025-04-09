@@ -1,3 +1,4 @@
+# NOTE: https://qiita.com/mollifier/items/8d5a627d773758dd8078
 # プロンプトにgit情報表示
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook

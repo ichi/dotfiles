@@ -1,20 +1,20 @@
 ## ねんのため
 export PATH=/usr/local/bin:$PATH
 
-## android-sdk
-case "${OSTYPE}" in
-darwin*)
-  export ANDROID_HOME=$HOME/Development/adt-bundle-mac/sdk
-  export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME:$PATH
-  ;;
-*)
-  ;;
-esac
+# ## android-sdk
+# case "${OSTYPE}" in
+# darwin*)
+#   export ANDROID_HOME=$HOME/Development/adt-bundle-mac/sdk
+#   export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME:$PATH
+#   ;;
+# *)
+#   ;;
+# esac
 
-## pear
-if pear config-get bin_dir &>/dev/null; then
-  export PATH=$(pear config-get bin_dir):$PATH
-fi
+# ## pear
+# if pear config-get bin_dir &>/dev/null; then
+#   export PATH=$(pear config-get bin_dir):$PATH
+# fi
 
 ## zsh functions
 fpath=($ZSHHOME/functions $fpath)
@@ -27,11 +27,11 @@ export PATH=/usr/local/share/npm/bin:$PATH
 export PATH=$HOME/bin:$PATH
 
 ## freetds
-export FREETDSCONF=/usr/local/Cellar/freetds/0.91/etc/freetds.conf
+# export FREETDSCONF=/usr/local/Cellar/freetds/0.91/etc/freetds.conf
 
 # composer
-export PATH=$HOME/.composer/vendor/bin:$PATH
+# export PATH=$HOME/.composer/vendor/bin:$PATH
 
 # go
-export GOPATH=$HOME/.go
-export PATH=$PATH:$GOPATH/bin
+# export GOPATH=$HOME/.go
+# export PATH=$PATH:$GOPATH/bin
