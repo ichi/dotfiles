@@ -1,36 +1,17 @@
 autoload -Uz add-zsh-hook
 autoload -Uz colors
 
-# per user
-case ${UID} in
-0) # root
-    PROMPT_MARK="#"
-    ;;
-*)
-    PROMPT_MARK="%%"
-    ;;
-esac
+# 参考: https://tech-blog.cloud-config.jp/2024-12-07-zshprompt
+# 色: SEE: https://en.wikipedia.org/wiki/ANSI_escape_code
 
+export ARROW_RIGHT=$'\ue0b0'
+export ARROW_LEFT=$'\ue0b2'
 
-# common
-# PROMPT="%{$fg[red]%}[%*] %n${PROMPT_MARK}%{$reset_color%}"
-# PROMPT2="%{$fg[red]%}%_%%%{$reset_color%}"
-PROMPT="%F{red}[%*] %n${PROMPT_MARK}%f"
-PROMPT2="%F{red}%_%%%f"
+PROMPT="%K{#d7ffff}%F{black} ☺️  %n %f%K{81}%F{#d7ffff}${ARROW_RIGHT}%f%F{black} 🕒️ %* %f%K{10}%F{81}${ARROW_RIGHT}%f%F{black} 📂 %~ %f%1(v|%K{213}|%k)%F{10}${ARROW_RIGHT}%f%F{black}%1(v| 🔼 %1v%2(v|⚡|)%3(v|(%3v)|) %f%k%F{213}${ARROW_RIGHT}%f|)
+%K{white}%F{black} ✔ %k%F{white}${ARROW_RIGHT}%f"
+PROMPT2="%F{white}${ARROW_RIGHT}%f"
 
-# VSCodeのターミナルでは、psvarを使うとエージェントが出力結果をとってこれないので
-if [[ "$TERM_PROGRAM" != "vscode" ]]; then
-    # RPROMPT="%{$bg[magenta]$fg[white]%}[ %~ ]%{$reset_color%}"
-    RPROMPT="%K{magenta}%F{white}[ %~ ]%k%f"
-
-    # RPROMPT="%1(v|%{$fg[green]%}(%1v%3(v|%{$fg[red]%}:%3v|)%2(v|%{$fg[yellow]%}⚡|)%{$fg[green]%})%{$reset_color%}|)%{$bg[magenta]$fg[white]%}[ %~ ]%{$reset_color%}"
-    RPROMPT="%1(v|%F{green}(%1v%3(v|%F{red}:%3v|)%2(v|%F{yellow}⚡|)%F{green})%f|)${RPROMPT}"
-
-    RPROMPT2="${RPROMPT}"
-fi
-
-# SPROMPT="%{$fg[red]%}%r is correct? [n,y,a,e]:%{$reset_color%} "
-SPROMPT="%F{red}%r is correct? [n,y,a,e]:%f"
+SPROMPT="%K{red} ❔️%k%F{red}${ARROW_RIGHT}%f %F{red}%r is correct? [n,y,a,e]%f"
 
 
 # per user
