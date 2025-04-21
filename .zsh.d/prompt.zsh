@@ -7,11 +7,11 @@ autoload -Uz colors
 export ARROW_RIGHT=$'\ue0b0'
 export ARROW_LEFT=$'\ue0b2'
 
-PROMPT="%K{#d7ffff}%F{black} ☺️  %n %f%K{81}%F{#d7ffff}${ARROW_RIGHT}%f%F{black} 🕒️ %* %f%K{10}%F{81}${ARROW_RIGHT}%f%F{black} 📂 %~ %f%1(v|%K{213}|%k)%F{10}${ARROW_RIGHT}%f%F{black}%1(v| 🔼 %1v%2(v|⚡|)%3(v|(%3v)|) %f%k%F{213}${ARROW_RIGHT}%f|)
-%K{white}%F{black} ✔ %k%F{white}${ARROW_RIGHT}%f"
-PROMPT2="%F{white}${ARROW_RIGHT}%f"
+PROMPT="%K{#d7ffff}%F{black} ☺️ %n %f%K{10}%F{#d7ffff}${ARROW_RIGHT}%f%F{black} 📂 %~ %f%1(v|%K{213}|%k)%F{10}${ARROW_RIGHT}%f%F{black}%1(v| 🔼 %1v%2(v|⚡|)%3(v|(%3v)|) %f%k%F{213}${ARROW_RIGHT}%f|)
+%K{white}%F{black} 🕒️ %* %f%K{10}%k%F{white}${ARROW_RIGHT}%f"
+PROMPT2="%K{white}%F{black} ↪ %k%F{white}${ARROW_RIGHT}%f"
 
-SPROMPT="%K{red} ❔️%k%F{red}${ARROW_RIGHT}%f %F{red}%r is correct? [n,y,a,e]%f"
+SPROMPT="%K{red} ❔️ %* %f%K{10}%k%F{red}${ARROW_RIGHT}%f %F{red}%r is correct? [n,y,a,e]%f"
 
 
 # per user

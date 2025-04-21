@@ -1340,7 +1340,7 @@
 			<key>Initial Text</key>
 			<string></string>
 			<key>Initial Use Transparency</key>
-			<false/>
+			<true/>
 			<key>Jobs to Ignore</key>
 			<array>
 				<string>rlogin</string>
@@ -2129,7 +2129,7 @@
 			<key>Thin Strokes</key>
 			<integer>3</integer>
 			<key>Transparency</key>
-			<real>0.17307692766189575</real>
+			<real>0.099918445519038612</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
@@ -2970,7 +2970,7 @@
 			<key>Thin Strokes</key>
 			<integer>3</integer>
 			<key>Transparency</key>
-			<real>0.15474990010261536</real>
+			<real>0.096344866071428559</real>
 			<key>Triggers</key>
 			<array/>
 			<key>Unlimited Scrollback</key>
