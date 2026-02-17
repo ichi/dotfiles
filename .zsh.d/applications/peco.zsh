@@ -113,10 +113,32 @@ if which peco > /dev/null 2>&1; then
             kubectl -n $1 ${@:2} $(kpn $1)
         }
 
+        function _peco-get_containers () {
+            local namespace=$1
+            local pod=$2
+            kubectl get pod $pod -n $namespace -o jsonpath='{.spec.containers[*].name}' | tr ' ' '\n' | peco
+        }
+
         function kexec () {
             local pod=$(kpn $1)
-            local container=${pod%-*-*}
-            echo "$pod"
+            if [ -z "$pod" ]; then
+                echo "pod not selected" >&2
+                return 1
+            fi
+            local containers=$(kubectl get pod $pod -n $1 -o jsonpath='{.spec.containers[*].name}')
+            local container
+            if [ $(echo $containers | wc -w) -eq 1 ]; then
+                # コンテナが1つの場合は自動選択
+                container=$containers
+            else
+                # 複数のコンテナがある場合はpecoで選択
+                container=$(_peco-get_containers $1 $pod)
+            fi
+            if [ -z "$container" ]; then
+                echo "container not selected" >&2
+                return 1
+            fi
+            echo "pod: $pod, container: $container"
             kubectl exec -it -n $1 -c $container $pod -- ${@:2}
         }
 
@@ -126,8 +148,24 @@ if which peco > /dev/null 2>&1; then
 
         function klogs () {
             local pod=$(kpn $1)
-            local container=${pod%-*-*}
-            echo "$pod"
+            if [ -z "$pod" ]; then
+                echo "pod not selected" >&2
+                return 1
+            fi
+            local containers=$(kubectl get pod $pod -n $1 -o jsonpath='{.spec.containers[*].name}')
+            local container
+            if [ $(echo $containers | wc -w) -eq 1 ]; then
+                # コンテナが1つの場合は自動選択
+                container=$containers
+            else
+                # 複数のコンテナがある場合はpecoで選択
+                container=$(_peco-get_containers $1 $pod)
+            fi
+            if [ -z "$container" ]; then
+                echo "container not selected" >&2
+                return 1
+            fi
+            echo "pod: $pod, container: $container"
             kubectl logs -n $1 -c $container ${@:2} $pod
         }
 

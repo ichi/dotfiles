@@ -7,7 +7,6 @@ alias gbr='git branch'
 alias gco='git checkout'
 alias gcm='git commit'
 alias gca='git commit --amend -C HEAD'
-alias gci='git commit --interactive'
 alias glo='git log --decorate=full'
 alias glg='git log --decorate=full --graph'
 alias gls='git log --decorate=full --name-status'
@@ -19,6 +18,7 @@ alias grh='git reset --hard'
 alias grs='git reset --soft && git reset'
 alias grb='git rebase'
 alias gcp='git cherry-pick'
+alias gwt='git worktree'
 function git-root() {
   if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     cd `git rev-parse --show-toplevel`
