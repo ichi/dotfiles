@@ -62,3 +62,9 @@ docker-compose.override.yml
 
 # solargraph
 .solargraph.yml
+
+# Personal agent rules
+**/.agent/rules/*.local.md
+
+# Personal cursor rules
+**/.cursor/rules/*.local.mdc
