@@ -1135,7 +1135,7 @@
 				<real>0.92929404973983765</real>
 			</dict>
 			<key>Blend</key>
-			<real>0.30000001192092896</real>
+			<real>0.30399180024209682</real>
 			<key>Blink Allowed</key>
 			<false/>
 			<key>Blinking Cursor</key>
@@ -3956,7 +3956,7 @@
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.40000000596046448</real>
+	<real>0.19658041754583036</real>
 	<key>StatusBarPosition</key>
 	<integer>1</integer>
 	<key>StealKeyFocus</key>
