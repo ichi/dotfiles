@@ -19,6 +19,12 @@ export PATH=/usr/local/bin:$PATH
 ## zsh functions
 fpath=($ZSHHOME/functions $fpath)
 
+## homebrew
+if which brew > /dev/null 2>&1; then
+  export PATH="/opt/homebrew/bin:$PATH"
+  export PATH="/opt/homebrew/sbin:$PATH"
+fi
+
 ## npm
 export NODE_PATH=/usr/local/lib/node_modules
 export PATH=/usr/local/share/npm/bin:$PATH

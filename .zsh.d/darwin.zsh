@@ -46,8 +46,12 @@ darwin*)
   export PATH="$(brew --prefix python)/libexec/bin:$PATH"
 
   ### vscode
-  [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
-  [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code-insiders --locate-shell-integration-path zsh)"
+  if which code > /dev/null 2>&1; then
+    [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+  fi
+  if which code-insiders > /dev/null 2>&1; then
+    [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code-insiders --locate-shell-integration-path zsh)"
+  fi
 
   ;;
 esac
