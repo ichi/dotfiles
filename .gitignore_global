@@ -69,5 +69,10 @@ docker-compose.override.yml
 # Personal cursor rules
 **/.cursor/rules/*.local.mdc
 
+# claude
+**/.claude/settings.local.json
+
 # Personal documents
 **/docs/*.local.md
+
+

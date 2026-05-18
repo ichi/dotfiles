@@ -128,5 +128,8 @@ source $ZSHHOME/completion.zsh
 for file in $ZSHHOME/applications/*.zsh; do
     source "$file"
 done
+
+### append
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
