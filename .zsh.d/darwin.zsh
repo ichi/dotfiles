@@ -48,9 +48,11 @@ darwin*)
   ### vscode
   if which code > /dev/null 2>&1; then
     [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+    unset GIT_EDITOR
   fi
   if which code-insiders > /dev/null 2>&1; then
     [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code-insiders --locate-shell-integration-path zsh)"
+    unset GIT_EDITOR
   fi
 
   ;;
