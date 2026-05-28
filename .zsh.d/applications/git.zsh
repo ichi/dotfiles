@@ -28,3 +28,8 @@ function git-root() {
 
 #### git-flow
 alias gf='git flow'
+
+#### diff-highlight
+if brew list git > /dev/null 2>&1; then
+  path+=("$(brew --prefix git)/share/git-core/contrib/diff-highlight")
+fi
